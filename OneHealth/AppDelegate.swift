@@ -17,8 +17,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        self.registerNotification()
         FirebaseApp.configure()
         return true
+    }
+    
+    // MARK: - Notification Stack
+    
+    func requestNotificationPermission() -> UNUserNotificationCenter {
+        // Request permission to send local notifications.
+        
+        let center = UNUserNotificationCenter.current()
+        
+        // Ask the user for permission to send notifications.
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, err) in
+            if granted {
+                print("You can change notification settings in the settings page")
+            } else {
+                print("We recommend that you have notifications on. If you would like to change your notification settings, you can do so from the settings page.")
+            }
+        }
+        
+        return center
+    }
+    
+    func notificationContent() -> UNMutableNotificationContent {
+        let content = UNMutableNotificationContent()
+        content.title = "Hello"
+        content.body = "Look at me!"
+        return content
+    }
+    
+    func noitificationTrigger() -> UNCalendarNotificationTrigger {
+        let date = Date().addingTimeInterval(10) // 5 is seconds
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        return trigger
+    }
+    
+    func notificationRequest() -> UNNotificationRequest {
+        let uuidString = UUID().uuidString
+        let request = UNNotificationRequest(identifier: uuidString, content: self.notificationContent(), trigger: self.noitificationTrigger())
+        return request
+    }
+    
+    func registerNotification() {
+        self.requestNotificationPermission().add(self.notificationRequest()) { (err) in
+            print(err)
+        }
     }
 
     // MARK: UISceneSession Lifecycle

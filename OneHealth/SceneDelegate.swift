@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             if(UserDefaults.standard.value(forKey: "email") as? String) == nil {
-                window.rootViewController = storyboard.instantiateViewController(withIdentifier: "BaseViewController")
+                window.rootViewController = storyboard.instantiateViewController(withIdentifier: "InitialNav")
             } else {
                 window.rootViewController = storyboard.instantiateInitialViewController()
             }
@@ -27,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

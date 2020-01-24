@@ -47,7 +47,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             // Create reference to Core Data "Email" Entity.
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
-            let entity = NSEntityDescription.entity(forEntityName: "Email", in: context)
+            let entity = NSEntityDescription.entity(forEntityName: "User", in: context)
             
             // Store entered email address as email attribute in Core Data.
             let newUser = NSManagedObject(entity: entity!, insertInto: context)
@@ -60,8 +60,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 fatalError("Failure to save context: \(error)")
             }
             
-            // Save firstNameTextField to UserDefaults in order to change the initial ViewController condition in AppDelegate.
-            UserDefaults.standard.set(emailTextField.text, forKey: "firstName")
+            // Save emailTextField to UserDefaults in order to change the initial ViewController condition in AppDelegate.
+            UserDefaults.standard.set(emailTextField.text, forKey: "email")
             
             // Signin user.
             Auth.auth().signIn(withEmail: email, password: password) { (result, err) in
@@ -71,6 +71,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     print(err!)
                     self.showError(err!.localizedDescription)
                 } else {
+                    print("Logged in successfully")
                     // User was signed in successfully. Now move on to the app tutorial.
                     let tutorialViewController = (mainStoryboard.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController)!
                     self.navigationController?.pushViewController(tutorialViewController, animated: true)

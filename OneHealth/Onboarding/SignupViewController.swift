@@ -57,11 +57,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
             // Create reference to Core Data "Email" Entity.
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
-            let entity = NSEntityDescription.entity(forEntityName: "Email", in: context)
+            let entity = NSEntityDescription.entity(forEntityName: "User", in: context)
             
             // Create a new Email entity in Core Data.
             let newUser = NSManagedObject(entity: entity!, insertInto: context)
             newUser.setValue(email, forKey: "email")
+            newUser.setValue(firstName, forKey: "firstName")
+            newUser.setValue(lastName, forKey: "lastName")
         
             // Save new Email to Core Data.
             do {

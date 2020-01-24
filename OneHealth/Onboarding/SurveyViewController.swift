@@ -90,6 +90,35 @@ class SurveyViewController: UIViewController, UITextFieldDelegate {
         let time: Float = weekSlider.value
         let meals: Float = mealSlider.value
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request: NSFetchRequest<User> = User.fetchRequest()
+        request.returnsObjectsAsFaults = false
+        
+        // Fetch the "User" object.
+        var results: [User]
+        do {
+            try results = context.fetch(request)
+        } catch {
+            fatalError("Failure to fetch: \(error)")
+        }
+        
+        results[0].setValue(age, forKey: "age")
+        results[0].setValue(goalType, forKey: "goalType")
+        results[0].setValue(String(Int(time)), forKey: "weeksToComplete")
+        results[0].setValue(height, forKey: "height")
+        results[0].setValue(weight, forKey: "weight")
+        results[0].setValue(weightChangeGoal, forKey: "weightGoal")
+        results[0].setValue(String(Int(meals)), forKey: "meals")
+        
+        // Save new user to Core Data.
+        do {
+            try context.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+        
         // Store values in Firestore DB.
         db.collection("surveyInfo").document(userID!).setData(["age": age!, "sex": userSex, "weight": weight!, "height": height, "goal-type": goalType, "weight-change-goal": weightChangeGoal!, "time-to-complete": time, "num-meals": meals]) { err in
             
