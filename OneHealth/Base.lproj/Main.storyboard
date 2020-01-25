@@ -151,11 +151,28 @@
                     <tabBarItem key="tabBarItem" title="Item" id="mM7-XG-s5L"/>
                     <connections>
                         <outlet property="homeTableView" destination="dBh-u6-SQl" id="F92-87-b7e"/>
+                        <segue destination="vm6-x5-DGX" kind="show" id="wYy-sf-k5D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2NS-UD-TqD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3886.9565217391309" y="-1302.4553571428571"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="7Uq-39-NHq">
+            <objects>
+                <viewController id="vm6-x5-DGX" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vT5-hk-Cao">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="01U-yD-Bo8"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hXh-6L-OlV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4r7-TH-L0F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4861" y="-1306"/>
         </scene>
         <!--MetricsViewController-->
         <scene sceneID="PQq-Cf-alK">
@@ -169,9 +186,9 @@
                                 <rect key="frame" x="81" y="44" width="226" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
-                                    <segment title="Third"/>
+                                    <segment title="Week"/>
+                                    <segment title="Month"/>
+                                    <segment title="Year"/>
                                 </segments>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xrj-Wc-rse">
@@ -220,7 +237,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fee-OE-NIN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fee-OE-NIN">
                                 <rect key="frame" x="0.0" y="170" width="414" height="643"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -255,9 +272,14 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="categoryLabel" destination="gfe-1i-mZ9" id="gnf-OB-YzT"/>
+                                            <outlet property="valueLabel" destination="sON-PX-L0l" id="rAX-Fs-aRv"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="vqh-ib-45u" id="Q7o-0K-Xpn"/>
+                                    <outlet property="delegate" destination="vqh-ib-45u" id="Y8x-ip-w9T"/>
+                                </connections>
                             </tableView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pick a date" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iTS-W8-8JW">
                                 <rect key="frame" x="0.0" y="128" width="414" height="34"/>
@@ -290,17 +312,17 @@
                     <connections>
                         <outlet property="dateTextField" destination="iTS-W8-8JW" id="DOc-Xr-0az"/>
                         <outlet property="logTableView" destination="fee-OE-NIN" id="S7b-5k-T8g"/>
-                        <segue destination="QB4-st-Lmm" kind="show" id="zWn-98-FeQ"/>
+                        <segue destination="QB4-st-Lmm" kind="show" identifier="logSegue" id="zWn-98-FeQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Ib-dG-Jsi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3886.9565217391309" y="168.75"/>
         </scene>
-        <!--View Controller-->
+        <!--InsertInfoViewController-->
         <scene sceneID="g6f-Dw-sFH">
             <objects>
-                <viewController id="QB4-st-Lmm" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InsertInfoViewController" title="InsertInfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QB4-st-Lmm" customClass="InsertInfoViewController" customModule="OneHealth" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="93w-Pj-2Ix">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -312,11 +334,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category executed:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKd-t8-XdS">
+                                <rect key="frame" x="20" y="169" width="150" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CsS-HK-qT0">
+                                <rect key="frame" x="281" y="162" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DY9-V9-IXe">
+                                <rect key="frame" x="192" y="244" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Log"/>
+                                <connections>
+                                    <action selector="logTouched:" destination="QB4-st-Lmm" eventType="touchUpInside" id="qPI-Tz-pp5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="CQ5-nb-waN"/>
                     </view>
                     <navigationItem key="navigationItem" id="SBx-UY-4gM"/>
+                    <connections>
+                        <outlet property="categoryExecuted" destination="bKd-t8-XdS" id="pbg-xh-TdV"/>
+                        <outlet property="dayMonthYear" destination="Cqw-wg-uw6" id="Xwe-sm-DMt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GPl-Kr-ijF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -11,9 +11,16 @@ class LogTableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var valueLabel: UILabel!
     
-    func setAttributes(category: String) {
+    func setAttributes(category: String, value: String) {
         categoryLabel.text = category
+        if value != "" {
+            valueLabel.text = "logged"
+        } else {
+            valueLabel.text = "not logged"
+        }
+        
     }
 
 }

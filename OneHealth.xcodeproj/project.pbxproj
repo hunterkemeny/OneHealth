@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C4D565623DCF3810005EAC8 /* InsertInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4D565523DCF3810005EAC8 /* InsertInfoViewController.swift */; };
 		4CF22AD423D9131900904BE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD323D9131900904BE4 /* AppDelegate.swift */; };
 		4CF22AD623D9131900904BE4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD523D9131900904BE4 /* SceneDelegate.swift */; };
 		4CF22ADB23D9131900904BE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CF22AD923D9131900904BE4 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C4D565523DCF3810005EAC8 /* InsertInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertInfoViewController.swift; sourceTree = "<group>"; };
 		4CF22AD023D9131900904BE4 /* OneHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF22AD323D9131900904BE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CF22AD523D9131900904BE4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 			children = (
 				4CF22B0523D93FDE00904BE4 /* LogViewController.swift */,
 				4CF22B4D23DBD8E900904BE4 /* LogTableViewCell.swift */,
+				4C4D565523DCF3810005EAC8 /* InsertInfoViewController.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				4CF22AF923D9381F00904BE4 /* SurveyViewController.swift in Sources */,
 				4CF22AF123D937C000904BE4 /* BaseViewController.swift in Sources */,
 				4CF22B3823DA5A5900904BE4 /* GeneralTableViewCell.swift in Sources */,
+				4C4D565623DCF3810005EAC8 /* InsertInfoViewController.swift in Sources */,
 				4CF22AD423D9131900904BE4 /* AppDelegate.swift in Sources */,
 				4CF22ADE23D9131900904BE4 /* OneHealth.xcdatamodeld in Sources */,
 				4CF22AFF23D93F4F00904BE4 /* SettingsTableViewController.swift in Sources */,

@@ -16,7 +16,11 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     var datePicker: UIDatePicker?
     
-    var categories = ["Water:", "Meditation:", "Workout:", "Fasting:", "Meals:", "Supplements"]
+    var categories = ["Water:", "Meditation:", "Workout:", "Fasting:", "Meals:", "Supplements:"]
+    var values = ["", "", "", "", "", ""]
+    
+    var categoryExectued: String!
+    var dayMonthYearString: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,20 +29,90 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         dateFormatter.dateFormat = "MM/dd/yyyy"
         dateTextField.text = dateFormatter.string(from: Date())
         
+        // Check todays logs
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
+        request.returnsObjectsAsFaults = false
+        
+        // Fetch the "LogDate" object.
+        var results: [LogDate]
+        do {
+            try results = context.fetch(request)
+        } catch {
+            fatalError("Failure to fetch: \(error)")
+        }
+        if results.count == 0 {
+            let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
+            
+            // Store today's date as dateOfLog attribute in Core Data.
+            let newDate = NSManagedObject(entity: entity!, insertInto: context)
+            newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
+        }
+        
+        // Save new date to Core Data.
+        do {
+            try context.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+        
+        if results.count != 0 {
+            for num in 0...results.count {
+                if results[num].dateOfLog == dateFormatter.string(from: Date()) {
+                    // today is stored in core data
+                    // If they open up the logviewcontroller for the first time, then they log something, when they press back
+                    // viewcontroller needs to update to show that they logged something
+                    values[0] = results[num].water ?? ""
+                    values[1] = results[num].meditation ?? ""
+                    values[2] = results[num].workout ?? ""
+                    values[3] = results[num].fast ?? ""
+                    values[4] = results[num].meals ?? ""
+                    values[5] = results[num].supplements ?? ""
+                    dayMonthYearString = results[num].dateOfLog
+                    break
+                }
+                if num == results.count - 1 {
+                    let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
+                    
+                    // Store today's date as dateOfLog attribute in Core Data.
+                    let newDate = NSManagedObject(entity: entity!, insertInto: context)
+                    newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
+                    values[0] = results[num].water ?? ""
+                    values[1] = results[num].meditation ?? ""
+                    values[2] = results[num].workout ?? ""
+                    values[3] = results[num].fast ?? ""
+                    values[4] = results[num].meals ?? ""
+                    values[5] = results[num].supplements ?? ""
+                    dayMonthYearString = results[num].dateOfLog
+                }
+            }
+            // Save new date to Core Data.
+            do {
+                try context.save()
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
+        }
+        
+        logTableView.delegate = self
+        logTableView.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
         datePicker?.addTarget(self, action: #selector(LogViewController.dateChanged(datePicker: )), for: .valueChanged)
         
         dateTextField.inputView = datePicker
         
+        // Causing tap in tableview to break
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(LogViewController.viewTapped(gestureRecognizer:)))
         
         view.addGestureRecognizer(tapGesture)
-        
-        logTableView.delegate = self
-        logTableView.dataSource = self
-        
-        
+        logTableView.reloadData()
     }
     
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
@@ -66,21 +140,56 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             fatalError("Failure to fetch: \(error)")
         }
         
-        for num in 0...results.count {
-            if results[num].dateOfLog == dateFormatter.string(from: datePicker.date) {
-                // the date chosen is stored in core data
-                break
-            }
-            if num == results.count - 1 {
-                // the date chosen is not stored in core data
-                // need to find a way to reload the view controller after this is chosen
-            }
+        if results.count == 0 {
+            let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
+            
+            // Store today's date as dateOfLog attribute in Core Data.
+            let newDate = NSManagedObject(entity: entity!, insertInto: context)
+            newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
         }
         
+        // Save new date to Core Data.
+        do {
+            try context.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
         
-        
+        if results.count != 0 {
+            for num in 0...(results.count - 1) {
+                if results[num].dateOfLog == dateFormatter.string(from: datePicker.date) {
+                    values[0] = results[num].water ?? ""
+                    values[1] = results[num].meditation ?? ""
+                    values[2] = results[num].workout ?? ""
+                    values[3] = results[num].fast ?? ""
+                    values[4] = results[num].meals ?? ""
+                    values[5] = results[num].supplements ?? ""
+                    logTableView.reloadData()
+                    dayMonthYearString = results[num].dateOfLog
+                    break
+                }
+                if num == results.count - 1 {
+                    let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
+                    
+                    // Store today's date as dateOfLog attribute in Core Data.
+                    let newDate = NSManagedObject(entity: entity!, insertInto: context)
+                    newDate.setValue(dateFormatter.string(from: datePicker.date), forKey: "dateOfLog")
+                    
+                    values[0] = results[num].water ?? ""
+                    values[1] = results[num].meditation ?? ""
+                    values[2] = results[num].workout ?? ""
+                    values[3] = results[num].fast ?? ""
+                    values[4] = results[num].meals ?? ""
+                    values[5] = results[num].supplements ?? ""
+                    logTableView.reloadData()
+                    dayMonthYearString = results[num].dateOfLog
+                    
+                }
+            }
+        }
         view.endEditing(true)
     }
+    
     
    func numberOfSections(in tableView: UITableView) -> Int {
        // Returns one total section for the log.
@@ -91,15 +200,31 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
        return 6
    }
    
-   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
-       let cell = logTableView.dequeueReusableCell(withIdentifier: "LogTableViewCell", for: indexPath) as! LogTableViewCell
-       // Set the attributes of the cell based on the Places To Eat protocol.
-       cell.setAttributes(category: categories[indexPath.row])
-       return cell
+        let cell = logTableView.dequeueReusableCell(withIdentifier: "LogTableViewCell", for: indexPath) as! LogTableViewCell
+        // Set the attributes of the cell based on the Places To Eat protocol.
+        cell.setAttributes(category: categories[indexPath.row], value: values[indexPath.row])
+        return cell
    }
    
-   // Segue for each item per day
+   // Segue for each item per day. going to get segue information from core data based on the day selected
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Associate business attributes with each collectionViewCell.
+        categoryExectued = categories[indexPath.row]
+        
+        // Perform segue to instantiate a BusinessTableViewController using the previously initialized business attributes.
+        performSegue(withIdentifier: "logSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "logSegue" {
+            let detailVC = segue.destination as! InsertInfoViewController
+            detailVC.dayMonthYear.text = dayMonthYearString
+            detailVC.categoryExecuted.text = categoryExectued
+        }
+    }
+    
 }
 
 
