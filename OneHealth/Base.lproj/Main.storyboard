@@ -327,23 +327,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Day, month, year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqw-wg-uw6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Day, month, year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqw-wg-uw6">
                                 <rect key="frame" x="143" y="105" width="129" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category executed:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKd-t8-XdS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category executed:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKd-t8-XdS">
                                 <rect key="frame" x="20" y="169" width="150" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CsS-HK-qT0">
-                                <rect key="frame" x="281" y="162" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CsS-HK-qT0">
+                                <rect key="frame" x="281" y="162" width="62.5" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -351,12 +348,19 @@
                                 <rect key="frame" x="192" y="244" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Log"/>
-                                <connections>
-                                    <action selector="logTouched:" destination="QB4-st-Lmm" eventType="touchUpInside" id="qPI-Tz-pp5"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="bKd-t8-XdS" firstAttribute="leading" secondItem="CQ5-nb-waN" secondAttribute="leading" constant="20" id="1eP-wM-6hc"/>
+                            <constraint firstItem="Cqw-wg-uw6" firstAttribute="leading" secondItem="CQ5-nb-waN" secondAttribute="leading" constant="143" id="6zQ-R5-PFq"/>
+                            <constraint firstItem="CQ5-nb-waN" firstAttribute="trailing" secondItem="CsS-HK-qT0" secondAttribute="trailing" constant="70.5" id="HNr-hZ-BJS"/>
+                            <constraint firstItem="CsS-HK-qT0" firstAttribute="leading" secondItem="bKd-t8-XdS" secondAttribute="trailing" constant="111" id="kff-Jm-gfL"/>
+                            <constraint firstItem="CsS-HK-qT0" firstAttribute="top" secondItem="CQ5-nb-waN" secondAttribute="top" constant="74" id="nMm-JS-PI6"/>
+                            <constraint firstItem="CQ5-nb-waN" firstAttribute="trailing" secondItem="Cqw-wg-uw6" secondAttribute="trailing" constant="142" id="qwJ-Ji-7rP"/>
+                            <constraint firstItem="bKd-t8-XdS" firstAttribute="top" secondItem="Cqw-wg-uw6" secondAttribute="bottom" constant="43" id="sE8-tq-e4U"/>
+                            <constraint firstItem="Cqw-wg-uw6" firstAttribute="top" secondItem="CQ5-nb-waN" secondAttribute="top" constant="17" id="uAv-Ja-AEi"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="CQ5-nb-waN"/>
                     </view>
                     <navigationItem key="navigationItem" id="SBx-UY-4gM"/>

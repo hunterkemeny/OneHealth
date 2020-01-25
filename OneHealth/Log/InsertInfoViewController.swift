@@ -12,16 +12,12 @@ class InsertInfoViewController: UIViewController {
     @IBOutlet weak var categoryExecuted: UILabel!
     @IBOutlet weak var dayMonthYear: UILabel!
     
+    var category: String!
+    var logDate: String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        categoryExecuted.text = category
+        dayMonthYear.text = logDate
     }
-    
-    
-    @IBAction func logTouched(_ sender: Any) {
-        
-    }
-    
-
-
 }

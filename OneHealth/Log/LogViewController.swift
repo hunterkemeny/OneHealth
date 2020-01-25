@@ -109,9 +109,11 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         dateTextField.inputView = datePicker
         
         // Causing tap in tableview to break
+        /*
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(LogViewController.viewTapped(gestureRecognizer:)))
         
         view.addGestureRecognizer(tapGesture)
+         */
         logTableView.reloadData()
     }
     
@@ -214,14 +216,14 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         categoryExectued = categories[indexPath.row]
         
         // Perform segue to instantiate a BusinessTableViewController using the previously initialized business attributes.
-        performSegue(withIdentifier: "logSegue", sender: self)
+        self.performSegue(withIdentifier: "logSegue", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "logSegue" {
             let detailVC = segue.destination as! InsertInfoViewController
-            detailVC.dayMonthYear.text = dayMonthYearString
-            detailVC.categoryExecuted.text = categoryExectued
+            detailVC.logDate = dayMonthYearString
+            detailVC.category = categoryExectued
         }
     }
     
