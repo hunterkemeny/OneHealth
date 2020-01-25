@@ -12,7 +12,7 @@ class LogViewController: UIViewController {
     @IBOutlet weak var logTableView: UITableView!
     @IBOutlet weak var datePicker: UIDatePicker!
     
-    var categories = ["Water", "Meditation", "Workout", "Fasting", "Meals"]
+    var categories = ["Water:", "Meditation:", "Workout:", "Fasting:", "Meals:", "Supplements"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +27,13 @@ class LogViewController: UIViewController {
 
 
 extension LogViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // Returns one total section for the log.
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

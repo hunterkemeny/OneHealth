@@ -215,7 +215,7 @@
         <!--LogViewController-->
         <scene sceneID="ET8-6l-feR">
             <objects>
-                <viewController storyboardIdentifier="LogTableViewController" title="LogViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vqh-ib-45u" customClass="LogTableTableViewController" customModule="OneHealth" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogViewController" title="LogViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vqh-ib-45u" customClass="LogViewController" customModule="OneHealth" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fcF-jj-WzW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -229,34 +229,38 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="81" id="4bI-1s-fXt">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LogTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LogTableViewCell" editingAccessoryType="disclosureIndicator" rowHeight="81" id="4bI-1s-fXt" customClass="LogTableViewCell" customModule="OneHealth" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="81"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4bI-1s-fXt" id="CDb-Pj-XgC">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="81"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Category:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfe-1i-mZ9">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfe-1i-mZ9">
                                                     <rect key="frame" x="20" y="30" width="75" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sON-PX-L0l">
-                                                    <rect key="frame" x="124" y="30" width="41" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="logged/not logged" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sON-PX-L0l">
+                                                    <rect key="frame" x="124" y="30" width="141" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="sON-PX-L0l" firstAttribute="top" secondItem="CDb-Pj-XgC" secondAttribute="topMargin" constant="19" id="0Bj-nU-vtj"/>
-                                                <constraint firstItem="gfe-1i-mZ9" firstAttribute="top" secondItem="CDb-Pj-XgC" secondAttribute="topMargin" constant="19" id="Ahs-Vi-8bq"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="sON-PX-L0l" secondAttribute="bottom" constant="19" id="Crc-ls-R7m"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="gfe-1i-mZ9" secondAttribute="bottom" constant="19" id="deA-R8-NSl"/>
-                                                <constraint firstItem="sON-PX-L0l" firstAttribute="leading" secondItem="gfe-1i-mZ9" secondAttribute="trailing" constant="29" id="lAo-cb-Pr4"/>
+                                                <constraint firstItem="gfe-1i-mZ9" firstAttribute="leading" secondItem="CDb-Pj-XgC" secondAttribute="leading" constant="20" id="9Sn-Ts-Fuz"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="sON-PX-L0l" secondAttribute="bottom" constant="19" id="JPm-0A-oyR"/>
+                                                <constraint firstAttribute="bottom" secondItem="gfe-1i-mZ9" secondAttribute="bottom" constant="30" id="R0g-XI-57K"/>
+                                                <constraint firstItem="gfe-1i-mZ9" firstAttribute="top" secondItem="CDb-Pj-XgC" secondAttribute="top" constant="30" id="VrY-8V-r0J"/>
+                                                <constraint firstItem="sON-PX-L0l" firstAttribute="leading" secondItem="gfe-1i-mZ9" secondAttribute="trailing" constant="29" id="gfd-Pc-Dpb"/>
+                                                <constraint firstItem="sON-PX-L0l" firstAttribute="top" secondItem="CDb-Pj-XgC" secondAttribute="topMargin" constant="19" id="koU-zb-R6Y"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="categoryLabel" destination="gfe-1i-mZ9" id="gnf-OB-YzT"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -266,7 +270,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="FTS-yA-Liq"/>
                     <connections>
-                        <outlet property="categoryLabel" destination="gfe-1i-mZ9" id="ICZ-IZ-4NT"/>
                         <outlet property="datePicker" destination="4Uo-Ek-KEc" id="jlr-AR-6p9"/>
                         <outlet property="logTableView" destination="fee-OE-NIN" id="S7b-5k-T8g"/>
                         <segue destination="QB4-st-Lmm" kind="show" id="zWn-98-FeQ"/>
@@ -1670,7 +1673,6 @@
         <!--InitialNav-->
         <scene sceneID="DTj-fC-8cm">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cDg-Du-Y0d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="InitialNav" title="InitialNav" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hCz-OY-uk3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dUt-KF-EwP">
@@ -1682,6 +1684,7 @@
                         <segue destination="djz-AD-iIR" kind="relationship" relationship="rootViewController" id="JTB-Xb-ysE"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cDg-Du-Y0d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3717.3913043478265" y="168.75"/>
         </scene>
@@ -1841,7 +1844,6 @@
         <!--Navigation Controller-->
         <scene sceneID="JAu-bq-L6T">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oe0-Rd-Htc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cBk-Ct-Mcs" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ASe-Hc-t2B">
@@ -1853,6 +1855,7 @@
                         <segue destination="ri5-tK-Lpi" kind="relationship" relationship="rootViewController" id="sqe-KS-REf"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oe0-Rd-Htc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-986.95652173913049" y="168.75"/>
         </scene>

@@ -9,6 +9,7 @@ import UIKit
 
 class LogTableViewCell: UITableViewCell {
 
+    
     @IBOutlet weak var categoryLabel: UILabel!
     
     func setAttributes(category: String) {

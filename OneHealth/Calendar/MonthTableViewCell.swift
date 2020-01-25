@@ -19,7 +19,6 @@ class MonthTableViewCell: UITableViewCell {
         daysCollectionView.reloadData()
     }
     
-    @IBOutlet weak var days: UICollectionView!
     func setAttributes(month: String) {
         monthLabel.text = month
     }
