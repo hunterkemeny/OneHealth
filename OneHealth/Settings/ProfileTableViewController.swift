@@ -10,6 +10,8 @@ import CoreData
 
 class ProfileTableViewController: UITableViewController {
     
+    // TODO: Immediately display changes made in change information. 
+    
     @IBOutlet weak var sexLabel: UILabel!
     @IBOutlet weak var ageLabel: UILabel!
     @IBOutlet weak var heightLabel: UILabel!

@@ -21,7 +21,6 @@
 		4CF22AFF23D93F4F00904BE4 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AFE23D93F4F00904BE4 /* SettingsTableViewController.swift */; };
 		4CF22B0623D93FDE00904BE4 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B0523D93FDE00904BE4 /* LogViewController.swift */; };
 		4CF22B2E23D940EC00904BE4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B2D23D940EC00904BE4 /* TabViewController.swift */; };
-		4CF22B3023D9425000904BE4 /* CalenderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B2F23D9425000904BE4 /* CalenderTableViewController.swift */; };
 		4CF22B3223D952C200904BE4 /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B3123D952C200904BE4 /* MetricsViewController.swift */; };
 		4CF22B3423DA292A00904BE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CF22B3323DA292A00904BE4 /* GoogleService-Info.plist */; };
 		4CF22B3623DA5A3F00904BE4 /* PersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B3523DA5A3F00904BE4 /* PersonalTableViewCell.swift */; };
@@ -29,6 +28,12 @@
 		4CF22B3A23DA5D2400904BE4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B3923DA5D2400904BE4 /* HomeViewController.swift */; };
 		4CF22B3C23DA69EF00904BE4 /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B3B23DA69EF00904BE4 /* HeaderTableViewCell.swift */; };
 		4CF22B3E23DA9BA100904BE4 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B3D23DA9BA100904BE4 /* ProfileTableViewController.swift */; };
+		4CF22B4023DAAB5A00904BE4 /* ChangeInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B3F23DAAB5A00904BE4 /* ChangeInformationViewController.swift */; };
+		4CF22B4423DB89E700904BE4 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B4323DB89E700904BE4 /* CalendarViewController.swift */; };
+		4CF22B4623DB9CA900904BE4 /* MonthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B4523DB9CA800904BE4 /* MonthTableViewCell.swift */; };
+		4CF22B4A23DBA18000904BE4 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B4923DBA18000904BE4 /* DayCollectionViewCell.swift */; };
+		4CF22B4C23DBD4F100904BE4 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B4B23DBD4F000904BE4 /* InfoViewController.swift */; };
+		4CF22B4E23DBD8E900904BE4 /* LogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B4D23DBD8E900904BE4 /* LogTableViewCell.swift */; };
 		D1A8A81ABAE16F8474381CF1 /* Pods_OneHealth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73AEC5B0555332572FBDA463 /* Pods_OneHealth.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +54,6 @@
 		4CF22AFE23D93F4F00904BE4 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4CF22B0523D93FDE00904BE4 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		4CF22B2D23D940EC00904BE4 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
-		4CF22B2F23D9425000904BE4 /* CalenderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderTableViewController.swift; sourceTree = "<group>"; };
 		4CF22B3123D952C200904BE4 /* MetricsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsViewController.swift; sourceTree = "<group>"; };
 		4CF22B3323DA292A00904BE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CF22B3523DA5A3F00904BE4 /* PersonalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalTableViewCell.swift; sourceTree = "<group>"; };
@@ -57,6 +61,12 @@
 		4CF22B3923DA5D2400904BE4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		4CF22B3B23DA69EF00904BE4 /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
 		4CF22B3D23DA9BA100904BE4 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		4CF22B3F23DAAB5A00904BE4 /* ChangeInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInformationViewController.swift; sourceTree = "<group>"; };
+		4CF22B4323DB89E700904BE4 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		4CF22B4523DB9CA800904BE4 /* MonthTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthTableViewCell.swift; sourceTree = "<group>"; };
+		4CF22B4923DBA18000904BE4 /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
+		4CF22B4B23DBD4F000904BE4 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		4CF22B4D23DBD8E900904BE4 /* LogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTableViewCell.swift; sourceTree = "<group>"; };
 		52362324F0119220817C734A /* Pods-OneHealth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneHealth.debug.xcconfig"; path = "Target Support Files/Pods-OneHealth/Pods-OneHealth.debug.xcconfig"; sourceTree = "<group>"; };
 		73AEC5B0555332572FBDA463 /* Pods_OneHealth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneHealth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCF639A560AEA73653B7751B /* Pods-OneHealth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneHealth.release.xcconfig"; path = "Target Support Files/Pods-OneHealth/Pods-OneHealth.release.xcconfig"; sourceTree = "<group>"; };
@@ -104,7 +114,7 @@
 				4CF22AEB23D9370E00904BE4 /* Home */,
 				4CF22AEC23D9372C00904BE4 /* Metrics */,
 				4CF22AED23D9374A00904BE4 /* Log */,
-				4CF22AEE23D9376600904BE4 /* Calender */,
+				4CF22AEE23D9376600904BE4 /* Calendar */,
 				4CF22AEF23D9377400904BE4 /* Settings */,
 				4CF22ADF23D9131E00904BE4 /* Assets.xcassets */,
 				4CF22AE423D9131E00904BE4 /* Info.plist */,
@@ -149,16 +159,20 @@
 			isa = PBXGroup;
 			children = (
 				4CF22B0523D93FDE00904BE4 /* LogViewController.swift */,
+				4CF22B4D23DBD8E900904BE4 /* LogTableViewCell.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
 		};
-		4CF22AEE23D9376600904BE4 /* Calender */ = {
+		4CF22AEE23D9376600904BE4 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				4CF22B2F23D9425000904BE4 /* CalenderTableViewController.swift */,
+				4CF22B4323DB89E700904BE4 /* CalendarViewController.swift */,
+				4CF22B4523DB9CA800904BE4 /* MonthTableViewCell.swift */,
+				4CF22B4923DBA18000904BE4 /* DayCollectionViewCell.swift */,
+				4CF22B4B23DBD4F000904BE4 /* InfoViewController.swift */,
 			);
-			path = Calender;
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		4CF22AEF23D9377400904BE4 /* Settings */ = {
@@ -166,6 +180,7 @@
 			children = (
 				4CF22AFE23D93F4F00904BE4 /* SettingsTableViewController.swift */,
 				4CF22B3D23DA9BA100904BE4 /* ProfileTableViewController.swift */,
+				4CF22B3F23DAAB5A00904BE4 /* ChangeInformationViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -323,18 +338,23 @@
 				4CF22B3E23DA9BA100904BE4 /* ProfileTableViewController.swift in Sources */,
 				4CF22AF523D937EA00904BE4 /* SignupViewController.swift in Sources */,
 				4CF22AF723D9380E00904BE4 /* TutorialViewController.swift in Sources */,
-				4CF22B3023D9425000904BE4 /* CalenderTableViewController.swift in Sources */,
 				4CF22B0623D93FDE00904BE4 /* LogViewController.swift in Sources */,
+				4CF22B4E23DBD8E900904BE4 /* LogTableViewCell.swift in Sources */,
+				4CF22B4A23DBA18000904BE4 /* DayCollectionViewCell.swift in Sources */,
 				4CF22AF923D9381F00904BE4 /* SurveyViewController.swift in Sources */,
 				4CF22AF123D937C000904BE4 /* BaseViewController.swift in Sources */,
 				4CF22B3823DA5A5900904BE4 /* GeneralTableViewCell.swift in Sources */,
 				4CF22AD423D9131900904BE4 /* AppDelegate.swift in Sources */,
 				4CF22ADE23D9131900904BE4 /* OneHealth.xcdatamodeld in Sources */,
 				4CF22AFF23D93F4F00904BE4 /* SettingsTableViewController.swift in Sources */,
+				4CF22B4423DB89E700904BE4 /* CalendarViewController.swift in Sources */,
+				4CF22B4C23DBD4F100904BE4 /* InfoViewController.swift in Sources */,
+				4CF22B4023DAAB5A00904BE4 /* ChangeInformationViewController.swift in Sources */,
 				4CF22B3223D952C200904BE4 /* MetricsViewController.swift in Sources */,
 				4CF22B3A23DA5D2400904BE4 /* HomeViewController.swift in Sources */,
 				4CF22AF323D937DB00904BE4 /* LoginViewController.swift in Sources */,
 				4CF22B3623DA5A3F00904BE4 /* PersonalTableViewCell.swift in Sources */,
+				4CF22B4623DB9CA900904BE4 /* MonthTableViewCell.swift in Sources */,
 				4CF22B3C23DA69EF00904BE4 /* HeaderTableViewCell.swift in Sources */,
 				4CF22B2E23D940EC00904BE4 /* TabViewController.swift in Sources */,
 				4CF22AD623D9131900904BE4 /* SceneDelegate.swift in Sources */,
