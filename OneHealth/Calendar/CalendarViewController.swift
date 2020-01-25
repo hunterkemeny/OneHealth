@@ -68,18 +68,13 @@ class CalendarViewController: UIViewController {
         }
         
         var monthCount = months.count
-        print(months)
-        print(monthCount)
         for i in 0...months.count {
-            print(i)
-            print(monthCount)
             reverseMonths.append(months[monthCount - 1])
             if monthCount == 1 {
                 break
             } else {
                 monthCount -= 1
             }
-            print(reverseMonths)
         }
     }
 

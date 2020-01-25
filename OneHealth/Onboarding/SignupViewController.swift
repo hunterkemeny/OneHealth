@@ -23,8 +23,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Properties
     
-    var email: [NSManagedObject] = []
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupElements()

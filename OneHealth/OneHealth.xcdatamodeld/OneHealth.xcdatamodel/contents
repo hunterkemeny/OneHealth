@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="LogDate" representedClassName="LogDate" syncable="YES" codeGenerationType="class">
+        <attribute name="dateOfLog" optional="YES" attributeType="String"/>
+        <attribute name="fast" optional="YES" attributeType="String"/>
+        <attribute name="meals" optional="YES" attributeType="String"/>
+        <attribute name="meditation" optional="YES" attributeType="String"/>
+        <attribute name="supplements" optional="YES" attributeType="String"/>
+        <attribute name="water" optional="YES" attributeType="String"/>
+        <attribute name="workout" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="age" optional="YES" attributeType="String"/>
         <attribute name="email" optional="YES" attributeType="String"/>
@@ -15,5 +24,6 @@
     </entity>
     <elements>
         <element name="User" positionX="-63" positionY="-18" width="128" height="208"/>
+        <element name="LogDate" positionX="-63" positionY="63" width="128" height="28"/>
     </elements>
 </model>
