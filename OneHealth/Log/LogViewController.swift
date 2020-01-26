@@ -16,11 +16,12 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     var datePicker: UIDatePicker?
     
-    var categories = ["Water:", "Meditation:", "Workout:", "Fasting:", "Meals:", "Supplements:"]
+    var categories = ["water", "meditation", "workout", "fast", "meals", "supplements"]
     var values = ["", "", "", "", "", ""]
     
     var categoryExectued: String!
     var dayMonthYearString: String!
+    var dayMonthYearNum: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +72,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                     values[4] = results[num].meals ?? ""
                     values[5] = results[num].supplements ?? ""
                     dayMonthYearString = results[num].dateOfLog
+                    dayMonthYearNum = String(num)
                     break
                 }
                 if num == results.count - 1 {
@@ -86,6 +88,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                     values[4] = results[num].meals ?? ""
                     values[5] = results[num].supplements ?? ""
                     dayMonthYearString = results[num].dateOfLog
+                    dayMonthYearNum = String(num)
                 }
             }
             // Save new date to Core Data.
@@ -107,6 +110,40 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         datePicker?.addTarget(self, action: #selector(LogViewController.dateChanged(datePicker: )), for: .valueChanged)
         
         dateTextField.inputView = datePicker
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
+        request.returnsObjectsAsFaults = false
+        
+        // Fetch the "LogDate" object.
+        var results: [LogDate]
+        do {
+            try results = context.fetch(request)
+        } catch {
+            fatalError("Failure to fetch: \(error)")
+        }
+        
+        if results.count != 0 {
+            for num in 0...(results.count - 1) {
+                if String(num) == dayMonthYearNum {
+                    values[0] = results[num].water ?? ""
+                    values[1] = results[num].meditation ?? ""
+                    values[2] = results[num].workout ?? ""
+                    values[3] = results[num].fast ?? ""
+                    values[4] = results[num].meals ?? ""
+                    values[5] = results[num].supplements ?? ""
+                    logTableView.reloadData()
+                    dayMonthYearString = results[num].dateOfLog
+                    dayMonthYearNum = String(num)
+                    break
+                }
+            }
+        }
         
         // Causing tap in tableview to break
         /*
@@ -168,6 +205,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                     values[5] = results[num].supplements ?? ""
                     logTableView.reloadData()
                     dayMonthYearString = results[num].dateOfLog
+                    dayMonthYearNum = String(num)
                     break
                 }
                 if num == results.count - 1 {
@@ -185,7 +223,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                     values[5] = results[num].supplements ?? ""
                     logTableView.reloadData()
                     dayMonthYearString = results[num].dateOfLog
-                    
+                    dayMonthYearNum = String(num)
                 }
             }
         }
@@ -224,6 +262,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             let detailVC = segue.destination as! InsertInfoViewController
             detailVC.logDate = dayMonthYearString
             detailVC.category = categoryExectued
+            detailVC.dateNum = dayMonthYearNum
         }
     }
     

@@ -348,13 +348,25 @@
                                 <rect key="frame" x="192" y="244" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Log"/>
+                                <connections>
+                                    <action selector="logTapped:" destination="QB4-st-Lmm" eventType="touchUpInside" id="jez-3M-Mi2"/>
+                                </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tEz-Vv-9zx">
+                                <rect key="frame" x="186" y="204" width="34" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="bKd-t8-XdS" firstAttribute="leading" secondItem="CQ5-nb-waN" secondAttribute="leading" constant="20" id="1eP-wM-6hc"/>
                             <constraint firstItem="Cqw-wg-uw6" firstAttribute="leading" secondItem="CQ5-nb-waN" secondAttribute="leading" constant="143" id="6zQ-R5-PFq"/>
                             <constraint firstItem="CQ5-nb-waN" firstAttribute="trailing" secondItem="CsS-HK-qT0" secondAttribute="trailing" constant="70.5" id="HNr-hZ-BJS"/>
+                            <constraint firstItem="tEz-Vv-9zx" firstAttribute="top" secondItem="Cqw-wg-uw6" secondAttribute="bottom" constant="78" id="Osq-XJ-Wsf"/>
+                            <constraint firstItem="CQ5-nb-waN" firstAttribute="trailing" secondItem="tEz-Vv-9zx" secondAttribute="trailing" constant="194" id="Y04-gU-DJ6"/>
+                            <constraint firstItem="tEz-Vv-9zx" firstAttribute="leading" secondItem="CQ5-nb-waN" secondAttribute="leading" constant="186" id="ecg-ib-AVb"/>
                             <constraint firstItem="CsS-HK-qT0" firstAttribute="leading" secondItem="bKd-t8-XdS" secondAttribute="trailing" constant="111" id="kff-Jm-gfL"/>
                             <constraint firstItem="CsS-HK-qT0" firstAttribute="top" secondItem="CQ5-nb-waN" secondAttribute="top" constant="74" id="nMm-JS-PI6"/>
                             <constraint firstItem="CQ5-nb-waN" firstAttribute="trailing" secondItem="Cqw-wg-uw6" secondAttribute="trailing" constant="142" id="qwJ-Ji-7rP"/>
@@ -367,6 +379,8 @@
                     <connections>
                         <outlet property="categoryExecuted" destination="bKd-t8-XdS" id="pbg-xh-TdV"/>
                         <outlet property="dayMonthYear" destination="Cqw-wg-uw6" id="Xwe-sm-DMt"/>
+                        <outlet property="enterTextField" destination="CsS-HK-qT0" id="zAv-xJ-2kC"/>
+                        <outlet property="errorLabel" destination="tEz-Vv-9zx" id="St9-tb-h4K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GPl-Kr-ijF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
