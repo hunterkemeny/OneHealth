@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CalendarViewController: UIViewController {
 
@@ -19,7 +20,11 @@ class CalendarViewController: UIViewController {
     var check = 0
     let date = Date()
     let calendar = Calendar.current
-    
+    var day = ""
+    var month = ""
+    var year = ""
+    var completeDate = ""
+    var water = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,6 +171,74 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
          If tapped, each cell will utilize the showBusiness segue to instantiate a unique BusinessTableViewController.
         */
         
+        
+        // make day assignment dependent on the number of months in months array
+        if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 1 {
+            month = "02"
+        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 2 {
+            month = "03"
+        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 3 {
+            month = "04"
+        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 4 {
+            month = "05"
+        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 5 {
+            month = "06"
+        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 6 {
+            month = "07"
+        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 7 {
+            month = "08"
+        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 8 {
+            month = "09"
+        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 9 {
+            month = "10"
+        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 10 {
+            month = "11"
+        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 11 {
+            month = "12"
+        } else {
+            month = "01"
+        }
+        
+        day = String(indexPath.row)
+        
+        if 12 - collectionView.tag >= 12 {
+            year = "2020"
+        } else {
+            year = "2019"
+        }
+        
+        completeDate = "\(month)/\(day)/\(year)"
+        
+        // Check todays logs
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
+        request.returnsObjectsAsFaults = false
+        
+        // Fetch the "LogDate" object.
+        var results: [LogDate]
+        do {
+            try results = context.fetch(request)
+        } catch {
+            fatalError("Failure to fetch: \(error)")
+        }
+        
+        if results.count != 0 {
+            for num in 0...results.count {
+                if results[num].dateOfLog == completeDate {
+                    // today is stored in core data
+                    // If they open up the logviewcontroller for the first time, then they log something, when they press back
+                    // viewcontroller needs to update to show that they logged something
+                    water = results[num].water ?? "water not logged"
+                    break
+                }
+                if num == results.count - 1 {
+                    water = results[num].water ?? "water not logged"
+                }
+            }
+        }
+        
         performSegue(withIdentifier: "DaySegue", sender: nil)
         
     }
@@ -175,6 +248,8 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         
         if segue.identifier == "DaySegue" {
             let detailVC = segue.destination as! InfoViewController
+            detailVC.dayMonthYear = completeDate
+            detailVC.water = water
         }
     }
 }
