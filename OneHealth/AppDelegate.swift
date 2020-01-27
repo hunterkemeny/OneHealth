@@ -6,19 +6,25 @@
 //
 
 import UIKit
-import CoreData
 import Firebase
+import CoreData
+import FirebaseDatabase
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseCore
+import HealthKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    let healthKitStore = HKHealthStore()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         self.registerNotification()
         FirebaseApp.configure()
+        authorizeHealthKitApp()
         return true
     }
     
@@ -124,6 +130,146 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    func authorizeHealthKitApp() {
+        let HKRead: Set<HKObjectType> = [
+            HKObjectType.activitySummaryType(),
+        ]
+        
+        let HKWrite: Set<HKSampleType> = []
+        
+        if !HKHealthStore.isHealthDataAvailable() {
+            print("Error occured!")
+            return
+        }
+                
+        healthKitStore.requestAuthorization(toShare: HKWrite, read: HKRead) { (sucess, error) in
+            print("Read/write authorization successful")
+            print("Attempting query...")
+            self.performQuery()
+        }
+    }
+    
+    var calsBurned: Int!
+    var date = Date()
+    
+    func performQuery() {
+        // Create the date components for the predicate
+        guard let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian) else {
+            fatalError("*** This should never fail. ***")
+        }
+         
+        let endDate = NSDate()
+         
+        guard let startDate = calendar.date(byAdding: .day, value: -7, to: endDate as Date, options: []) else {
+            fatalError("*** unable to calculate the start date ***")
+        }
+        
+        let units: NSCalendar.Unit = [.day, .month, .year, .era]
+         
+        var startDateComponents = calendar.components(units, from: startDate)
+        startDateComponents.calendar = calendar as Calendar
+         
+        var endDateComponents = calendar.components(units, from: endDate as Date)
+        endDateComponents.calendar = calendar as Calendar
+        
+        // Create the predicate for the query
+        let summariesWithinRange = HKQuery.predicate(forActivitySummariesBetweenStart: startDateComponents, end: endDateComponents)
+         
+        // Build the query
+        let query1 = HKActivitySummaryQuery(predicate: summariesWithinRange) { (query, summaries, error) -> Void in
+            guard let activitySummaries = summaries else {
+                guard let queryError = error else {
+                    fatalError("*** Did not return a valid error object. ***")
+                }
+                
+                // Handle the error here...
+                
+                return
+            }
+            
+            print(activitySummaries)
+            
+            
+            let context = AppDelegate().persistentContainer.viewContext
+            
+            let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
+            request.returnsObjectsAsFaults = false
+            
+            // Fetch the "LogDate" object.
+            var results: [LogDate]
+            do {
+                try results = context.fetch(request)
+            } catch {
+                fatalError("Failure to fetch: \(error)")
+            }
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            
+            let year = calendar.component(.year, from: self.date)
+            let month = calendar.component(.month, from: self.date)
+            
+            let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
+            
+            // Store today's date as dateOfLog attribute in Core Data.
+            if results.count == 0 {
+                
+                // Store today's date as dateOfLog attribute in Core Data.
+                let newDate = NSManagedObject(entity: entity!, insertInto: context)
+                newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
+                newDate.setValue(activitySummaries[6].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()), forKey: "activeCals")
+            }
+            
+            do {
+                try context.save()
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
+            
+            if results.count != 0 {
+                for i in 0...6 {
+                    for num in 0...results.count - 1 {
+                        if results[num].dateOfLog! == "\(0)\(month)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(year)" {
+
+                            results[num].activeCals = activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
+                            break
+                        }
+                        if num == results.count - 1 {
+                                
+                            // Store today's date as dateOfLog attribute in Core Data.
+                            let newDate = NSManagedObject(entity: entity!, insertInto: context)
+                            newDate.setValue("\(0)\(month)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(year)", forKey: "dateOfLog")
+                            newDate.setValue(activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()), forKey: "activeCals")
+                        }
+                    }
+                }
+            }
+            
+            
+            do {
+                try context.save()
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
+            
+            print(results)
+            
+            var averageActiveCals = (activitySummaries[6].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[5].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[4].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[3].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[2].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[1].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[0].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()))/7
+            
+            //PersonInfo.setCaloriesBurnedLastWeek(cb: averageActiveCals)
+            
+            var activeCals = activitySummaries[6].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) // shows the last week, hard-coded day 7 (today)
+            //PersonInfo.setCaloriesBurnedYesterday(yb: activeCals)
+            
+            var totalCals = Int(activeCals.rounded()) //+ Int(restingCals.rounded()) NEED TO GET BMR
+            self.calsBurned = Int(totalCals)
+            
+        }
+        
+        // Run the query
+        healthKitStore.execute(query1)
     }
 
 }

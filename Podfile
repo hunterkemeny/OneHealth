@@ -14,4 +14,5 @@ pod 'FirebaseUI/Auth'
 pod 'Firebase/Auth'
 pod 'FirebaseFirestore'
 pod 'PusherSwift'
+pod 'Charts'
 end

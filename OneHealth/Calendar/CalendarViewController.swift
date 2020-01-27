@@ -25,6 +25,7 @@ class CalendarViewController: UIViewController {
     var year = ""
     var completeDate = ""
     var water = ""
+    var activeCalsBurned = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -225,16 +226,22 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         }
         
         if results.count != 0 {
-            for num in 0...results.count {
-                if results[num].dateOfLog == completeDate {
+            for num in 0...results.count - 1 {
+                print(results[num].dateOfLog!)
+                
+                
+                if results[num].dateOfLog! == completeDate {
                     // today is stored in core data
                     // If they open up the logviewcontroller for the first time, then they log something, when they press back
                     // viewcontroller needs to update to show that they logged something
                     water = results[num].water ?? "water not logged"
+                    print(results[num])
+                    activeCalsBurned = results[num].activeCals
                     break
                 }
                 if num == results.count - 1 {
-                    water = results[num].water ?? "water not logged"
+                    water =  "water not logged"
+                    activeCalsBurned = 0.0
                 }
             }
         }
@@ -250,6 +257,7 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
             let detailVC = segue.destination as! InfoViewController
             detailVC.dayMonthYear = completeDate
             detailVC.water = water
+            detailVC.calsBurned = String(activeCalsBurned)
         }
     }
 }

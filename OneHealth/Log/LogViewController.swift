@@ -9,7 +9,8 @@ import UIKit
 import CoreData
 
 class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    // Make today the default value when the viewcontroller is opened
+    // Make today the default value when the viewcontroller is shown
+    // fix the ability to tap out of the datepicker
 
     @IBOutlet weak var logTableView: UITableView!
     @IBOutlet weak var dateTextField: UITextField!
@@ -44,22 +45,9 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         } catch {
             fatalError("Failure to fetch: \(error)")
         }
-        if results.count == 0 {
-            let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
-            
-            // Store today's date as dateOfLog attribute in Core Data.
-            let newDate = NSManagedObject(entity: entity!, insertInto: context)
-            newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
-        }
-        
-        // Save new date to Core Data.
-        do {
-            try context.save()
-        } catch {
-            fatalError("Failure to save context: \(error)")
-        }
         
         if results.count != 0 {
+            print(results)
             for num in 0...results.count {
                 if results[num].dateOfLog == dateFormatter.string(from: Date()) {
                     // today is stored in core data
@@ -179,21 +167,6 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             fatalError("Failure to fetch: \(error)")
         }
         
-        if results.count == 0 {
-            let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
-            
-            // Store today's date as dateOfLog attribute in Core Data.
-            let newDate = NSManagedObject(entity: entity!, insertInto: context)
-            newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
-        }
-        
-        // Save new date to Core Data.
-        do {
-            try context.save()
-        } catch {
-            fatalError("Failure to save context: \(error)")
-        }
-        
         if results.count != 0 {
             for num in 0...(results.count - 1) {
                 if results[num].dateOfLog == dateFormatter.string(from: datePicker.date) {
@@ -227,6 +200,14 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 }
             }
         }
+        
+        // Save new date to Core Data.
+        do {
+            try context.save()
+        } catch {
+            fatalError("Failure to save context: \(error)")
+        }
+        
         view.endEditing(true)
     }
     
