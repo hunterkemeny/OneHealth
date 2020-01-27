@@ -16,7 +16,7 @@ import FirebaseCore
 
 
 class SurveyViewController: UIViewController, UITextFieldDelegate {
-    
+    //TODO: keyboard blocks textfield: codewithchris video
     // MARK: - Properties
     
     var db: Firestore!
