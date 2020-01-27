@@ -182,52 +182,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="M2J-z8-WFv">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="M2J-z8-WFv">
                                 <rect key="frame" x="81" y="44" width="226" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Week"/>
                                     <segment title="Month"/>
                                     <segment title="Year"/>
                                 </segments>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xrj-Wc-rse">
-                                <rect key="frame" x="0.0" y="83" width="414" height="730"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KfJ-Jm-2ar" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="20" y="83" width="374" height="327"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MetricsTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MetricsTableViewCell" rowHeight="228" id="VEh-oY-vDZ" customClass="MetricsTableViewCell" customModule="OneHealth" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="228"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VEh-oY-vDZ" id="ohL-6r-T2v">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="228"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="X v Y" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QTM-FU-Uti">
-                                                    <rect key="frame" x="186" y="11" width="40" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w4w-j3-MFD" customClass="LineChartView" customModule="Charts">
-                                                    <rect key="frame" x="20" y="40" width="374" height="177"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                </view>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="lineChartView" destination="w4w-j3-MFD" id="Fcb-cj-Sn8"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="M2J-z8-WFv" firstAttribute="leading" secondItem="fcf-Xn-cXg" secondAttribute="leading" constant="81" id="ZC5-S1-cSD"/>
+                            <constraint firstItem="KfJ-Jm-2ar" firstAttribute="leading" secondItem="fcf-Xn-cXg" secondAttribute="leading" constant="20" id="ZyJ-EO-g9k"/>
+                            <constraint firstItem="M2J-z8-WFv" firstAttribute="top" secondItem="fcf-Xn-cXg" secondAttribute="top" id="ccz-k0-d5e"/>
+                            <constraint firstItem="fcf-Xn-cXg" firstAttribute="trailing" secondItem="M2J-z8-WFv" secondAttribute="trailing" constant="107" id="iWZ-f7-8nh"/>
+                            <constraint firstItem="fcf-Xn-cXg" firstAttribute="trailing" secondItem="KfJ-Jm-2ar" secondAttribute="trailing" constant="20" id="jBR-P6-wxf"/>
+                            <constraint firstItem="fcf-Xn-cXg" firstAttribute="bottom" secondItem="KfJ-Jm-2ar" secondAttribute="bottom" constant="403" id="kQ5-ef-ErM"/>
+                            <constraint firstItem="KfJ-Jm-2ar" firstAttribute="top" secondItem="M2J-z8-WFv" secondAttribute="bottom" constant="8" id="xIs-Rt-kqh"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="fcf-Xn-cXg"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="7dr-78-3ga"/>
+                    <connections>
+                        <outlet property="activeCalsView" destination="KfJ-Jm-2ar" id="TtD-ST-3oD"/>
+                        <outlet property="dateSlider" destination="M2J-z8-WFv" id="phf-6t-TCe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="awK-o9-RZE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

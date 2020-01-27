@@ -208,9 +208,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
             
-            let year = calendar.component(.year, from: self.date)
-            let month = calendar.component(.month, from: self.date)
-            
             let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
             
             // Store today's date as dateOfLog attribute in Core Data.
@@ -231,16 +228,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if results.count != 0 {
                 for i in 0...6 {
                     for num in 0...results.count - 1 {
-                        if results[num].dateOfLog! == "\(0)\(month)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(year)" {
+                        
+                        if activitySummaries[i].dateComponents(for: calendar as Calendar).month! < 10 {
+                            if results[num].dateOfLog! == "\(0)\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)" {
 
-                            results[num].activeCals = activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
-                            break
+                                results[num].activeCals = activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
+                                break
+                            }
+                        } else {
+                            if results[num].dateOfLog! == "\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)" {
+
+                                results[num].activeCals = activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
+                                break
+                            }
                         }
+                        
                         if num == results.count - 1 {
                                 
                             // Store today's date as dateOfLog attribute in Core Data.
                             let newDate = NSManagedObject(entity: entity!, insertInto: context)
-                            newDate.setValue("\(0)\(month)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(year)", forKey: "dateOfLog")
+                            
+                            if activitySummaries[i].dateComponents(for: calendar as Calendar).month! < 10 {
+                                newDate.setValue("\(0)\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)", forKey: "dateOfLog")
+                            } else {
+                                newDate.setValue("\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)", forKey: "dateOfLog")
+                            }
                             newDate.setValue(activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()), forKey: "activeCals")
                         }
                     }
