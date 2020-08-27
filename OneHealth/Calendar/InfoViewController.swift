@@ -16,6 +16,7 @@ class InfoViewController: UIViewController {
     @IBOutlet weak var fastedValue: UILabel!
     @IBOutlet weak var minutesMeditatedValue: UILabel!
     @IBOutlet weak var caloricSurplusValue: UILabel!
+    @IBOutlet weak var weightValue: UILabel!
     
     var water: String?
     var calsBurned: String?
@@ -24,6 +25,7 @@ class InfoViewController: UIViewController {
     var hoursFasted: String?
     var minutesMeditated: String?
     var caloricSurplus: String?
+    var weight: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,7 @@ class InfoViewController: UIViewController {
         fastedValue.text = hoursFasted
         minutesMeditatedValue.text = minutesMeditated
         caloricSurplusValue.text = caloricSurplus
+        weightValue.text = weight
         
     }
     

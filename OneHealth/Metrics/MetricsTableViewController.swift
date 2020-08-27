@@ -23,22 +23,19 @@ class MetricsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if dateSlider.selectedSegmentIndex == 0 {
-            activeCalsWeek()
-            
-        } else if dateSlider.selectedSegmentIndex == 1 {
             activeCalsMonth()
-            
-        } else if dateSlider.selectedSegmentIndex == 2 {
+        } else if dateSlider.selectedSegmentIndex == 1 {
             activeCalsYear()
-            
         }
         
     }
     
-    func activeCalsWeek() {
-           var lineChartEntry = [ChartDataEntry]()
+    func activeCalsWeek() { // Change active cals to total cals
+        var weight = [ChartDataEntry]()
+        var calsBurned = [ChartDataEntry]()
+        var calsConsumed = [ChartDataEntry]()
+        
                
            let dateFormatter = DateFormatter()
            dateFormatter.dateFormat = "MM/dd/yyyy"
@@ -57,7 +54,7 @@ class MetricsTableViewController: UITableViewController {
                fatalError("Failure to fetch: \(error)")
            }
                
-           if dateSlider.selectedSegmentIndex == 0 {
+           
                for i in -6...0 {
                        
                    // get last week of data in order
@@ -65,58 +62,61 @@ class MetricsTableViewController: UITableViewController {
                        for num in 0...results.count - 1 {
                            if dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: i, to: noon)!) == results[num].dateOfLog {
                                let value = ChartDataEntry(x: 1, y: results[num].activeCals)
-                               lineChartEntry.append(value)
+                               weight.append(value)
                            }
                        }
                    } else if i == -5 {
                        for num in 0...results.count - 1 {
                            if dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: i, to: noon)!) == results[num].dateOfLog {
                                let value = ChartDataEntry(x: 2, y: results[num].activeCals)
-                               lineChartEntry.append(value)
+                               weight.append(value)
                            }
                        }
                    } else if i == -4 {
                        for num in 0...results.count - 1 {
                            if dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: i, to: noon)!) == results[num].dateOfLog {
                                let value = ChartDataEntry(x: 3, y: results[num].activeCals)
-                               lineChartEntry.append(value)
+                               weight.append(value)
                            }
                        }
                    } else if i == -3 {
                        for num in 0...results.count - 1 {
                            if dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: i, to: noon)!) == results[num].dateOfLog {
                                let value = ChartDataEntry(x: 4, y: results[num].activeCals)
-                               lineChartEntry.append(value)
+                               weight.append(value)
                            }
                        }
                    } else if i == -2 {
                        for num in 0...results.count - 1 {
                            if dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: i, to: noon)!) == results[num].dateOfLog {
                                let value = ChartDataEntry(x: 5, y: results[num].activeCals)
-                               lineChartEntry.append(value)
+                               weight.append(value)
                            }
                        }
                    } else if i == -1 {
                        for num in 0...results.count - 1 {
                            if dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: i, to: noon)!) == results[num].dateOfLog {
                                let value = ChartDataEntry(x: 6, y: results[num].activeCals)
-                               lineChartEntry.append(value)
+                               weight.append(value)
                            }
                        }
                    } else if i == 0 {
                        for num in 0...results.count - 1 {
                            if dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: i, to: noon)!) == results[num].dateOfLog {
                                let value = ChartDataEntry(x: 7, y: results[num].activeCals)
-                               lineChartEntry.append(value)
+                               weight.append(value)
                            }
                        }
                    }
-                       
-               }
            }
                
-           let line1 = LineChartDataSet(entries: lineChartEntry, label: "Active Calories Burned")
+           let line1 = LineChartDataSet(entries: weight, label: "Weight")
            line1.colors = [NSUIColor.blue]
+        let line2 = LineChartDataSet(entries: calsBurned, label: "Calories Burned")
+        line2.colors = [NSUIColor.red]
+        let line3 = LineChartDataSet(entries: calsConsumed, label: "Calories Consumed")
+        line3.colors = [NSUIColor.green]
+        
            let data = LineChartData()
            data.addDataSet(line1)
            activeCalsView.data = data
@@ -127,7 +127,9 @@ class MetricsTableViewController: UITableViewController {
        }
            
        func activeCalsMonth() {
-           var lineChartEntry = [ChartDataEntry]()
+           var weight = [ChartDataEntry]()
+        var calsBurned = [ChartDataEntry]()
+        var calsConsumed = [ChartDataEntry]()
                
            let dateFormatter = DateFormatter()
            dateFormatter.dateFormat = "MM/dd/yyyy"
@@ -147,11 +149,15 @@ class MetricsTableViewController: UITableViewController {
                fatalError("Failure to fetch: \(error)")
            }
                
-           if dateSlider.selectedSegmentIndex == 1 {
+    
                for i in 0...30 {
                    
-                   let value = ChartDataEntry(x: abs(Double(i)), y: 100.0 + Double(i))
-                   lineChartEntry.append(value)
+                   let weightValue = ChartDataEntry(x: abs(Double(i)), y: 1100.0 + Double(i))
+                let burnedValue = ChartDataEntry(x: abs(Double(i)), y: 200.0 + Double(i))
+                let consumedValue = ChartDataEntry(x: abs(Double(i)), y: 300.0 + Double(i))
+                   weight.append(weightValue)
+                calsBurned.append(burnedValue)
+                calsConsumed.append(consumedValue)
                    /*
                    // get last week of data in order
                    if i == -30 {
@@ -375,13 +381,20 @@ class MetricsTableViewController: UITableViewController {
     
     */
                        
-               }
            }
                
-           let line1 = LineChartDataSet(entries: lineChartEntry, label: "Active Calories Burned")
+           let line1 = LineChartDataSet(entries: weight, label: "Active Calories Burned")
            line1.colors = [NSUIColor.blue]
+        
+        let line2 = LineChartDataSet(entries: calsBurned, label: "Calories Burned")
+        line2.colors = [NSUIColor.red]
+        let line3 = LineChartDataSet(entries: calsConsumed, label: "Calories Consumed")
+        line3.colors = [NSUIColor.green]
+        
            let data = LineChartData()
            data.addDataSet(line1)
+        data.addDataSet(line2)
+        data.addDataSet(line3)
            activeCalsView.data = data
            activeCalsView.chartDescription?.text = "Active Calories v. Time"
                
@@ -389,9 +402,7 @@ class MetricsTableViewController: UITableViewController {
            
                
        func activeCalsYear() {
-           if dateSlider.selectedSegmentIndex == 2 {
-               
-           }
+
        }
          
 

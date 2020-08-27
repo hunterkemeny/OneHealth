@@ -30,6 +30,7 @@ class CalendarViewController: UIViewController {
     var hoursFasted = ""
     var minutesMeditated = ""
     var caloricSurplus = ""
+    var weight = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -244,6 +245,11 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                     calsConsumed = String(results[num].calsIntake) ?? "MyFitnessPal not logged" //add calsIntake to results
                     hoursFasted = results[num].fast ?? "Fasting not logged"
                     minutesMeditated = results[num].meditation ?? "Meditation not logged"
+                    if results[num].weight == 0.0 {
+                        weight = "You need to log your weight!"
+                    } else {
+                        weight = String(results[num].weight)
+                    }
                     if calsConsumed == "MyFitnessPal not logged" || calsConsumed == "0.0" {
                         caloricSurplus = "Need MyFitnessPal data to calculate caloric surplus"
                     } else {
@@ -258,6 +264,7 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                     hoursFasted = "Fasting not logged"
                     minutesMeditated = "Meditation not logged"
                     caloricSurplus = "Need MyFitnessPal data to calculate caloric surplus"
+                    weight = "You need to log your weight!"
                 }
             }
         }
@@ -278,6 +285,7 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
             detailVC.hoursFasted = hoursFasted
             detailVC.minutesMeditated = minutesMeditated
             detailVC.caloricSurplus = caloricSurplus
+            detailVC.weight = weight
         }
     }
 }

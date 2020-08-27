@@ -20,7 +20,6 @@ class LogTableViewCell: UITableViewCell {
         } else {
             valueLabel.text = "not logged"
         }
-        
     }
 
 }

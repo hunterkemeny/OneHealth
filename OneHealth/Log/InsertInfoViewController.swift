@@ -53,8 +53,11 @@ class InsertInfoViewController: UIViewController, UITextFieldDelegate {
         } catch {
             fatalError("Failure to fetch: \(error)")
         }
-        
-        results[Int(dateNum)!].setValue(information, forKey: "\(category ?? "")")
+        if category == "weight" {
+            results[Int(dateNum)!].setValue(Double(information), forKey: "\(category ?? "")")
+        } else {
+            results[Int(dateNum)!].setValue(information, forKey: "\(category ?? "")")
+        }
         
         // Save new user to Core Data.
         do {
