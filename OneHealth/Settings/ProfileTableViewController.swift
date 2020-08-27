@@ -53,7 +53,8 @@ class ProfileTableViewController: UITableViewController {
         weightGoalLabel.text = results[0].weightGoal
         weeksLabel.text = results[0].weeksToComplete
         mealsLabel.text = results[0].meals
-        
+        viewWillAppear(true)
     }
+    
 
 }

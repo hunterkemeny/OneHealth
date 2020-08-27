@@ -41,6 +41,8 @@ class ChangeInformationViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func updateTouched(_ sender: Any) {
         
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        
         // Store values for segmented controls.
         var userSex: String = ""
         var goalType: String = ""
@@ -113,6 +115,7 @@ class ChangeInformationViewController: UIViewController, UITextFieldDelegate {
         
         if currentWeightTextField.text != "" {
             results[0].setValue(currentWeightTextField.text, forKey: "weight")
+            //ProfileTableViewController.currentWeightLabel.text = results[0].weight
             db.collection("userInfo").document(userID!).setData(["weight": currentWeightTextField.text!], merge:true) { err in
                 if let err = err {
                     print("Error writing document: \(err)")
@@ -135,11 +138,25 @@ class ChangeInformationViewController: UIViewController, UITextFieldDelegate {
         
         do {
             try context.save()
+            showError("Information Changed Successfully!")
+            
         } catch {
             fatalError("Failure to save context: \(error)")
         }
         
+        let controllers = self.navigationController?.viewControllers
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // Change `2.0` to the desired number of seconds.
+           for vc in controllers! {
+              if vc is SettingsTableViewController {
+                _ = self.navigationController?.popToViewController(vc as! SettingsTableViewController, animated: true)
+              }
+           }
+        }
+        
+        
+        //self.navigationController?.popViewController(animated: false)
+
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -152,7 +169,7 @@ class ChangeInformationViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    //TODO: If they enter a numerical value for a string text field or vice cersa, show Error.
+    //TODO: If they enter a numerical value for a string text field or vice versa, show Error.
     
     func setupElements() {
         errorLabel.alpha = 0

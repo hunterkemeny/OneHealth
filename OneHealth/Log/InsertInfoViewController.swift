@@ -18,6 +18,7 @@ class InsertInfoViewController: UIViewController, UITextFieldDelegate {
     var category: String!
     var logDate: String!
     var information: String!
+    var placeholder: String!
     var dateNum: String!
     var logType: String!
     
@@ -25,6 +26,7 @@ class InsertInfoViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         categoryExecuted.text = category
         dayMonthYear.text = logDate
+        enterTextField.placeholder = placeholder
         
         enterTextField.delegate = self
     }

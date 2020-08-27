@@ -23,6 +23,7 @@
 		4CE8A00124F751EA00AFCA5F /* DNARsourceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00024F751EA00AFCA5F /* DNARsourceList.swift */; };
 		4CE8A00324F774D100AFCA5F /* InitialNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */; };
 		4CE8A00524F81BAF00AFCA5F /* InitialNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00424F81BAF00AFCA5F /* InitialNavigationViewController.swift */; };
+		4CE8A00724F85D0000AFCA5F /* MetricsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00624F85D0000AFCA5F /* MetricsTableViewController.swift */; };
 		4CF22AD423D9131900904BE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD323D9131900904BE4 /* AppDelegate.swift */; };
 		4CF22AD623D9131900904BE4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD523D9131900904BE4 /* SceneDelegate.swift */; };
 		4CF22ADB23D9131900904BE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CF22AD923D9131900904BE4 /* Main.storyboard */; };
@@ -37,7 +38,6 @@
 		4CF22AFF23D93F4F00904BE4 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AFE23D93F4F00904BE4 /* SettingsTableViewController.swift */; };
 		4CF22B0623D93FDE00904BE4 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B0523D93FDE00904BE4 /* LogViewController.swift */; };
 		4CF22B2E23D940EC00904BE4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B2D23D940EC00904BE4 /* TabViewController.swift */; };
-		4CF22B3223D952C200904BE4 /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B3123D952C200904BE4 /* MetricsViewController.swift */; };
 		4CF22B3423DA292A00904BE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4CF22B3323DA292A00904BE4 /* GoogleService-Info.plist */; };
 		4CF22B3623DA5A3F00904BE4 /* PersonalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B3523DA5A3F00904BE4 /* PersonalTableViewCell.swift */; };
 		4CF22B3823DA5A5900904BE4 /* GeneralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B3723DA5A5900904BE4 /* GeneralTableViewCell.swift */; };
@@ -71,6 +71,7 @@
 		4CE8A00024F751EA00AFCA5F /* DNARsourceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNARsourceList.swift; sourceTree = "<group>"; };
 		4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialNavigationController.swift; sourceTree = "<group>"; };
 		4CE8A00424F81BAF00AFCA5F /* InitialNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialNavigationViewController.swift; sourceTree = "<group>"; };
+		4CE8A00624F85D0000AFCA5F /* MetricsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsTableViewController.swift; sourceTree = "<group>"; };
 		4CF22AD023D9131900904BE4 /* OneHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF22AD323D9131900904BE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CF22AD523D9131900904BE4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,7 +88,6 @@
 		4CF22AFE23D93F4F00904BE4 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4CF22B0523D93FDE00904BE4 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		4CF22B2D23D940EC00904BE4 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
-		4CF22B3123D952C200904BE4 /* MetricsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsViewController.swift; sourceTree = "<group>"; };
 		4CF22B3323DA292A00904BE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4CF22B3523DA5A3F00904BE4 /* PersonalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalTableViewCell.swift; sourceTree = "<group>"; };
 		4CF22B3723DA5A5900904BE4 /* GeneralTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralTableViewCell.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 		4CF22AEC23D9372C00904BE4 /* Metrics */ = {
 			isa = PBXGroup;
 			children = (
-				4CF22B3123D952C200904BE4 /* MetricsViewController.swift */,
+				4CE8A00624F85D0000AFCA5F /* MetricsTableViewController.swift */,
 			);
 			path = Metrics;
 			sourceTree = "<group>";
@@ -410,7 +410,7 @@
 				4CF22B4C23DBD4F100904BE4 /* InfoViewController.swift in Sources */,
 				4CF22B4023DAAB5A00904BE4 /* ChangeInformationViewController.swift in Sources */,
 				4CE8A00324F774D100AFCA5F /* InitialNavigationController.swift in Sources */,
-				4CF22B3223D952C200904BE4 /* MetricsViewController.swift in Sources */,
+				4CE8A00724F85D0000AFCA5F /* MetricsTableViewController.swift in Sources */,
 				4CE89FED24F5FC2000AFCA5F /* Information.swift in Sources */,
 				4CF22B3A23DA5D2400904BE4 /* HomeViewController.swift in Sources */,
 				4CE89FFB24F7518700AFCA5F /* LongevityResourceList.swift in Sources */,

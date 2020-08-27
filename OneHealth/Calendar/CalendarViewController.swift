@@ -26,6 +26,10 @@ class CalendarViewController: UIViewController {
     var completeDate = ""
     var water = ""
     var activeCalsBurned = 0.0
+    var calsConsumed = ""
+    var hoursFasted = ""
+    var minutesMeditated = ""
+    var caloricSurplus = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -237,11 +241,23 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                     water = results[num].water ?? "water not logged"
                     print(results[num])
                     activeCalsBurned = results[num].activeCals
+                    calsConsumed = String(results[num].calsIntake) ?? "MyFitnessPal not logged" //add calsIntake to results
+                    hoursFasted = results[num].fast ?? "Fasting not logged"
+                    minutesMeditated = results[num].meditation ?? "Meditation not logged"
+                    if calsConsumed == "MyFitnessPal not logged" || calsConsumed == "0.0" {
+                        caloricSurplus = "Need MyFitnessPal data to calculate caloric surplus"
+                    } else {
+                        caloricSurplus = String(Double(activeCalsBurned) - Double(calsConsumed)!)//switch this to total cals burned
+                    }
                     break
                 }
                 if num == results.count - 1 {
-                    water =  "water not logged"
+                    water =  "Water not logged"
                     activeCalsBurned = 0.0
+                    calsConsumed = "MyFitnessPal not logged"
+                    hoursFasted = "Fasting not logged"
+                    minutesMeditated = "Meditation not logged"
+                    caloricSurplus = "Need MyFitnessPal data to calculate caloric surplus"
                 }
             }
         }
@@ -258,6 +274,10 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
             detailVC.dayMonthYear = completeDate
             detailVC.water = water
             detailVC.calsBurned = String(activeCalsBurned)
+            detailVC.calsConsumed = calsConsumed
+            detailVC.hoursFasted = hoursFasted
+            detailVC.minutesMeditated = minutesMeditated
+            detailVC.caloricSurplus = caloricSurplus
         }
     }
 }

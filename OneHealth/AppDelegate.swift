@@ -25,11 +25,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         requestNotificationPermission(application: application)
         // TODO: Setup with notification selectors in settings page
-        notificationPublisher.sendNotfication(title: "Time to exercise!", subtitle: "", body: "Tap to see your routine for today.", badge: 1, delayInterval: 24)
+        notificationPublisher.sendExerciseNotfication(title: "Time to exercise!", subtitle: "", body: "Tap to see your routine for today.", badge: 1, delayInterval: 24)
+        
+        notificationPublisher.sendDietNotfication(title: "Daily Diet Digest", subtitle: "", body: "Tap to see your diet for today.", badge: 1, delayInterval: 24)
+        
+        notificationPublisher.sendWaterNotfication1(title: "Finish First Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24)
+        
+        notificationPublisher.sendWaterNotfication2(title: "Finish Second Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24)
+        
+        notificationPublisher.sendWaterNotfication3(title: "Finish Third Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24)
+        
+        notificationPublisher.sendWeightNotification(title: "Check Your Weight!", subtitle: "", body: "Tap here to log your weight.", badge: 1, delayInterval: 168)
+        
+        
+        
+        
+        
         FirebaseApp.configure()
         authorizeHealthKitApp()
         return true
     }
+    
     
     // MARK: - Notification Stack
     

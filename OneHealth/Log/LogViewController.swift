@@ -17,12 +17,13 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     var datePicker: UIDatePicker?
     
-    var categories = ["water", "meditation", "workout", "fast", "meals", "supplements"]
+    var categories = ["water", "meditation", "fast"]
     var values = ["", "", "", "", "", ""]
     
     var categoryExectued: String!
     var dayMonthYearString: String!
     var dayMonthYearNum: String!
+    var placeHolder: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +48,6 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
         
         if results.count != 0 {
-            print("HELLO")
             print(results)
             print(results.count)
             for num in 0...results.count - 1 {
@@ -58,10 +58,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                     // viewcontroller needs to update to show that they logged something
                     values[0] = results[num].water ?? ""
                     values[1] = results[num].meditation ?? ""
-                    values[2] = results[num].workout ?? ""
                     values[3] = results[num].fast ?? ""
-                    values[4] = results[num].meals ?? ""
-                    values[5] = results[num].supplements ?? ""
                     dayMonthYearString = results[num].dateOfLog
                     dayMonthYearNum = String(num)
                     break
@@ -74,10 +71,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                     newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
                     values[0] = results[num].water ?? ""
                     values[1] = results[num].meditation ?? ""
-                    values[2] = results[num].workout ?? ""
                     values[3] = results[num].fast ?? ""
-                    values[4] = results[num].meals ?? ""
-                    values[5] = results[num].supplements ?? ""
                     dayMonthYearString = results[num].dateOfLog
                     dayMonthYearNum = String(num)
                 }
@@ -124,10 +118,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 if String(num) == dayMonthYearNum {
                     values[0] = results[num].water ?? ""
                     values[1] = results[num].meditation ?? ""
-                    values[2] = results[num].workout ?? ""
                     values[3] = results[num].fast ?? ""
-                    values[4] = results[num].meals ?? ""
-                    values[5] = results[num].supplements ?? ""
                     logTableView.reloadData()
                     dayMonthYearString = results[num].dateOfLog
                     dayMonthYearNum = String(num)
@@ -175,10 +166,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 if results[num].dateOfLog == dateFormatter.string(from: datePicker.date) {
                     values[0] = results[num].water ?? ""
                     values[1] = results[num].meditation ?? ""
-                    values[2] = results[num].workout ?? ""
                     values[3] = results[num].fast ?? ""
-                    values[4] = results[num].meals ?? ""
-                    values[5] = results[num].supplements ?? ""
                     logTableView.reloadData()
                     dayMonthYearString = results[num].dateOfLog
                     dayMonthYearNum = String(num)
@@ -193,10 +181,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                     
                     values[0] = results[num].water ?? ""
                     values[1] = results[num].meditation ?? ""
-                    values[2] = results[num].workout ?? ""
                     values[3] = results[num].fast ?? ""
-                    values[4] = results[num].meals ?? ""
-                    values[5] = results[num].supplements ?? ""
                     logTableView.reloadData()
                     dayMonthYearString = results[num].dateOfLog
                     dayMonthYearNum = String(num)
@@ -221,7 +206,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
    }
    
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return 6
+       return 3
    }
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -236,6 +221,13 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Associate business attributes with each collectionViewCell.
         categoryExectued = categories[indexPath.row]
+        if categoryExectued == "water" {
+            placeHolder = "oz drank"
+        } else if categoryExectued == "meditation" {
+            placeHolder = "minutes meditated"
+        } else {
+            placeHolder = "hours fasted"
+        }
         
         // Perform segue to instantiate a BusinessTableViewController using the previously initialized business attributes.
         self.performSegue(withIdentifier: "logSegue", sender: self)
@@ -247,6 +239,8 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
             detailVC.logDate = dayMonthYearString
             detailVC.category = categoryExectued
             detailVC.dateNum = dayMonthYearNum
+            
+            detailVC.placeholder = placeHolder
         }
     }
     
