@@ -45,7 +45,6 @@ class ChangeInformationViewController: UIViewController, UITextFieldDelegate {
         var userSex: String = ""
         var goalType: String = ""
         
-        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         

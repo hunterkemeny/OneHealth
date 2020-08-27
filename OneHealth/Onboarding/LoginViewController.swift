@@ -73,8 +73,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 } else {
                     print("Logged in successfully")
                     // User was signed in successfully. Now move on to the app tutorial.
-                    let tutorialViewController = (mainStoryboard.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController)!
-                    self.navigationController?.pushViewController(tutorialViewController, animated: true)
+                    let tabViewController = (mainStoryboard.instantiateViewController(withIdentifier: "TabViewController") as? TabViewController)!
+                    tabViewController.modalPresentationStyle = .fullScreen
+                    self.navigationController?.present(tabViewController, animated: true, completion: nil)
                 }
             }
         }
@@ -109,7 +110,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let cleanedPassword = passwordTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         if LoginViewController.isPasswordValid(cleanedPassword) == false {
             // Pasword is not secure enough.
-            return "Plase make sure your password is at least 8 characters, contains a special character and a number."
+            return "Please make sure your password is at least 8 characters, contains a special character and a number."
         }
         return nil
     }

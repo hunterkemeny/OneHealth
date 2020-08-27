@@ -1,19 +1,16 @@
 //
-//  BaseViewController.swift
+//  InitialNavigationViewController.swift
 //  OneHealth
 //
-//  Created by Hunter Kemeny on 1/22/20.
+//  Created by Hunter Kemeny on 8/27/20.
 //
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class InitialNavigationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationItem.setHidesBackButton(true, animated: false)
-        self.tabBarController?.tabBar.isHidden = true
 
         // Do any additional setup after loading the view.
     }

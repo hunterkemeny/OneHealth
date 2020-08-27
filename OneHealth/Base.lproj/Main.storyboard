@@ -736,6 +736,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="stK-uP-OC1">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                                    <connections>
+                                                        <action selector="logoutTapped:" destination="5Xg-Rr-W9C" eventType="touchUpInside" id="WuC-5j-3ZK"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kmt-db-p0S">
                                                     <rect key="frame" x="20" y="20" width="54" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -744,6 +750,12 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="stK-uP-OC1" firstAttribute="top" secondItem="nJk-np-4V2" secondAttribute="topMargin" constant="4" id="ABy-hc-0xH"/>
+                                                <constraint firstItem="stK-uP-OC1" firstAttribute="trailing" secondItem="nJk-np-4V2" secondAttribute="trailingMargin" id="GTl-kX-uPK"/>
+                                                <constraint firstItem="stK-uP-OC1" firstAttribute="leading" secondItem="nJk-np-4V2" secondAttribute="leadingMargin" id="Scc-sg-A0Q"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="stK-uP-OC1" secondAttribute="bottom" constant="4" id="Vbk-sL-ZHV"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -759,7 +771,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wl6-ra-533" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3887" y="1681"/>
+            <point key="canvasLocation" x="3886.9565217391309" y="1680.8035714285713"/>
         </scene>
         <!--ProfileTableViewController-->
         <scene sceneID="jbZ-7N-vlE">
@@ -1605,7 +1617,7 @@
         <!--LoginViewController-->
         <scene sceneID="OFe-pW-oyt">
             <objects>
-                <viewController title="LoginViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jZt-WQ-QyS" customClass="LoginViewController" customModule="OneHealth" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" title="LoginViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jZt-WQ-QyS" customClass="LoginViewController" customModule="OneHealth" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="REr-fg-8Ym">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1889,11 +1901,12 @@
             </objects>
             <point key="canvasLocation" x="1955.072463768116" y="168.75"/>
         </scene>
-        <!--InitialNav-->
+        <!--InitialNavigationController-->
         <scene sceneID="DTj-fC-8cm">
             <objects>
-                <navigationController storyboardIdentifier="InitialNav" title="InitialNav" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hCz-OY-uk3" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InitialNavigationController" title="InitialNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hCz-OY-uk3" customClass="InitialNavigationController" customModule="OneHealth" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="OVn-E5-qEo"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dUt-KF-EwP">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

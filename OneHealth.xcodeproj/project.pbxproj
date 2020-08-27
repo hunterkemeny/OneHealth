@@ -21,6 +21,8 @@
 		4CE89FFD24F751AC00AFCA5F /* MeditationResourceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE89FFC24F751AC00AFCA5F /* MeditationResourceList.swift */; };
 		4CE89FFF24F751D600AFCA5F /* SupplementResourceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE89FFE24F751D600AFCA5F /* SupplementResourceList.swift */; };
 		4CE8A00124F751EA00AFCA5F /* DNARsourceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00024F751EA00AFCA5F /* DNARsourceList.swift */; };
+		4CE8A00324F774D100AFCA5F /* InitialNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */; };
+		4CE8A00524F81BAF00AFCA5F /* InitialNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00424F81BAF00AFCA5F /* InitialNavigationViewController.swift */; };
 		4CF22AD423D9131900904BE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD323D9131900904BE4 /* AppDelegate.swift */; };
 		4CF22AD623D9131900904BE4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD523D9131900904BE4 /* SceneDelegate.swift */; };
 		4CF22ADB23D9131900904BE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CF22AD923D9131900904BE4 /* Main.storyboard */; };
@@ -67,6 +69,8 @@
 		4CE89FFC24F751AC00AFCA5F /* MeditationResourceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationResourceList.swift; sourceTree = "<group>"; };
 		4CE89FFE24F751D600AFCA5F /* SupplementResourceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementResourceList.swift; sourceTree = "<group>"; };
 		4CE8A00024F751EA00AFCA5F /* DNARsourceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNARsourceList.swift; sourceTree = "<group>"; };
+		4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialNavigationController.swift; sourceTree = "<group>"; };
+		4CE8A00424F81BAF00AFCA5F /* InitialNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialNavigationViewController.swift; sourceTree = "<group>"; };
 		4CF22AD023D9131900904BE4 /* OneHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF22AD323D9131900904BE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CF22AD523D9131900904BE4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 				4CF22AF423D937EA00904BE4 /* SignupViewController.swift */,
 				4CF22AF623D9380E00904BE4 /* TutorialViewController.swift */,
 				4CF22AF823D9381F00904BE4 /* SurveyViewController.swift */,
+				4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */,
+				4CE8A00424F81BAF00AFCA5F /* InitialNavigationViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -403,11 +409,13 @@
 				4CF22B4423DB89E700904BE4 /* CalendarViewController.swift in Sources */,
 				4CF22B4C23DBD4F100904BE4 /* InfoViewController.swift in Sources */,
 				4CF22B4023DAAB5A00904BE4 /* ChangeInformationViewController.swift in Sources */,
+				4CE8A00324F774D100AFCA5F /* InitialNavigationController.swift in Sources */,
 				4CF22B3223D952C200904BE4 /* MetricsViewController.swift in Sources */,
 				4CE89FED24F5FC2000AFCA5F /* Information.swift in Sources */,
 				4CF22B3A23DA5D2400904BE4 /* HomeViewController.swift in Sources */,
 				4CE89FFB24F7518700AFCA5F /* LongevityResourceList.swift in Sources */,
 				4CF22AF323D937DB00904BE4 /* LoginViewController.swift in Sources */,
+				4CE8A00524F81BAF00AFCA5F /* InitialNavigationViewController.swift in Sources */,
 				4CF22B3623DA5A3F00904BE4 /* PersonalTableViewCell.swift in Sources */,
 				4CE89FEB24F5F58400AFCA5F /* GeneralCollectionViewCell.swift in Sources */,
 				4CE89FF524F71C7A00AFCA5F /* NutritionResourceList.swift in Sources */,

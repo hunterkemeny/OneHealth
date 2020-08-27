@@ -131,7 +131,8 @@ class SurveyViewController: UIViewController, UITextFieldDelegate {
                 // Segue to main Tab View Controller.
                 let homeViewController = (mainStoryboard.instantiateViewController(withIdentifier: "TabViewController") as? TabViewController)!
                 homeViewController.modalPresentationStyle = .fullScreen
-                self.navigationController?.present(homeViewController, animated: true , completion: nil)
+                
+                self.navigationController?.present(homeViewController, animated: true, completion: nil)
             }
         }
     }
