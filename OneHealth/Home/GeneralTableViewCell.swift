@@ -11,10 +11,12 @@ class GeneralTableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var collectionLabel: UILabel!
+    @IBOutlet weak var generalImageView: UIImageView!
     
-    func setAttributes(category: String) {
+    func setAttributes(category: String, info: Information) {
         
         collectionLabel.text = category
+        generalImageView.image = info.icon
     }
     
 }

@@ -47,8 +47,11 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
         
         if results.count != 0 {
+            print("HELLO")
             print(results)
-            for num in 0...results.count {
+            print(results.count)
+            for num in 0...results.count - 1 {
+                print(dateFormatter.string(from: Date()) )
                 if results[num].dateOfLog == dateFormatter.string(from: Date()) {
                     // today is stored in core data
                     // If they open up the logviewcontroller for the first time, then they log something, when they press back
