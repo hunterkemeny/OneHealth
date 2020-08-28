@@ -6,13 +6,21 @@
 //
 
 import UIKit
+import Firebase
 import CoreData
+import FirebaseDatabase
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseCore
+import HealthKit
 
 class CalendarViewController: UIViewController {
 
     // TODO: Line up days with weeks
     
     @IBOutlet weak var calendarTableView: UITableView!
+    
+    var docRef: DocumentReference!
     
     var months = ["January 2019", "February 2019", "March 2019", "April 2019", "May 2019", "June 2019", "July 2019", "August 2019", "September 2019", "October 2019", "November 2019", "December 2019"]
     var monthsSinceJan2020 = 8 // implement calculation for this
@@ -25,17 +33,19 @@ class CalendarViewController: UIViewController {
     var year = ""
     var completeDate = ""
     var water = ""
-    var activeCalsBurned = 0.0
+    var activeCalsBurned = ""
     var calsConsumed = ""
     var hoursFasted = ""
     var minutesMeditated = ""
     var caloricSurplus = ""
     var weight = ""
+    var chosenDate = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         calendarTableView.delegate = self
         calendarTableView.dataSource = self
+        
         
         let day = calendar.component(.day, from: date)
         let year = calendar.component(.year, from: date)
@@ -177,7 +187,6 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
          If tapped, each cell will utilize the showBusiness segue to instantiate a unique BusinessTableViewController.
         */
         
-        
         // make day assignment dependent on the number of months in months array
         if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 1 {
             month = "02"
@@ -215,61 +224,92 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         
         completeDate = "\(month)/\(day)/\(year)"
         
-        // Check todays logs
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+        chosenDate = "\(year)-\(month)-\(day)"
+        getActiveCals(date: chosenDate)
+        print("Hello")
+        print(getActiveCals(date: chosenDate))
+        print("HI")
         
-        let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
-        request.returnsObjectsAsFaults = false
-        
-        // Fetch the "LogDate" object.
-        var results: [LogDate]
-        do {
-            try results = context.fetch(request)
-        } catch {
-            fatalError("Failure to fetch: \(error)")
-        }
-        
-        if results.count != 0 {
-            for num in 0...results.count - 1 {
-                print(results[num].dateOfLog!)
-                
-                
-                if results[num].dateOfLog! == completeDate {
-                    // today is stored in core data
-                    // If they open up the logviewcontroller for the first time, then they log something, when they press back
-                    // viewcontroller needs to update to show that they logged something
-                    water = results[num].water ?? "water not logged"
-                    print(results[num])
-                    activeCalsBurned = results[num].activeCals
-                    calsConsumed = String(results[num].calsIntake) ?? "MyFitnessPal not logged" //add calsIntake to results
-                    hoursFasted = results[num].fast ?? "Fasting not logged"
-                    minutesMeditated = results[num].meditation ?? "Meditation not logged"
-                    if results[num].weight == 0.0 {
-                        weight = "You need to log your weight!"
-                    } else {
-                        weight = String(results[num].weight)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            // Check todays logs
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
+            request.returnsObjectsAsFaults = false
+            
+            // Fetch the "LogDate" object.
+            var results: [LogDate]
+            do {
+                try results = context.fetch(request)
+            } catch {
+                fatalError("Failure to fetch: \(error)")
+            }
+            
+            if results.count != 0 {
+                for num in 0...results.count - 1 {
+                    print(results[num].dateOfLog!)
+                    
+                    
+                    if results[num].dateOfLog! == self.completeDate {
+                        // today is stored in core data
+                        // If they open up the logviewcontroller for the first time, then they log something, when they press back
+                        // viewcontroller needs to update to show that they logged something
+                        self.water = results[num].water ?? "water not logged"
+                        print(results[num])
+                        if results[num].activeCals == 0.0 {
+                            self.activeCalsBurned = "The day isn't over yet!"
+                        } else {
+                            self.activeCalsBurned = String(results[num].activeCals)
+                        }
+                        
+                        if PersonInfo.getYesterdaysCalories() == "" {
+                            self.calsConsumed = "MyFitnessPal not logged"
+                        } else {
+                            self.calsConsumed = PersonInfo.getYesterdaysCalories()
+                        }
+                        print("sheit")
+                        print(self.calsConsumed)
+                        print("boi")
+                        self.hoursFasted = results[num].fast ?? "Fasting not logged"
+                        self.minutesMeditated = results[num].meditation ?? "Meditation not logged"
+                        if results[num].weight == 0.0 {
+                            self.weight = "You need to log your weight!"
+                        } else {
+                            self.weight = String(results[num].weight)
+                        }
+                        
+                        
+                        if self.calsConsumed == "MyFitnessPal not logged" || self.calsConsumed == "0.0" || self.calsConsumed == ""{
+                            self.caloricSurplus = "Need MyFitnessPal data to calculate caloric surplus"
+                        } else {
+                            if self.activeCalsBurned == "The day isn't over yet!" {
+                                self.caloricSurplus = "Check back tomorrow when to see the today's surplus value."
+                            } else {
+                                self.caloricSurplus = String(Double(self.activeCalsBurned)! - Double(self.calsConsumed)!)//switch this to total cals burned
+                            }
+                            
+                        }
+                        
+                        
+                        
+                        break
                     }
-                    if calsConsumed == "MyFitnessPal not logged" || calsConsumed == "0.0" {
-                        caloricSurplus = "Need MyFitnessPal data to calculate caloric surplus"
-                    } else {
-                        caloricSurplus = String(Double(activeCalsBurned) - Double(calsConsumed)!)//switch this to total cals burned
+                    if num == results.count - 1 {
+                        self.water =  "Water not logged"
+                        self.activeCalsBurned = "0.0"
+                        self.calsConsumed = "MyFitnessPal not logged"
+                        self.hoursFasted = "Fasting not logged"
+                        self.minutesMeditated = "Meditation not logged"
+                        self.caloricSurplus = "Need MyFitnessPal data to calculate caloric surplus"
+                        self.weight = "You need to log your weight!"
                     }
-                    break
-                }
-                if num == results.count - 1 {
-                    water =  "Water not logged"
-                    activeCalsBurned = 0.0
-                    calsConsumed = "MyFitnessPal not logged"
-                    hoursFasted = "Fasting not logged"
-                    minutesMeditated = "Meditation not logged"
-                    caloricSurplus = "Need MyFitnessPal data to calculate caloric surplus"
-                    weight = "You need to log your weight!"
                 }
             }
+            
+            self.performSegue(withIdentifier: "DaySegue", sender: nil)
         }
         
-        performSegue(withIdentifier: "DaySegue", sender: nil)
         
     }
     
@@ -287,6 +327,46 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
             detailVC.caloricSurplus = caloricSurplus
             detailVC.weight = weight
         }
+    }
+    
+    func getActiveCals(date: String) -> String { // Need to make get selected cals, not get todays cals
+        var email: String?
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        var yesterdaysCalories: String? = ""
+        var desiredDate = ""
+        
+        /*
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let todaysDate = formatter.string(from: Date())
+        print(todaysDate)
+ */
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        //request.predicate = NSPredicate(format: "age = %@", "12")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                email = data.value(forKey: "email") as! String
+          }
+        } catch {
+            print("Failed")
+        }
+        print("YOYOY")
+        docRef = Firestore.firestore().document("myfitnesspal/\(email! ?? "")")
+        docRef.getDocument { (docSnapshot, error) in
+            print("AYY")
+            print(date)
+            guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
+            let myData = docSnapshot.data()
+            let yesterdaysCalories = myData?[date] as? String ?? ""
+            print(yesterdaysCalories)
+            PersonInfo.setYesterdaysCalories(yc: yesterdaysCalories)
+            //self.setLabels()
+        }
+        return yesterdaysCalories!
     }
 }
 
