@@ -15,10 +15,11 @@ class LogTableViewCell: UITableViewCell {
     
     func setAttributes(category: String, value: String) {
         categoryLabel.text = category
-        if value != "" {
-            valueLabel.text = "logged"
-        } else {
+        print(value)
+        if value == "" || value == "0.0" {
             valueLabel.text = "not logged"
+        } else {
+            valueLabel.text = "logged"
         }
     }
 
