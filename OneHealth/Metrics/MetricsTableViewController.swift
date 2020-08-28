@@ -25,6 +25,7 @@ class MetricsTableViewController: UITableViewController {
         super.viewDidLoad()
         if dateSlider.selectedSegmentIndex == 0 {
             activeCalsMonth()
+            
         } else if dateSlider.selectedSegmentIndex == 1 {
             activeCalsYear()
         }
@@ -61,8 +62,12 @@ class MetricsTableViewController: UITableViewController {
                    if i == -6 {
                        for num in 0...results.count - 1 {
                            if dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: i, to: noon)!) == results[num].dateOfLog {
-                               let value = ChartDataEntry(x: 1, y: results[num].activeCals)
-                               weight.append(value)
+                            if results[num].activeCals == 0.0 { //TODO: switch all implementation to this:
+                                continue
+                            } else {
+                                let value = ChartDataEntry(x: 1, y: results[num].activeCals)
+                                weight.append(value)
+                            }
                            }
                        }
                    } else if i == -5 {
@@ -76,7 +81,7 @@ class MetricsTableViewController: UITableViewController {
                        for num in 0...results.count - 1 {
                            if dateFormatter.string(from: Calendar.current.date(byAdding: .day, value: i, to: noon)!) == results[num].dateOfLog {
                                let value = ChartDataEntry(x: 3, y: results[num].activeCals)
-                               weight.append(value)
+                               //weight.append(value)
                            }
                        }
                    } else if i == -3 {

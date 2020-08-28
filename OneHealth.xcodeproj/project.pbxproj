@@ -24,6 +24,9 @@
 		4CE8A00324F774D100AFCA5F /* InitialNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */; };
 		4CE8A00524F81BAF00AFCA5F /* InitialNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00424F81BAF00AFCA5F /* InitialNavigationViewController.swift */; };
 		4CE8A00724F85D0000AFCA5F /* MetricsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00624F85D0000AFCA5F /* MetricsTableViewController.swift */; };
+		4CE8A00924F88B2300AFCA5F /* DatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CE8A00824F88B2300AFCA5F /* DatePicker.storyboard */; };
+		4CE8A00B24F88B5D00AFCA5F /* DayPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00A24F88B5D00AFCA5F /* DayPickerViewController.swift */; };
+		4CE8A00D24F8AB0000AFCA5F /* DayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00C24F8AB0000AFCA5F /* DayPicker.swift */; };
 		4CF22AD423D9131900904BE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD323D9131900904BE4 /* AppDelegate.swift */; };
 		4CF22AD623D9131900904BE4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD523D9131900904BE4 /* SceneDelegate.swift */; };
 		4CF22ADB23D9131900904BE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CF22AD923D9131900904BE4 /* Main.storyboard */; };
@@ -72,6 +75,9 @@
 		4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialNavigationController.swift; sourceTree = "<group>"; };
 		4CE8A00424F81BAF00AFCA5F /* InitialNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialNavigationViewController.swift; sourceTree = "<group>"; };
 		4CE8A00624F85D0000AFCA5F /* MetricsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsTableViewController.swift; sourceTree = "<group>"; };
+		4CE8A00824F88B2300AFCA5F /* DatePicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DatePicker.storyboard; sourceTree = "<group>"; };
+		4CE8A00A24F88B5D00AFCA5F /* DayPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPickerViewController.swift; sourceTree = "<group>"; };
+		4CE8A00C24F8AB0000AFCA5F /* DayPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPicker.swift; sourceTree = "<group>"; };
 		4CF22AD023D9131900904BE4 /* OneHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF22AD323D9131900904BE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CF22AD523D9131900904BE4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -210,6 +216,9 @@
 				4CF22B0523D93FDE00904BE4 /* LogViewController.swift */,
 				4CF22B4D23DBD8E900904BE4 /* LogTableViewCell.swift */,
 				4C4D565523DCF3810005EAC8 /* InsertInfoViewController.swift */,
+				4CE8A00824F88B2300AFCA5F /* DatePicker.storyboard */,
+				4CE8A00A24F88B5D00AFCA5F /* DayPickerViewController.swift */,
+				4CE8A00C24F8AB0000AFCA5F /* DayPicker.swift */,
 			);
 			path = Log;
 			sourceTree = "<group>";
@@ -317,6 +326,7 @@
 				4CF22B3423DA292A00904BE4 /* GoogleService-Info.plist in Resources */,
 				4CF22AE023D9131E00904BE4 /* Assets.xcassets in Resources */,
 				4CF22ADB23D9131900904BE4 /* Main.storyboard in Resources */,
+				4CE8A00924F88B2300AFCA5F /* DatePicker.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +404,7 @@
 				4CE8A00124F751EA00AFCA5F /* DNARsourceList.swift in Sources */,
 				4CE89FFF24F751D600AFCA5F /* SupplementResourceList.swift in Sources */,
 				4CE89FF324F71C4300AFCA5F /* Resource.swift in Sources */,
+				4CE8A00B24F88B5D00AFCA5F /* DayPickerViewController.swift in Sources */,
 				4CD472A523DEA0080087B132 /* NotificationPublisher.swift in Sources */,
 				4CF22B0623D93FDE00904BE4 /* LogViewController.swift in Sources */,
 				4CF22B4E23DBD8E900904BE4 /* LogTableViewCell.swift in Sources */,
@@ -407,6 +418,7 @@
 				4CF22ADE23D9131900904BE4 /* OneHealth.xcdatamodeld in Sources */,
 				4CF22AFF23D93F4F00904BE4 /* SettingsTableViewController.swift in Sources */,
 				4CF22B4423DB89E700904BE4 /* CalendarViewController.swift in Sources */,
+				4CE8A00D24F8AB0000AFCA5F /* DayPicker.swift in Sources */,
 				4CF22B4C23DBD4F100904BE4 /* InfoViewController.swift in Sources */,
 				4CF22B4023DAAB5A00904BE4 /* ChangeInformationViewController.swift in Sources */,
 				4CE8A00324F774D100AFCA5F /* InitialNavigationController.swift in Sources */,

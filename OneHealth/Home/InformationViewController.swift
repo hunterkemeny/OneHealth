@@ -109,12 +109,12 @@ class InformationViewController: UIViewController, UITableViewDataSource, UITabl
             } else if indexPath.row == 2 {
                 let cell = informationTableView.dequeueReusableCell(withIdentifier: "ResourceTableViewCell", for: indexPath) as! ResourceTableViewCell
                 // Set the attributes of the cell based on the Resource protocol.
-                cell.setAttributes(title: linksList?[2][0].title ?? "", author: linksList?[2][0].author ?? "", date: linksList?[2][0].date ?? "", image: (linksList?[2][0].icon)!)
+                cell.setAttributes(title: linksList?[2][1].title ?? "", author: linksList?[2][1].author ?? "", date: linksList?[2][1].date ?? "", image: (linksList?[2][1].icon)!)
                 return cell
             } else {
                 let cell = informationTableView.dequeueReusableCell(withIdentifier: "ResourceTableViewCell", for: indexPath) as! ResourceTableViewCell
                 // Set the attributes of the cell based on the Resource protocol.
-                cell.setAttributes(title: linksList?[2][0].title ?? "", author: linksList?[2][0].author ?? "", date: linksList?[2][0].date ?? "", image: (linksList?[2][0].icon)!)
+                cell.setAttributes(title: linksList?[2][2].title ?? "", author: linksList?[2][2].author ?? "", date: linksList?[2][2].date ?? "", image: (linksList?[2][2].icon)!)
                 return cell
             }
         } else if indexPath.section == 3 {
@@ -132,12 +132,12 @@ class InformationViewController: UIViewController, UITableViewDataSource, UITabl
             } else if indexPath.row == 2 {
                 let cell = informationTableView.dequeueReusableCell(withIdentifier: "ResourceTableViewCell", for: indexPath) as! ResourceTableViewCell
                 // Set the attributes of the cell based on the Resource protocol.
-                cell.setAttributes(title: linksList?[3][0].title ?? "", author: linksList?[3][0].author ?? "", date: linksList?[3][0].date ?? "", image: (linksList?[3][0].icon)!)
+                cell.setAttributes(title: linksList?[3][1].title ?? "", author: linksList?[3][1].author ?? "", date: linksList?[3][1].date ?? "", image: (linksList?[3][1].icon)!)
                 return cell
             } else {
                 let cell = informationTableView.dequeueReusableCell(withIdentifier: "ResourceTableViewCell", for: indexPath) as! ResourceTableViewCell
                 // Set the attributes of the cell based on the Resource protocol.
-                cell.setAttributes(title: linksList?[3][0].title ?? "", author: linksList?[3][0].author ?? "", date: linksList?[3][0].date ?? "", image: (linksList?[3][0].icon)!)
+                cell.setAttributes(title: linksList?[3][2].title ?? "", author: linksList?[3][2].author ?? "", date: linksList?[3][2].date ?? "", image: (linksList?[3][2].icon)!)
                 return cell
             }
         } else {
@@ -155,12 +155,12 @@ class InformationViewController: UIViewController, UITableViewDataSource, UITabl
             } else if indexPath.row == 2 {
                 let cell = informationTableView.dequeueReusableCell(withIdentifier: "ResourceTableViewCell", for: indexPath) as! ResourceTableViewCell
                 // Set the attributes of the cell based on the Resource protocol.
-                cell.setAttributes(title: linksList?[4][0].title ?? "", author: linksList?[4][0].author ?? "", date: linksList?[4][0].date ?? "", image: (linksList?[4][0].icon)!)
+                cell.setAttributes(title: linksList?[4][1].title ?? "", author: linksList?[4][1].author ?? "", date: linksList?[4][1].date ?? "", image: (linksList?[4][1].icon)!)
                 return cell
             } else {
                 let cell = informationTableView.dequeueReusableCell(withIdentifier: "ResourceTableViewCell", for: indexPath) as! ResourceTableViewCell
                 // Set the attributes of the cell based on the Resource protocol.
-                cell.setAttributes(title: linksList?[4][0].title ?? "", author: linksList?[4][0].author ?? "", date: linksList?[4][0].date ?? "", image: (linksList?[4][0].icon)!)
+                cell.setAttributes(title: linksList?[4][2].title ?? "", author: linksList?[4][2].author ?? "", date: linksList?[4][2].date ?? "", image: (linksList?[4][2].icon)!)
                 return cell
             }
         }

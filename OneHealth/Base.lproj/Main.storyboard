@@ -448,6 +448,47 @@
             </objects>
             <point key="canvasLocation" x="4795.652173913044" y="-563.16964285714278"/>
         </scene>
+        <!--Day Picker View Controller-->
+        <scene sceneID="O1h-z2-Npf">
+            <objects>
+                <viewController id="Ndd-AO-7N6" customClass="DayPickerViewController" customModule="OneHealth" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2sr-aC-p9s">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="9lf-YZ-btH">
+                                <rect key="frame" x="0.0" y="308" width="414" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lx9-OM-ea6">
+                                <rect key="frame" x="19" y="556" width="48" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelTouched:" destination="Ndd-AO-7N6" eventType="touchUpInside" id="rXN-wq-HMS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="54W-vx-3uc">
+                                <rect key="frame" x="349" y="556" width="44" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Select"/>
+                                <connections>
+                                    <action selector="selectTouched:" destination="Ndd-AO-7N6" eventType="touchUpInside" id="Pgb-3k-Fcz"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="G1n-zG-g6E"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="M9q-lD-5Ha"/>
+                    <connections>
+                        <outlet property="datePicker" destination="9lf-YZ-btH" id="Yf9-so-Rbn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="naW-Pf-e3w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5693" y="-25"/>
+        </scene>
         <!--LogViewController-->
         <scene sceneID="ET8-6l-feR">
             <objects>
@@ -500,36 +541,45 @@
                                     <outlet property="delegate" destination="vqh-ib-45u" id="Y8x-ip-w9T"/>
                                 </connections>
                             </tableView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pick a date" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iTS-W8-8JW">
-                                <rect key="frame" x="0.0" y="128" width="414" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on the date below to log a different date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7PH-R6-kPA">
                                 <rect key="frame" x="0.0" y="99" width="414" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CKJ-EO-DxQ">
+                                <rect key="frame" x="0.0" y="124" width="414" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="Ndd-AO-7N6" kind="show" id="Vg5-kB-ymM"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Pick a Date" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jYa-Li-Y7L">
+                                <rect key="frame" x="14" y="128" width="380" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="fee-OE-NIN" firstAttribute="leading" secondItem="vcz-cu-X6U" secondAttribute="leading" id="30h-yb-jcv"/>
-                            <constraint firstItem="fee-OE-NIN" firstAttribute="top" secondItem="iTS-W8-8JW" secondAttribute="bottom" constant="8" symbolic="YES" id="ZEi-pP-Kna"/>
+                            <constraint firstItem="fee-OE-NIN" firstAttribute="top" secondItem="jYa-Li-Y7L" secondAttribute="bottom" constant="8" id="Iga-PH-Kim"/>
+                            <constraint firstItem="jYa-Li-Y7L" firstAttribute="top" secondItem="7PH-R6-kPA" secondAttribute="bottom" constant="8" id="SPG-84-s33"/>
+                            <constraint firstItem="jYa-Li-Y7L" firstAttribute="leading" secondItem="vcz-cu-X6U" secondAttribute="leading" constant="14" id="W8O-Wp-e8v"/>
+                            <constraint firstItem="vcz-cu-X6U" firstAttribute="trailing" secondItem="jYa-Li-Y7L" secondAttribute="trailing" constant="20" id="Y9r-tU-B8E"/>
                             <constraint firstItem="7PH-R6-kPA" firstAttribute="trailing" secondItem="vcz-cu-X6U" secondAttribute="trailing" id="bvE-xh-oIE"/>
                             <constraint firstItem="fee-OE-NIN" firstAttribute="trailing" secondItem="vcz-cu-X6U" secondAttribute="trailing" id="eKB-sE-Apd"/>
                             <constraint firstItem="fee-OE-NIN" firstAttribute="bottom" secondItem="vcz-cu-X6U" secondAttribute="bottom" id="meO-Vt-W2K"/>
                             <constraint firstItem="7PH-R6-kPA" firstAttribute="top" secondItem="vcz-cu-X6U" secondAttribute="top" constant="11" id="nlK-yW-OMV"/>
                             <constraint firstItem="7PH-R6-kPA" firstAttribute="leading" secondItem="vcz-cu-X6U" secondAttribute="leading" id="vdz-8a-hcC"/>
-                            <constraint firstItem="iTS-W8-8JW" firstAttribute="top" secondItem="7PH-R6-kPA" secondAttribute="bottom" constant="8" id="xqF-6h-L2a"/>
-                            <constraint firstItem="iTS-W8-8JW" firstAttribute="leading" secondItem="vcz-cu-X6U" secondAttribute="leading" id="zj8-bJ-Oqh"/>
-                            <constraint firstItem="iTS-W8-8JW" firstAttribute="trailing" secondItem="vcz-cu-X6U" secondAttribute="trailing" id="zvm-ie-JPg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vcz-cu-X6U"/>
                     </view>
                     <navigationItem key="navigationItem" id="FTS-yA-Liq"/>
                     <connections>
-                        <outlet property="dateTextField" destination="iTS-W8-8JW" id="DOc-Xr-0az"/>
+                        <outlet property="dateButton" destination="CKJ-EO-DxQ" id="i0u-wo-1wb"/>
+                        <outlet property="dateTextField" destination="jYa-Li-Y7L" id="xtU-L3-IDo"/>
                         <outlet property="logTableView" destination="fee-OE-NIN" id="S7b-5k-T8g"/>
                         <segue destination="QB4-st-Lmm" kind="show" identifier="logSegue" id="zWn-98-FeQ"/>
                     </connections>
@@ -604,7 +654,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GPl-Kr-ijF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4807.2463768115949" y="168.75"/>
+            <point key="canvasLocation" x="5693" y="729"/>
         </scene>
         <!--InfoViewController-->
         <scene sceneID="Tll-7V-Ts3">
