@@ -121,7 +121,7 @@ class SurveyViewController: UIViewController, UITextFieldDelegate {
         }
         
         // Store values in Firestore DB.
-        db.collection("surveyInfo").document(userID!).setData(["age": age!, "sex": userSex, "weight": weight!, "height": height, "goal-type": goalType, "weight-change-goal": weightChangeGoal!, "time-to-complete": time, "num-meals": meals]) { err in
+        db.collection("surveyInfo").document(userID!).setData(["age": age!, "sex": userSex, "weight": weight!, "height": height, "goal-type": goalType, "weight-change-goal": weightChangeGoal!, "time-to-complete": time*7, "num-meals": meals]) { err in
             
             if let err = err {
                 print("Error writing document: \(err)")

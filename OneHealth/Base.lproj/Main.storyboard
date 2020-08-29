@@ -430,10 +430,10 @@
             </objects>
             <point key="canvasLocation" x="5831.884057971015" y="-1302.4553571428571"/>
         </scene>
-        <!--Item-->
+        <!--MetricsTableViewController-->
         <scene sceneID="NQo-Gv-B4W">
             <objects>
-                <tableViewController id="Cva-uz-nqj" customClass="MetricsTableViewController" customModule="OneHealth" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MetricsTableViewController" title="MetricsTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Cva-uz-nqj" customClass="MetricsTableViewController" customModule="OneHealth" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="dC3-PD-aOn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -452,8 +452,8 @@
                                                     <rect key="frame" x="94" y="14" width="226" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <segments>
-                                                        <segment title="Month"/>
-                                                        <segment title="Year"/>
+                                                        <segment title="1 Month"/>
+                                                        <segment title="3 Months"/>
                                                     </segments>
                                                     <connections>
                                                         <action selector="dateSliderTapped:" destination="Cva-uz-nqj" eventType="valueChanged" id="C1d-KZ-7IZ"/>
@@ -469,8 +469,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Predicted Weight Loss v. Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51a-YX-qs6">
-                                                    <rect key="frame" x="20" y="19" width="231" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Predicted Weight Loss/gain v. Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="51a-YX-qs6">
+                                                    <rect key="frame" x="20" y="19" width="269" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -544,9 +544,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lwc-b2-Zn1">
-                                                    <rect key="frame" x="345" y="18" width="49" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lwc-b2-Zn1">
+                                                    <rect key="frame" x="343" y="18" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="weightSwitched:" destination="Cva-uz-nqj" eventType="valueChanged" id="MVp-mm-ur5"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgD-Ja-aO5">
                                                     <rect key="frame" x="20" y="23" width="54" height="21"/>
@@ -556,6 +558,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Lwc-b2-Zn1" secondAttribute="bottom" constant="6" id="0mE-VW-96f"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Lwc-b2-Zn1" secondAttribute="trailing" constant="2" id="E1x-8g-uQ3"/>
+                                                <constraint firstItem="Lwc-b2-Zn1" firstAttribute="top" secondItem="aIc-4I-U5I" secondAttribute="topMargin" constant="7" id="KSq-pU-53S"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="66" id="Rt5-td-jBZ">
@@ -565,10 +572,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="REp-eo-MbK">
-                                                    <rect key="frame" x="345" y="18" width="49" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Calories Burned" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXg-yE-SAj">
                                                     <rect key="frame" x="20" y="23" width="122" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -576,7 +579,18 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a6C-za-8qL">
+                                                    <rect key="frame" x="343" y="18" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="burnedSwitch:" destination="Cva-uz-nqj" eventType="valueChanged" id="qJY-PY-MbH"/>
+                                                    </connections>
+                                                </switch>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="a6C-za-8qL" secondAttribute="trailing" constant="2" id="Gs5-ib-QR5"/>
+                                                <constraint firstItem="a6C-za-8qL" firstAttribute="top" secondItem="wZa-Hf-mjg" secondAttribute="topMargin" constant="7" id="k6H-OF-1g9"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="a6C-za-8qL" secondAttribute="bottom" constant="6" id="uFI-wV-8SR"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="66" id="cLV-4r-M8Z">
@@ -586,9 +600,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gT9-wB-ddy">
-                                                    <rect key="frame" x="345" y="18" width="49" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gT9-wB-ddy">
+                                                    <rect key="frame" x="343" y="18" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="consumedSwitch:" destination="Cva-uz-nqj" eventType="valueChanged" id="CiK-dj-KEQ"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Calories Consumed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kf6-g0-vfR">
                                                     <rect key="frame" x="20" y="23" width="150" height="21"/>
@@ -598,6 +614,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="gT9-wB-ddy" secondAttribute="trailing" constant="2" id="8eK-KT-4qc"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gT9-wB-ddy" secondAttribute="bottom" constant="6" id="RdA-C3-Xw0"/>
+                                                <constraint firstItem="gT9-wB-ddy" firstAttribute="top" secondItem="abf-JX-8vB" secondAttribute="topMargin" constant="7" id="Vzl-bO-tCN"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -611,12 +632,16 @@
                     <tabBarItem key="tabBarItem" title="Item" id="O91-Ab-AZX"/>
                     <connections>
                         <outlet property="activeCalsView" destination="2wD-ki-cyE" id="tQd-yJ-7vL"/>
+                        <outlet property="burnedSwitch" destination="a6C-za-8qL" id="z9J-kz-e5b"/>
+                        <outlet property="consumedSwitch" destination="gT9-wB-ddy" id="cOE-i2-3ma"/>
                         <outlet property="dateSlider" destination="M2J-z8-WFv" id="JZt-KI-7Sx"/>
+                        <outlet property="predictWeightView" destination="KfJ-Jm-2ar" id="GoF-Ev-0VZ"/>
+                        <outlet property="weightSwitch" destination="Lwc-b2-Zn1" id="hQ6-Be-FWB"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2eX-LL-PUD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4795.652173913044" y="-563.16964285714278"/>
+            <point key="canvasLocation" x="2977" y="-513"/>
         </scene>
         <!--Day Picker View Controller-->
         <scene sceneID="O1h-z2-Npf">
@@ -657,7 +682,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="naW-Pf-e3w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5693" y="-25"/>
+            <point key="canvasLocation" x="4806" y="-533"/>
         </scene>
         <!--LogViewController-->
         <scene sceneID="ET8-6l-feR">
@@ -824,7 +849,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GPl-Kr-ijF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5693" y="729"/>
+            <point key="canvasLocation" x="4806" y="224"/>
         </scene>
         <!--InfoViewController-->
         <scene sceneID="Tll-7V-Ts3">
@@ -1452,8 +1477,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weeks to goal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4r-2n-zKD">
-                                                    <rect key="frame" x="20" y="11" width="108" height="21.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Days to goal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4r-2n-zKD">
+                                                    <rect key="frame" x="20" y="11" width="94.5" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

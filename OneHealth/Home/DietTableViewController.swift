@@ -172,25 +172,26 @@ class DietTableViewController: UITableViewController {
     func calculateIntake() {
         formatter.dateFormat = "yyyy-MM-dd"
         var day = getDayOfWeek(formatter.string(from: Date()))
-        if day == 1 || day == 7 {
-            calorieDeltaPerDay += 400
-        } else {
-            calorieDeltaPerDay -= 175
-        }
+        
         var intake:Double = 0.0
         if PersonInfo.getWeightStatus() == 0 {
             intake = PersonInfo.getMaintenence() + (constantExercise)
         }
         if PersonInfo.getWeightStatus() == 1 {
+            
             intake = PersonInfo.getMaintenence() + (constantExercise) + (calorieDeltaPerDay)
-        }
-        if PersonInfo.getWeightStatus() == -1 {
-            intake = PersonInfo.getMaintenence() + (constantExercise) - (calorieDeltaPerDay)
-            print("YO")
             print(PersonInfo.getMaintenence())
             print(constantExercise)
             print(calorieDeltaPerDay)
-            print("DONE")
+        }
+        if PersonInfo.getWeightStatus() == -1 {
+            if day == 1 || day == 7 {
+                calorieDeltaPerDay += 400
+            } else {
+                calorieDeltaPerDay -= 175
+            }
+            intake = PersonInfo.getMaintenence() + (constantExercise) - (calorieDeltaPerDay)
+            
         }
         eatCalLabel.text = "And consume \(Int(intake)) calories today."
     }
@@ -198,13 +199,13 @@ class DietTableViewController: UITableViewController {
     func calculateTotalBurn(){
         var exercise:Double = 0.0
         if PersonInfo.getWeightStatus() == 0 {
-            exercise = PersonInfo.getMaintenence() + (constantIntake)
+            exercise = PersonInfo.getMaintenence() + constantExercise
         }
         if PersonInfo.getWeightStatus() == 1 {
-            exercise = PersonInfo.getMaintenence() + (constantIntake) - (calorieDeltaPerDay)
+            exercise = PersonInfo.getMaintenence() + constantExercise
         }
         if PersonInfo.getWeightStatus() == -1 {
-            exercise = PersonInfo.getMaintenence() + (constantIntake) + (calorieDeltaPerDay)
+            exercise = PersonInfo.getMaintenence() + constantExercise + (calorieDeltaPerDay)
         }
         print(PersonInfo.getMaintenence())
                
@@ -216,7 +217,9 @@ class DietTableViewController: UITableViewController {
         print(PersonInfo.getWeightStatus())
         print("ADFADSF")
         if PersonInfo.getWeightStatus() == 1 {
-            calorieDelta = abs(3555 * (PersonInfo.getWeight()+PersonInfo.getDesiredWeight()))
+            print(PersonInfo.getWeight())
+            print(PersonInfo.getDesiredWeight())
+            calorieDelta = abs(3555 * (PersonInfo.getDesiredWeight() - PersonInfo.getWeight()))
         }
         if PersonInfo.getWeightStatus() == -1 {
             calorieDelta = abs(3555 * (PersonInfo.getWeight()-PersonInfo.getDesiredWeight()))

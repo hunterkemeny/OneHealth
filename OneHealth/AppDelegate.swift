@@ -35,16 +35,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         notificationPublisher.sendWaterNotfication3(title: "Finish Third Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24)
         
-        notificationPublisher.sendWeightNotification(title: "Check Your Weight!", subtitle: "", body: "Tap here to log your weight.", badge: 1, delayInterval: 168)
-        
-        
-        
+        notificationPublisher.sendWeightNotification(title: "Check Your Weight!", subtitle: "", body: "Tap to log your weight.", badge: 1, delayInterval: 168)
         
         
         FirebaseApp.configure()
         authorizeHealthKitApp()
         return true
     }
+
     
     
     // MARK: - Notification Stack

@@ -137,7 +137,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                         values[2] = DayPicker.getMeditation()
                         values[3] = DayPicker.getFast()
                         logTableView.reloadData()
-                        dayMonthYearString = results[num].dateOfLog
+                        dayMonthYearString = DayPicker.getStringDate()
                         dayMonthYearNum = String(num)
                         break
                     }

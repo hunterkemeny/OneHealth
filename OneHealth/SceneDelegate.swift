@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             if(UserDefaults.standard.value(forKey: "email") as? String) == nil {
-                window.rootViewController = storyboard.instantiateViewController(withIdentifier: "InitialNav")
+                window.rootViewController = storyboard.instantiateViewController(withIdentifier: "InitialNavigationController")
             } else {
                 window.rootViewController = storyboard.instantiateInitialViewController()
             }
