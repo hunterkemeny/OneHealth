@@ -107,7 +107,7 @@ class SurveyViewController: UIViewController, UITextFieldDelegate {
         results[0].setValue(age, forKey: "age")
         results[0].setValue(userSex, forKey: "sex")
         results[0].setValue(goalType, forKey: "goalType")
-        results[0].setValue(String(Int(time)), forKey: "weeksToComplete")
+        results[0].setValue(String(Int(time*7)), forKey: "weeksToComplete")
         results[0].setValue(height, forKey: "height")
         results[0].setValue(weight, forKey: "weight")
         results[0].setValue(weightChangeGoal, forKey: "weightGoal")

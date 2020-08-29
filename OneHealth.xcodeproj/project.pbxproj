@@ -28,6 +28,8 @@
 		4CE8A00B24F88B5D00AFCA5F /* DayPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00A24F88B5D00AFCA5F /* DayPickerViewController.swift */; };
 		4CE8A00D24F8AB0000AFCA5F /* DayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00C24F8AB0000AFCA5F /* DayPicker.swift */; };
 		4CE8A00F24F9852500AFCA5F /* PersonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */; };
+		4CE8A01124F9A44000AFCA5F /* DietTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A01024F9A44000AFCA5F /* DietTableViewController.swift */; };
+		4CE8A01324F9A44A00AFCA5F /* WorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A01224F9A44A00AFCA5F /* WorkoutTableViewController.swift */; };
 		4CF22AD423D9131900904BE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD323D9131900904BE4 /* AppDelegate.swift */; };
 		4CF22AD623D9131900904BE4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD523D9131900904BE4 /* SceneDelegate.swift */; };
 		4CF22ADB23D9131900904BE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CF22AD923D9131900904BE4 /* Main.storyboard */; };
@@ -80,6 +82,8 @@
 		4CE8A00A24F88B5D00AFCA5F /* DayPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPickerViewController.swift; sourceTree = "<group>"; };
 		4CE8A00C24F8AB0000AFCA5F /* DayPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPicker.swift; sourceTree = "<group>"; };
 		4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonInfo.swift; sourceTree = "<group>"; };
+		4CE8A01024F9A44000AFCA5F /* DietTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietTableViewController.swift; sourceTree = "<group>"; };
+		4CE8A01224F9A44A00AFCA5F /* WorkoutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewController.swift; sourceTree = "<group>"; };
 		4CF22AD023D9131900904BE4 /* OneHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF22AD323D9131900904BE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CF22AD523D9131900904BE4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -200,6 +204,8 @@
 				4CE89FEA24F5F58300AFCA5F /* GeneralCollectionViewCell.swift */,
 				4CE89FF624F7297800AFCA5F /* InformationViewController.swift */,
 				4CE89FF824F730DA00AFCA5F /* ResourceTableViewCell.swift */,
+				4CE8A01024F9A44000AFCA5F /* DietTableViewController.swift */,
+				4CE8A01224F9A44A00AFCA5F /* WorkoutTableViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -422,6 +428,8 @@
 				4CF22AFF23D93F4F00904BE4 /* SettingsTableViewController.swift in Sources */,
 				4CF22B4423DB89E700904BE4 /* CalendarViewController.swift in Sources */,
 				4CE8A00D24F8AB0000AFCA5F /* DayPicker.swift in Sources */,
+				4CE8A01124F9A44000AFCA5F /* DietTableViewController.swift in Sources */,
+				4CE8A01324F9A44A00AFCA5F /* WorkoutTableViewController.swift in Sources */,
 				4CF22B4C23DBD4F100904BE4 /* InfoViewController.swift in Sources */,
 				4CF22B4023DAAB5A00904BE4 /* ChangeInformationViewController.swift in Sources */,
 				4CE8A00324F774D100AFCA5F /* InitialNavigationController.swift in Sources */,

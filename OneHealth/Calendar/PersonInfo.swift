@@ -16,7 +16,7 @@ class PersonInfo
     static var age: Int = 0
     static var weightStatus: Int = 0 //-1 for lose, 0 for maintain, 1 for gain
     static var timeToCompleteGoal: Int = 0 //IN DAYS
-    static var BMR: Double = 0.0
+    static var maintenence: Double = 0.0
     static var dailyCalorieDelta:Double = 0.0
     static var email: String?
     static var averageCaloriesBurnedLastWeek: Double = 0.0
@@ -85,12 +85,12 @@ class PersonInfo
         return timeToCompleteGoal
     }
     
-    static func setBMR(b: Double){
-        BMR = b
+    static func setMaintenence(m: Double){
+        maintenence = m
     }
     
-    static func getBMR()->Double{
-        return BMR
+    static func getMaintenence()->Double{
+        return maintenence
     }
     
     static func setDesiredWeight(dw: Int){

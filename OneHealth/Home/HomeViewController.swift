@@ -23,6 +23,8 @@ class HomeViewController: UIViewController {
     
     
     var showInfo = "ShowInformation"
+    var dietSegue = "DietSegue"
+    var workoutSegue = "WorkoutSegue"
     
     var infoImage: UIImage!
     
@@ -124,7 +126,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 4 {
+        if indexPath.row == 1 {
+            performSegue(withIdentifier: dietSegue, sender: nil)
+        } else if indexPath.row == 2 {
+            performSegue(withIdentifier: workoutSegue, sender: nil)
+        } else if indexPath.row == 4 {
             resourceList = nutritionList
             performSegue(withIdentifier: showInfo, sender: nil)
         } else if indexPath.row == 5 {
