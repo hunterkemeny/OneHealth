@@ -19,12 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let healthKitStore = HKHealthStore()
     private let notificationPublisher = NotificationPublisher()
-
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         requestNotificationPermission(application: application)
-        // TODO: Setup with notification selectors in settings page
         notificationPublisher.sendExerciseNotfication(title: "Time to exercise!", subtitle: "", body: "Tap to see your routine for today.", badge: 1, delayInterval: 24)
         
         notificationPublisher.sendDietNotfication(title: "Daily Diet Digest", subtitle: "", body: "Tap to see your diet for today.", badge: 1, delayInterval: 24)
