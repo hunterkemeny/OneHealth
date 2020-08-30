@@ -175,6 +175,7 @@
 		4CF22AEA23D9370600904BE4 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */,
 				4CF22AF023D937C000904BE4 /* BaseViewController.swift */,
 				4CF22AF223D937DB00904BE4 /* LoginViewController.swift */,
 				4CF22AF423D937EA00904BE4 /* SignupViewController.swift */,
@@ -238,7 +239,6 @@
 				4CF22B4523DB9CA800904BE4 /* MonthTableViewCell.swift */,
 				4CF22B4923DBA18000904BE4 /* DayCollectionViewCell.swift */,
 				4CF22B4B23DBD4F000904BE4 /* InfoViewController.swift */,
-				4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";

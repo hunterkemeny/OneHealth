@@ -49,51 +49,51 @@ class DietTableViewController: UITableViewController {
     
             //AGE
             let age = myData?["age"] as? String ?? ""
-            PersonInfo.setAge(a: Int(age) ?? 0)
+            PersonInfo.setAge(age: Int(age) ?? 0)
             
             //WEIGHT STATUS
             let weight_status = myData?["goal-type"] as? String ?? ""
             if weight_status == "lose" {
-                PersonInfo.setWeightStatus(sw: -1)
+                PersonInfo.setGainLoseMaintain(gainLoseMaintain: -1)
             } else {
-                PersonInfo.setWeightStatus(sw: 1)
+                PersonInfo.setGainLoseMaintain(gainLoseMaintain: 1)
             }
             print("HEEHEHEE")
-            print(PersonInfo.getWeightStatus())
+            print(PersonInfo.getGainLoseMaintain())
             
             //HEIGHT
             let height = myData?["height"] as? String ?? ""
-            PersonInfo.setHeight(h: Int(height) ?? 0)
+            PersonInfo.setHeight(height: Int(height) ?? 0)
             
             //SEX
             let sex = myData?["sex"] as? String ?? ""
             if sex == "Male" {
-                PersonInfo.setSex(s: 1)
+                PersonInfo.setSex(sex: 1)
             } else {
-                PersonInfo.setSex(s: 0)
+                PersonInfo.setSex(sex: 0)
             }
                 
             //WEIGHT
             let weight = myData?["weight"] as? String ?? ""
             print("Weight: \(weight)")
-            PersonInfo.setWeight(w: Int(weight) ?? 0)
+            PersonInfo.setWeight(weight: Int(weight) ?? 0)
                 
             //WEIGHT CHANGE GOAL
             let weightChangeGoal = myData?["weight-change-goal"] as? String ?? ""
             var desiredWeight = 0
-            if PersonInfo.getWeightStatus() == -1 {
+            if PersonInfo.getGainLoseMaintain() == -1 {
                 desiredWeight = PersonInfo.getWeight() - (Int(weightChangeGoal) ?? 0)
             } else {
                 desiredWeight = PersonInfo.getWeight() + (Int(weightChangeGoal) ?? 0)
             }
-            PersonInfo.setDesiredWeight(dw: desiredWeight)
+            PersonInfo.setDesiredWeight(desiredWeight: desiredWeight)
             
             //TIME TO COMPLETE GOAL
             var doubleTime = myData?["time-to-complete"] as? Double
             var time = Int(doubleTime!)
             print(myData?["time-to-complete"])
             print("Time: \(Double(time))")
-            PersonInfo.setTimetoCompleteGoal(t: time)
+            PersonInfo.setDaysToCompleteGoal(daysToCompleteGoal: time)
             
             self.calculateMaintenence()
             self.calculateCalorieDeltaPerDay()
@@ -106,21 +106,21 @@ class DietTableViewController: UITableViewController {
     }
     
     func LorG(days: Int?) {
-        if PersonInfo.weightStatus == -1 {
+        if PersonInfo.gainLoseMaintain == -1 {
             GainLossLabel.text = "You need be at a caloric deficit of about \(setCalLabel()) calories per week in order to meet your goal in \(days!/7) weeks"
         }
         
-        if PersonInfo.weightStatus == 1 {
+        if PersonInfo.gainLoseMaintain == 1 {
             GainLossLabel.text = "You need be at a caloric surplus of about \(setCalLabel()) calories per week in order to meet your goal in \(days!/7) weeks"
         }
         
-        if PersonInfo.weightStatus == 0 {
+        if PersonInfo.gainLoseMaintain == 0 {
             GainLossLabel.text = "You do not need to be at a caloric deficit or surplus."
         }
     }
     
     func setCalLabel() -> Int{
-        if (PersonInfo.weightStatus != 0) {
+        if (PersonInfo.gainLoseMaintain != 0) {
             print(calorieDeltaPerDay)
             return Int(calorieDeltaPerDay) * 7
         } else {
@@ -143,7 +143,7 @@ class DietTableViewController: UITableViewController {
             BMR -= 161
             maintenence = BMR + 450
         }
-        PersonInfo.setMaintenence(m: maintenence)
+        PersonInfo.setMaintenence(maintenence: maintenence)
     }
     
     var constantExercise: Double = 0.0
@@ -174,17 +174,17 @@ class DietTableViewController: UITableViewController {
         var day = getDayOfWeek(formatter.string(from: Date()))
         
         var intake:Double = 0.0
-        if PersonInfo.getWeightStatus() == 0 {
+        if PersonInfo.getGainLoseMaintain() == 0 {
             intake = PersonInfo.getMaintenence() + (constantExercise)
         }
-        if PersonInfo.getWeightStatus() == 1 {
+        if PersonInfo.getGainLoseMaintain() == 1 {
             
             intake = PersonInfo.getMaintenence() + (constantExercise) + (calorieDeltaPerDay)
             print(PersonInfo.getMaintenence())
             print(constantExercise)
             print(calorieDeltaPerDay)
         }
-        if PersonInfo.getWeightStatus() == -1 {
+        if PersonInfo.getGainLoseMaintain() == -1 {
             if day == 1 || day == 7 {
                 calorieDeltaPerDay += 400
             } else {
@@ -198,13 +198,13 @@ class DietTableViewController: UITableViewController {
     
     func calculateTotalBurn(){
         var exercise:Double = 0.0
-        if PersonInfo.getWeightStatus() == 0 {
+        if PersonInfo.getGainLoseMaintain() == 0 {
             exercise = PersonInfo.getMaintenence() + constantExercise
         }
-        if PersonInfo.getWeightStatus() == 1 {
+        if PersonInfo.getGainLoseMaintain() == 1 {
             exercise = PersonInfo.getMaintenence() + constantExercise
         }
-        if PersonInfo.getWeightStatus() == -1 {
+        if PersonInfo.getGainLoseMaintain() == -1 {
             exercise = PersonInfo.getMaintenence() + constantExercise + (calorieDeltaPerDay)
         }
         print(PersonInfo.getMaintenence())
@@ -214,21 +214,21 @@ class DietTableViewController: UITableViewController {
     
     func calculateCalorieDeltaPerDay() {
         var calorieDelta = 0
-        print(PersonInfo.getWeightStatus())
+        print(PersonInfo.getGainLoseMaintain())
         print("ADFADSF")
-        if PersonInfo.getWeightStatus() == 1 {
+        if PersonInfo.getGainLoseMaintain() == 1 {
             print(PersonInfo.getWeight())
             print(PersonInfo.getDesiredWeight())
             calorieDelta = abs(3555 * (PersonInfo.getDesiredWeight() - PersonInfo.getWeight()))
         }
-        if PersonInfo.getWeightStatus() == -1 {
+        if PersonInfo.getGainLoseMaintain() == -1 {
             calorieDelta = abs(3555 * (PersonInfo.getWeight()-PersonInfo.getDesiredWeight()))
         }
         
         print("Calorie Delta \(calorieDelta)")
-        calorieDeltaPerDay = Double(calorieDelta)/Double(PersonInfo.getTimetoCompleteGoal())
+        calorieDeltaPerDay = Double(calorieDelta)/Double(PersonInfo.getDaystoCompleteGoal())
         print("Calorie Delta per day \(calorieDeltaPerDay)")
-        PersonInfo.setDelta(c: calorieDeltaPerDay)
+        PersonInfo.setDelta(dailyCalorieDelta: calorieDeltaPerDay)
     }
     
     func setWaterLabel() {

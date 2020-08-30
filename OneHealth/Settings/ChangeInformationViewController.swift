@@ -16,43 +16,70 @@ import FirebaseCore
 
 class ChangeInformationViewController: UIViewController, UITextFieldDelegate {
     
+    // MARK: - IBOutlets
+    
     @IBOutlet weak var sexSwitch: UISegmentedControl!
     @IBOutlet weak var goalTypeSwitch: UISegmentedControl!
     @IBOutlet weak var currentWeightTextField: UITextField!
     @IBOutlet weak var weightGoalTextField: UITextField!
     @IBOutlet weak var weeksTextField: UITextField!
-    @IBOutlet weak var mealsTextField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
     
-    var db: Firestore!
-    let userID:String? = Auth.auth().currentUser?.uid
+    // MARK: - Properties
     
+    var database: Firestore!
+    let userID: String? = Auth.auth().currentUser?.uid
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupElements()
-        db = Firestore.firestore()
+        
+        // Initialize reference to Firestore database.
+        database = Firestore.firestore()
+        
+        // Make error label transluscent until an error is thrown.
+        errorLabel.alpha = 0
         
         currentWeightTextField.delegate = self
         weightGoalTextField.delegate = self
         weeksTextField.delegate = self
-        mealsTextField.delegate = self
     }
     
+    // MARK: - Helper functions
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // Enable functionality for return key.
+        currentWeightTextField.resignFirstResponder()
+        weightGoalTextField.resignFirstResponder()
+        weeksTextField.resignFirstResponder()
+        return true
+    }
+    
+    //TODO: If they enter a numerical value for a string text field or vice versa, show Error.
+
+    func showError(_ message : String)  {
+        errorLabel.text! = message
+        errorLabel.alpha = 1
+    }
+    
+    func writeData(data: String) {
+        // Write data to the Firestore Database. Print error in the console.
+        database.collection("userInfo").document(userID!).setData(["sex": data], merge:true) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written!")
+            }
+        }
+    }
+    
+    // MARK: - Methods
+    
     @IBAction func updateTouched(_ sender: Any) {
-        
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        
-        // Store values for segmented controls.
-        var userSex: String = ""
-        var goalType: String = ""
-        
+        // Update data in Core Data as well as in the Firestore Database.
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        
         let request: NSFetchRequest<User> = User.fetchRequest()
         request.returnsObjectsAsFaults = false
-        
         // Fetch the "User" object.
         var results: [User]
         do {
@@ -61,79 +88,57 @@ class ChangeInformationViewController: UIViewController, UITextFieldDelegate {
             fatalError("Failure to fetch: \(error)")
         }
         
+        // Declare variables for segmented controls.
+        var userSex: String = ""
+        var goalType: String = ""
+        
+        // Update sex in Core Data, Firestore Database and PersonInfo.
         if sexSwitch.selectedSegmentIndex == 0 {
             userSex = "Male"
+            PersonInfo.setSex(sex: 1)
         } else {
             userSex = "Female"
+            PersonInfo.setSex(sex: 0)
         }
         results[0].setValue(userSex, forKey: "sex")
-        db.collection("userInfo").document(userID!).setData(["sex": userSex], merge:true) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document successfully written!")
-            }
-        }
+        writeData(data: userSex)
         
+        // Update goal type in Core Data, PersonInfo in Firestore Database.
         if goalTypeSwitch.selectedSegmentIndex == 0 {
             goalType = "gain"
+            PersonInfo.setGainLoseMaintain(gainLoseMaintain: 1)
         } else if goalTypeSwitch.selectedSegmentIndex == 1 {
             goalType = "lose"
+            PersonInfo.setGainLoseMaintain(gainLoseMaintain: -1)
         } else {
             goalType = "maintain"
+            PersonInfo.setGainLoseMaintain(gainLoseMaintain: 0)
         }
         results[0].setValue(goalType, forKey: "goalType")
-        db.collection("userInfo").document(userID!).setData(["goal-type": goalType], merge:true) { err in
-            if let err = err {
-                print("Error writing document: \(err)")
-            } else {
-                print("Document successfully written!")
-            }
-        }
+        writeData(data: goalType)
         
+        // Update desired number of weeks until goal is achieved in Core Data and Firestore Database.
+        
+        // TODO: Change results to have days instead of weeks to complete goal?
         if weeksTextField.text != "" {
+            let daysToCompleteGoal = Int(weeksTextField.text!)!*7
             results[0].setValue(weeksTextField.text, forKey: "weeksToComplete")
-            db.collection("userInfo").document(userID!).setData(["time-to-complete": weeksTextField.text!], merge:true) { err in
-                if let err = err {
-                    print("Error writing document: \(err)")
-                } else {
-                    print("Document successfully written!")
-                }
-            }
+            writeData(data: String(daysToCompleteGoal))
+            PersonInfo.setDaysToCompleteGoal(daysToCompleteGoal: daysToCompleteGoal)
         }
         
+        // Update weight goal in Core Data and Firestore Database.
         if weightGoalTextField.text != "" {
             results[0].setValue(weightGoalTextField.text, forKey: "weightGoal")
-            db.collection("userInfo").document(userID!).setData(["weight-change-goal": weightGoalTextField.text!], merge:true) { err in
-                if let err = err {
-                    print("Error writing document: \(err)")
-                } else {
-                    print("Document successfully written!")
-                }
-            }
+            writeData(data: weightGoalTextField.text!)
+            PersonInfo.setDesiredWeight(desiredWeight: Int(weightGoalTextField.text!)!)
         }
         
+        // Update current weight in Core Data and Firestore Database.
         if currentWeightTextField.text != "" {
             results[0].setValue(currentWeightTextField.text, forKey: "weight")
-            //ProfileTableViewController.currentWeightLabel.text = results[0].weight
-            db.collection("userInfo").document(userID!).setData(["weight": currentWeightTextField.text!], merge:true) { err in
-                if let err = err {
-                    print("Error writing document: \(err)")
-                } else {
-                    print("Document successfully written!")
-                }
-            }
-        }
-        
-        if mealsTextField.text != "" {
-            results[0].setValue(mealsTextField.text, forKey: "meals")
-            db.collection("userInfo").document(userID!).setData(["num-meals": mealsTextField.text!], merge:true) { err in
-                if let err = err {
-                    print("Error writing document: \(err)")
-                } else {
-                    print("Document successfully written!")
-                }
-            }
+            writeData(data: currentWeightTextField.text!)
+            PersonInfo.setWeight(weight: Int(currentWeightTextField.text!)!)
         }
         
         do {
@@ -144,40 +149,16 @@ class ChangeInformationViewController: UIViewController, UITextFieldDelegate {
             fatalError("Failure to save context: \(error)")
         }
         
+        // After data is updated, pop current view controller and move back to Settings TableView Controller.
         let controllers = self.navigationController?.viewControllers
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { // Change `2.0` to the desired number of seconds.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
            for vc in controllers! {
               if vc is SettingsTableViewController {
                 _ = self.navigationController?.popToViewController(vc as! SettingsTableViewController, animated: true)
               }
            }
         }
-        
-        
-        //self.navigationController?.popViewController(animated: false)
-
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // Enable functionality for return key.
-        
-        currentWeightTextField.resignFirstResponder()
-        weightGoalTextField.resignFirstResponder()
-        weeksTextField.resignFirstResponder()
-        mealsTextField.resignFirstResponder()
-        return true
-    }
-    
-    //TODO: If they enter a numerical value for a string text field or vice versa, show Error.
-    
-    func setupElements() {
-        errorLabel.alpha = 0
-    }
-    
-    func showError(_ message : String)  {
-        errorLabel.text! = message
-        errorLabel.alpha = 1
-    }
 
 }

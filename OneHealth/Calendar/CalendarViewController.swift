@@ -263,10 +263,10 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                             self.activeCalsBurned = String(results[num].activeCals)
                         }
                         
-                        if PersonInfo.getYesterdaysCalories() == "" {
+                        if PersonInfo.getYesterdaysCaloriesConsumed() == "" {
                             self.calsConsumed = "MyFitnessPal not logged"
                         } else {
-                            self.calsConsumed = PersonInfo.getYesterdaysCalories()
+                            self.calsConsumed = PersonInfo.getYesterdaysCaloriesConsumed()
                         }
                         print("sheit")
                         print(self.calsConsumed)
@@ -363,7 +363,7 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
             let myData = docSnapshot.data()
             let yesterdaysCalories = myData?[date] as? String ?? ""
             print(yesterdaysCalories)
-            PersonInfo.setYesterdaysCalories(yc: yesterdaysCalories)
+            PersonInfo.setYesterdaysCaloriesConsumed(yesterdaysCaloriesConsumed: yesterdaysCalories)
             //self.setLabels()
         }
         return yesterdaysCalories!

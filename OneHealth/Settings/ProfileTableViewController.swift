@@ -10,7 +10,7 @@ import CoreData
 
 class ProfileTableViewController: UITableViewController {
     
-    // TODO: Immediately display changes made in change information. 
+    // MARK: - IBOutlets
     
     @IBOutlet weak var sexLabel: UILabel!
     @IBOutlet weak var ageLabel: UILabel!
@@ -41,8 +41,7 @@ class ProfileTableViewController: UITableViewController {
             fatalError("Failure to fetch: \(error)")
         }
         
-        print(results)
-        
+        // Fill all labels with User information.
         nameLabel.text = results[0].firstName
         emailLabel.text = results[0].email
         ageLabel.text = results[0].age
@@ -53,7 +52,6 @@ class ProfileTableViewController: UITableViewController {
         weightGoalLabel.text = results[0].weightGoal
         weeksLabel.text = results[0].weeksToComplete
         mealsLabel.text = results[0].meals
-        viewWillAppear(true)
     }
     
 

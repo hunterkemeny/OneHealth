@@ -10,18 +10,19 @@ import Firebase
 
 class SettingsTableViewController: UITableViewController {
 
+    // MARK: - Properties
+    
+    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-    
-    
     @IBAction func logoutTapped(_ sender: Any) {
         do {
+            // Execute Firebase Signout.
             try Auth.auth().signOut()
-            //let baseViewController = (mainStoryboard.instantiateViewController(withIdentifier: "BaseViewController") as? BaseViewController)!
-            //baseViewController.modalPresentationStyle = .fullScreen
+            // Modally present the Base View Controller through the Initial Navigation Controller.
             let initialViewController = (mainStoryboard.instantiateViewController(withIdentifier: "InitialNavigationController") as? InitialNavigationController)!
             initialViewController.modalPresentationStyle = .fullScreen
             self.navigationController?.present(initialViewController, animated: true, completion: nil)
@@ -29,5 +30,4 @@ class SettingsTableViewController: UITableViewController {
             print(error)
         }
     }
-    
 }
