@@ -8,58 +8,15 @@
 import Foundation
 
 class DayPicker {
-    static var date: Date?
-    static var stringDate: String? = ""
-    static var weight: Double? = 0.0
-    static var water: String? = ""
-    static var meditation: String? = ""
-    static var fast: String? = ""
+    // MARK: - Property
+    static var dayMonthYearNum: Int? = 20000
     
-    static func setDate(d: Date) {
-        date = d
+    // MARK: - Methods
+    static func setDayMonthYearNum(dayMonthYearNum: Int) {
+        self.dayMonthYearNum = dayMonthYearNum
     }
     
-    static func getDate() -> Date {
-        return date!
-    }
-    
-    static func setStringDate(sd: String) {
-        stringDate = sd
-    }
-    
-    static func getStringDate() -> String {
-        return stringDate!
-    }
-    
-    static func setWeight(w: Double) {
-        weight = w
-    }
-    
-    static func getWeight() -> Double {
-        return weight!
-    }
-    
-    static func setWater(wa: String) {
-        water = wa
-    }
-    
-    static func getWater() -> String {
-        return water!
-    }
-    
-    static func setMeditation(m: String) {
-        meditation = m
-    }
-    
-    static func getMeditation() -> String {
-        return meditation!
-    }
-    
-    static func setFast(f: String) {
-        fast = f
-    }
-    
-    static func getFast() -> String {
-        return fast!
+    static func getDayMonthYearNum() -> Int {
+        return self.dayMonthYearNum!
     }
 }

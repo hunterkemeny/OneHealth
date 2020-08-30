@@ -24,7 +24,6 @@
 		4CE8A00324F774D100AFCA5F /* InitialNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */; };
 		4CE8A00524F81BAF00AFCA5F /* InitialNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00424F81BAF00AFCA5F /* InitialNavigationViewController.swift */; };
 		4CE8A00724F85D0000AFCA5F /* MetricsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00624F85D0000AFCA5F /* MetricsTableViewController.swift */; };
-		4CE8A00924F88B2300AFCA5F /* DatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CE8A00824F88B2300AFCA5F /* DatePicker.storyboard */; };
 		4CE8A00B24F88B5D00AFCA5F /* DayPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00A24F88B5D00AFCA5F /* DayPickerViewController.swift */; };
 		4CE8A00D24F8AB0000AFCA5F /* DayPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00C24F8AB0000AFCA5F /* DayPicker.swift */; };
 		4CE8A00F24F9852500AFCA5F /* PersonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */; };
@@ -78,7 +77,6 @@
 		4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialNavigationController.swift; sourceTree = "<group>"; };
 		4CE8A00424F81BAF00AFCA5F /* InitialNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialNavigationViewController.swift; sourceTree = "<group>"; };
 		4CE8A00624F85D0000AFCA5F /* MetricsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsTableViewController.swift; sourceTree = "<group>"; };
-		4CE8A00824F88B2300AFCA5F /* DatePicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DatePicker.storyboard; sourceTree = "<group>"; };
 		4CE8A00A24F88B5D00AFCA5F /* DayPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPickerViewController.swift; sourceTree = "<group>"; };
 		4CE8A00C24F8AB0000AFCA5F /* DayPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPicker.swift; sourceTree = "<group>"; };
 		4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonInfo.swift; sourceTree = "<group>"; };
@@ -165,9 +163,9 @@
 				4CF22AEE23D9376600904BE4 /* Calendar */,
 				4CF22AEF23D9377400904BE4 /* Settings */,
 				4CF22ADF23D9131E00904BE4 /* Assets.xcassets */,
+				4CF22ADC23D9131900904BE4 /* OneHealth.xcdatamodeld */,
 				4CF22AE423D9131E00904BE4 /* Info.plist */,
 				4CF22B3323DA292A00904BE4 /* GoogleService-Info.plist */,
-				4CF22ADC23D9131900904BE4 /* OneHealth.xcdatamodeld */,
 			);
 			path = OneHealth;
 			sourceTree = "<group>";
@@ -225,7 +223,6 @@
 				4CF22B0523D93FDE00904BE4 /* LogViewController.swift */,
 				4CF22B4D23DBD8E900904BE4 /* LogTableViewCell.swift */,
 				4C4D565523DCF3810005EAC8 /* InsertInfoViewController.swift */,
-				4CE8A00824F88B2300AFCA5F /* DatePicker.storyboard */,
 				4CE8A00A24F88B5D00AFCA5F /* DayPickerViewController.swift */,
 				4CE8A00C24F8AB0000AFCA5F /* DayPicker.swift */,
 			);
@@ -335,7 +332,6 @@
 				4CF22B3423DA292A00904BE4 /* GoogleService-Info.plist in Resources */,
 				4CF22AE023D9131E00904BE4 /* Assets.xcassets in Resources */,
 				4CF22ADB23D9131900904BE4 /* Main.storyboard in Resources */,
-				4CE8A00924F88B2300AFCA5F /* DatePicker.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,199 +12,170 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     // Make today the default value when the viewcontroller is shown
     // fix the ability to tap out of the datepicker
 
+    // MARK: - IBOutlets
+    
     @IBOutlet weak var logTableView: UITableView!
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var dateTextField: UITextField!
     
+    // MARK: - Properties
     
-    
-    var categories = ["weight", "water", "meditation", "fast"]
+    var categories = ["Weight", "Water", "Meditation", "Fast"]
     var values = ["", "", "", "", ""]
     let dateFormatter = DateFormatter()
-    
     var categoryExectued: String!
     var dayMonthYearString: String!
-    var dayMonthYearNum: String!
+    var dayMonthYearNum: String! // The index of the particular date chosen in the LogDateObjectList.
     var placeHolder: String!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        
-        print(dateButton.titleLabel)
-        
-        
-        // Check todays logs
+    // MARK: - Helper Methods
+    
+    func getPersistentContainerContext() -> NSManagedObjectContext {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        
+        return context
+    }
+    
+    func getLogDateObjectList() -> [LogDate] {
+        // Returns the list of all LogDate objects in Core Data, where a Log Date object is an object
+        // whose attributes contain information bout a user's weight, calorie consumption, burned calories,
+        // etc. for a given date.
+        let context = getPersistentContainerContext()
         let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
         request.returnsObjectsAsFaults = false
         
         // Fetch the "LogDate" object.
-        var results: [LogDate]
+        var logDateObjectList: [LogDate]
         do {
-            try results = context.fetch(request)
+            try logDateObjectList = context.fetch(request)
         } catch {
             fatalError("Failure to fetch: \(error)")
         }
+        return logDateObjectList
+    }
+    
+    func setCategoryValues(logDateObjectList: [LogDate], index: Int) {
+        values[0] = String(logDateObjectList[index].weight) ?? ""
+        values[1] = logDateObjectList[index].water ?? ""
+        values[2] = logDateObjectList[index].meditation ?? ""
+        values[3] = logDateObjectList[index].fast ?? ""
+        dayMonthYearString = logDateObjectList[index].dateOfLog
+        dayMonthYearNum = String(index) // figure out what this does
+    }
+    
+    // MARK: - Methods
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Set the dateFormatter object equal to a specific format.
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        // If a date has not been picked yet, set dateTextField to today's date.
+        dateTextField.text = dateFormatter.string(from: Date())
+        print(Date())
         
-        if DayPicker.getStringDate() == "" {
-            
-        } else {
-            dateTextField.text = DayPickerViewController().dateSelected
-        }
-        
-        if results.count != 0 {
-            print(results)
-            print(results.count)
-            for num in 0...results.count - 1 {
-                print(dateFormatter.string(from: Date()) )
-                if results[num].dateOfLog == dateFormatter.string(from: Date()) {
-                    // today is stored in core data
-                    // If they open up the logviewcontroller for the first time, then they log something, when they press back
-                    // viewcontroller needs to update to show that they logged something
-                    values[0] = String(results[num].weight) ?? ""
-                    values[1] = results[num].water ?? ""
-                    values[2] = results[num].meditation ?? ""
-                    values[3] = results[num].fast ?? ""
-                    dayMonthYearString = results[num].dateOfLog
-                    dayMonthYearNum = String(num)
+        let logDateObjectList = getLogDateObjectList()
+        if logDateObjectList.count != 0 {
+            for num in 0...(logDateObjectList.count - 1) {
+                // If today is already stored as a LogDate object in coredata, then update
+                // the values associated with each category with the values associated
+                // with the LogDate Object.
+                if logDateObjectList[num].dateOfLog == dateFormatter.string(from: Date()) {
+                    setCategoryValues(logDateObjectList: logDateObjectList, index: num)
                     break
                 }
-                if num == results.count - 1 {
+                if num == logDateObjectList.count - 1 {
+                    // When we reach the last object in logDateObjectList, this means that the date chosen is not a valid option in logDateObjectList. Therefore, store today's date as a new LogDate object in Core Data.
+                    let context = getPersistentContainerContext()
                     let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
-                    
-                    // Store today's date as dateOfLog attribute in Core Data.
                     let newDate = NSManagedObject(entity: entity!, insertInto: context)
                     newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
-                    values[0] = String(results[num].weight) ?? ""
-                    values[1] = results[num].water ?? ""
-                    values[2] = results[num].meditation ?? ""
-                    values[3] = results[num].fast ?? ""
-                    dayMonthYearString = results[num].dateOfLog
-                    dayMonthYearNum = String(num)
+                    // Set the values for each category based on the information in the LogDateObject.
+                    setCategoryValues(logDateObjectList: logDateObjectList, index: num)
                 }
             }
-            // Save new date to Core Data.
+            
+            // Save the set of values for the chosen date to Core Data.
+            let context = getPersistentContainerContext()
             do {
                 try context.save()
             } catch {
                 fatalError("Failure to save context: \(error)")
             }
         }
-        
         logTableView.delegate = self
         logTableView.dataSource = self
+        logTableView.reloadData()
     }
   
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        print("OH")
-        print(DayPickerViewController().dateSelected)
-        print("HEY")
-        if DayPicker.getStringDate() == "" {
-            
-        } else {
-            print("Hello")
-            print(DayPickerViewController().dateSelected)
-            dateTextField.text = DayPicker.getStringDate()
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
-            
-            let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
-            request.returnsObjectsAsFaults = false
-            
-            // Fetch the "LogDate" object.
-            var results: [LogDate]
-            do {
-                try results = context.fetch(request)
-            } catch {
-                fatalError("Failure to fetch: \(error)")
-            }
-            
-            if results.count != 0 {
-                for num in 0...(results.count - 1) {
-                    if String(num) == dayMonthYearNum {
-                        values[0] = String(DayPicker.getWeight())
-                        values[1] = DayPicker.getWater()
-                        values[2] = DayPicker.getMeditation()
-                        values[3] = DayPicker.getFast()
-                        logTableView.reloadData()
-                        dayMonthYearString = DayPicker.getStringDate()
-                        dayMonthYearNum = String(num)
-                        break
-                    }
+        // When a new date is chosen, LogViewController must be updated with the appropriate attributes.
+        let logDateObjectList = getLogDateObjectList()
+        if logDateObjectList.count != 0 {
+            for num in 0...(logDateObjectList.count - 1) {
+                if String(num) == String(DayPicker.getDayMonthYearNum()) {
+                    // Get the index for the date chosen and set the dateTextField and category values to the
+                    // corresponding attributes associated with the given day in logDateObjectList.
+                    dateTextField.text = logDateObjectList[num].dateOfLog
+                    setCategoryValues(logDateObjectList: logDateObjectList, index: num)
+                    break
                 }
             }
         }
         
-        
-        
-        
-        // Causing tap in tableview to break
-        /*
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(LogViewController.viewTapped(gestureRecognizer:)))
-        
-        view.addGestureRecognizer(tapGesture)
-         */
-        logTableView.reloadData()
+    // Reload the data for the table view so that it updates when a user logs info in InsertInfo ViewController.
+    logTableView.reloadData()
     }
     
+    // MARK: TableView Methods
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // Returns one total section for the log.
+        return 1
+    }
     
-   func numberOfSections(in tableView: UITableView) -> Int {
-       // Returns one total section for the log.
-       return 1
-   }
-   
-   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return 4
-   }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Returns 4 rows (one per each category).
+        return 4
+       }
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
         let cell = logTableView.dequeueReusableCell(withIdentifier: "LogTableViewCell", for: indexPath) as! LogTableViewCell
-        // Set the attributes of the cell based on the Places To Eat protocol.
-        cell.setAttributes(category: categories[indexPath.row], value: values[indexPath.row])
+        // Set the attributes of the cell based on the specific category and whether or not the user has logged a
+        // value for that category yet.
+        cell.setAttributes(category: categories[indexPath.row], logValue: values[indexPath.row])
         return cell
-   }
-   
-   // Segue for each item per day. going to get segue information from core data based on the day selected
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Associate business attributes with each collectionViewCell.
+        // InsertInfoViewController needs place holders for its text fields. The units for these placeholders are
+        // determined based on the category of the particular row.
         categoryExectued = categories[indexPath.row]
-        if categoryExectued == "weight" {
+        if categoryExectued == "Weight" {
             placeHolder = "lbs"
-        } else if categoryExectued == "water" {
+        } else if categoryExectued == "Water" {
             placeHolder = "oz drank"
-        } else if categoryExectued == "meditation" {
+        } else if categoryExectued == "Meditation" {
             placeHolder = "minutes meditated"
         } else {
             placeHolder = "hours fasted"
         }
         
-        // Perform segue to instantiate a BusinessTableViewController using the previously initialized business attributes.
+        // Perform segue to instantiate an InsertInfoViewController that displays the attributes of a particular category..
         self.performSegue(withIdentifier: "logSegue", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "logSegue" {
+            // Sets the attributes for InsertInfoViewController based on the category that is selected in
+            // LogViewController.
             let detailVC = segue.destination as! InsertInfoViewController
             detailVC.logDate = dayMonthYearString
             detailVC.category = categoryExectued
             detailVC.dateNum = dayMonthYearNum
-            
             detailVC.placeholder = placeHolder
         }
     }
-    
 }
 
 

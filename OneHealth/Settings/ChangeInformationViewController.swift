@@ -5,6 +5,9 @@
 //  Created by Hunter Kemeny on 1/23/20.
 //
 
+// ERROR1: If they enter a numerical value for a string text field or vice versa, show Error.
+// TODO: Change results to have days instead of weeks to complete goal?
+
 import UIKit
 import CoreData
 import Firebase
@@ -53,8 +56,6 @@ class ChangeInformationViewController: UIViewController, UITextFieldDelegate {
         weeksTextField.resignFirstResponder()
         return true
     }
-    
-    //TODO: If they enter a numerical value for a string text field or vice versa, show Error.
 
     func showError(_ message : String)  {
         errorLabel.text! = message
@@ -118,8 +119,6 @@ class ChangeInformationViewController: UIViewController, UITextFieldDelegate {
         writeData(data: goalType)
         
         // Update desired number of weeks until goal is achieved in Core Data and Firestore Database.
-        
-        // TODO: Change results to have days instead of weeks to complete goal?
         if weeksTextField.text != "" {
             let daysToCompleteGoal = Int(weeksTextField.text!)!*7
             results[0].setValue(weeksTextField.text, forKey: "weeksToComplete")

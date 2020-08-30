@@ -89,7 +89,7 @@ class CalendarViewController: UIViewController {
         }
         
         var monthCount = months.count
-        for i in 0...months.count {
+        for _ in 0...months.count {
             reverseMonths.append(months[monthCount - 1])
             if monthCount == 1 {
                 break
