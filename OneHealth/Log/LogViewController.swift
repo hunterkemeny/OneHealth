@@ -9,8 +9,6 @@ import UIKit
 import CoreData
 
 class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    // Make today the default value when the viewcontroller is shown
-    // fix the ability to tap out of the datepicker
 
     // MARK: - IBOutlets
     
@@ -76,7 +74,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         let logDateObjectList = getLogDateObjectList()
         if logDateObjectList.count != 0 {
             for num in 0...(logDateObjectList.count - 1) {
-                // If today is already stored as a LogDate object in coredata, then update
+                // If today is already stored as a LogDate object in Core Data, then update
                 // the values associated with each category with the values associated
                 // with the LogDate Object.
                 if logDateObjectList[num].dateOfLog == dateFormatter.string(from: Date()) {

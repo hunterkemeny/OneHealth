@@ -129,18 +129,14 @@ class DietTableViewController: UITableViewController {
     }
     
     func calculateMaintenence() {
-        var maintenence = 0.0
-        BMR = 4.536 * Double(PersonInfo.getWeight())
-        BMR += 15.88 * Double(PersonInfo.getHeight())
-        BMR -= 5.0 * Double(PersonInfo.getAge())
         
+        BMR = PersonInfo.calculateBMR()
         let isMan:Bool = (PersonInfo.getSex()==1)
+        var maintenence = 0.0
         
         if isMan {
-            BMR += 5.0
             maintenence = BMR + 700
         } else {
-            BMR -= 161
             maintenence = BMR + 450
         }
         PersonInfo.setMaintenence(maintenence: maintenence)
@@ -228,7 +224,7 @@ class DietTableViewController: UITableViewController {
         print("Calorie Delta \(calorieDelta)")
         calorieDeltaPerDay = Double(calorieDelta)/Double(PersonInfo.getDaystoCompleteGoal())
         print("Calorie Delta per day \(calorieDeltaPerDay)")
-        PersonInfo.setDelta(dailyCalorieDelta: calorieDeltaPerDay)
+        PersonInfo.setDailyCalorieDelta(dailyCalorieDelta: calorieDeltaPerDay)
     }
     
     func setWaterLabel() {

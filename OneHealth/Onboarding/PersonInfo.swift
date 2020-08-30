@@ -19,8 +19,10 @@ class PersonInfo {
     static var dailyCalorieDelta:Double = 0.0
     static var email: String?
     static var averageCaloriesBurnedLastWeek: Double = 0.0
-    static var yesterdaysCaloriesConsumed: String?
+    static var todaysCaloriesConsumed: String?
     static var caloriesBurnedYesterday: Double = 0.0
+    static var BMR: Double = 0.0
+    static var monthsSinceAppDownload: Int = 0
     
     static func makePerson(weight: Int, height: Int, sex: Int, age: Int, desiredWeight: Int, daysToCompleteGoal: Int) {
         self.weight = weight
@@ -97,20 +99,20 @@ class PersonInfo {
         return self.desiredWeight
     }
     
-    static func setDelta(dailyCalorieDelta: Double) {
+    static func setDailyCalorieDelta(dailyCalorieDelta: Double) {
         self.dailyCalorieDelta = dailyCalorieDelta
     }
     
-    static func getDelta()->Double {
+    static func getDailyCalorieDelta()->Double {
         return self.dailyCalorieDelta
     }
     
-    static func setYesterdaysCaloriesConsumed(yesterdaysCaloriesConsumed: String) {
-        self.yesterdaysCaloriesConsumed = yesterdaysCaloriesConsumed
+    static func setTodaysCaloriesConsumed(todaysCaloriesConsumed: String) {
+        self.todaysCaloriesConsumed = todaysCaloriesConsumed
     }
     
-    static func getYesterdaysCaloriesConsumed() -> String {
-        return self.yesterdaysCaloriesConsumed ?? ""
+    static func getTodaysCaloriesConsumed() -> String {
+        return self.todaysCaloriesConsumed ?? ""
     }
     
     static func setCaloriesBurnedYesterday(caloriesBurnedYesterday: Double) {
@@ -120,5 +122,26 @@ class PersonInfo {
     static func getCaloriesBurnedYesterday() -> Double {
         return self.caloriesBurnedYesterday
     }
+    
+    static func calculateBMR() -> Double {
+        self.BMR = 4.536 * Double(PersonInfo.getWeight())
+        self.BMR += 15.88 * Double(PersonInfo.getHeight())
+        self.BMR -= 5.0 * Double(PersonInfo.getAge())
+        
+        let isMan: Bool = PersonInfo.getSex() == 1
+        
+        if isMan {
+            self.BMR += 5.0
+        } else {
+            self.BMR -= 161
+        }
+        return self.BMR
+    }
+    
+    static func calculateMonthsSinceAppDownload(logDateObjectList: [LogDate]) -> Int {
+        monthsSinceAppDownload = 2 + Int(logDateObjectList.count/30)
+        return monthsSinceAppDownload
+    }
+    
 }
 

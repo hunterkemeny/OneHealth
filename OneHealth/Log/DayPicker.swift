@@ -9,9 +9,11 @@ import Foundation
 
 class DayPicker {
     // MARK: - Property
+    
     static var dayMonthYearNum: Int? = 20000
     
     // MARK: - Methods
+    
     static func setDayMonthYearNum(dayMonthYearNum: Int) {
         self.dayMonthYearNum = dayMonthYearNum
     }

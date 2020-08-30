@@ -93,8 +93,8 @@ class MetricsTableViewController: UITableViewController {
         
         for i in 2...5 {
             
-            print(PersonInfo.getDelta())
-            initialWeight += PersonInfo.getDelta()*7 * (1/3500)
+            print(PersonInfo.getDailyCalorieDelta())
+            initialWeight += PersonInfo.getDailyCalorieDelta()*7 * (1/3500)
             let value = ChartDataEntry(x: Double(i), y: initialWeight)
             weight.append(value)
         }
@@ -137,8 +137,8 @@ class MetricsTableViewController: UITableViewController {
         
         for i in 2...12 {
             
-            print(PersonInfo.getDelta())
-            initialWeight += PersonInfo.getDelta()*7 * (1/3500)
+            print(PersonInfo.getDailyCalorieDelta())
+            initialWeight += PersonInfo.getDailyCalorieDelta()*7 * (1/3500)
             let value = ChartDataEntry(x: Double(i), y: initialWeight)
             weight.append(value)
         }

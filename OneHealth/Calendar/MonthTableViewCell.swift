@@ -9,8 +9,12 @@ import UIKit
 
 class MonthTableViewCell: UITableViewCell {
 
+    // MARK: - IBOutlets
+    
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var daysCollectionView: UICollectionView!
+    
+    // MARK: - Methods
     
     func setCollectionViewDataSourceDelegate(dataSourceDelegate: UICollectionViewDataSource & UICollectionViewDelegate, forRow row: Int) {
         daysCollectionView.delegate = dataSourceDelegate

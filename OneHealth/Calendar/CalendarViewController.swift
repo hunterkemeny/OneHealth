@@ -16,166 +16,265 @@ import HealthKit
 
 class CalendarViewController: UIViewController {
 
-    // TODO: Line up days with weeks
+    // ERROR1: When you open the app, you have to click on one calendar day before information shows up on any other calendar day.
+    
+    // MARK: - IBOutlets
     
     @IBOutlet weak var calendarTableView: UITableView!
     
+    // MARK: - Properties
+    
     var docRef: DocumentReference!
     
-    var months = ["January 2019", "February 2019", "March 2019", "April 2019", "May 2019", "June 2019", "July 2019", "August 2019", "September 2019", "October 2019", "November 2019", "December 2019"]
-    var monthsSinceJan2020 = 8 // implement calculation for this
-    var reverseMonths = [String]()
-    var check = 0
+    var reverseMonths: Array = [String]()
+    var reverseYears: Array = [Int]()
+    
     let date = Date()
     let calendar = Calendar.current
-    var day = ""
-    var month = ""
-    var year = ""
-    var completeDate = ""
-    var water = ""
-    var activeCalsBurned = ""
-    var calsConsumed = ""
-    var hoursFasted = ""
-    var minutesMeditated = ""
-    var caloricSurplus = ""
-    var weight = ""
-    var chosenDate = ""
+    var day: String? = ""
+    var month: Int? = 0
+    var year: Int? = 0
+    var completeDate: String? = ""
+    var myfitnesspalDate: String? = ""
+    var monthCount: Int? = 0
+    
+    var water: String? = ""
+    var todaysCaloriesBurned: String? = ""
+    var todaysCaloriesConsumed: String? = ""
+    var hoursFasted: String? = ""
+    var minutesMeditated: String? = ""
+    var caloricSurplus: String? = ""
+    var weight: String? = ""
+    
+    // MARK: - Helper Functions
+    
+    func getPersistentContainerContext() -> NSManagedObjectContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        return context
+    }
+    
+    func getLogDateObjectList() -> [LogDate] {
+        // Returns the list of all LogDate objects in Core Data, where a Log Date object is an object
+        // whose attributes contain information bout a user's weight, calorie consumption, burned calories,
+        // etc. for a given date.
+        let context = getPersistentContainerContext()
+        let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
+        request.returnsObjectsAsFaults = false
+        
+        // Fetch the "LogDate" object.
+        var logDateObjectList: [LogDate]
+        do {
+            try logDateObjectList = context.fetch(request)
+        } catch {
+            fatalError("Failure to fetch: \(error)")
+        }
+        return logDateObjectList
+    }
+    
+    func getMonth(monthNum: Int) -> String? {
+        if monthNum == 0 {
+            return "January"
+        } else if monthNum == 1 {
+            return "February"
+        } else if monthNum == 2 {
+            return "March"
+        } else if monthNum == 3 {
+            return "April"
+        } else if monthNum == 4 {
+            return "May"
+        } else if monthNum == 5 {
+            return "June"
+        } else if monthNum == 6 {
+            return "July"
+        } else if monthNum == 7 {
+            return "August"
+        } else if monthNum == 8 {
+            return "September"
+        } else if monthNum == 9 {
+            return "October"
+        } else if monthNum == 10 {
+            return "November"
+        } else {
+            return "December"
+        }
+    }
+    
+    func getMonthNum(month: String) -> Int? {
+        if month == "January" {
+            return 0
+        } else if month == "February" {
+            return 1
+        } else if month == "March" {
+            return 2
+        } else if month == "April" {
+            return 3
+        } else if month == "May" {
+            return 4
+        } else if month == "June" {
+            return 5
+        } else if month == "July" {
+            return 6
+        } else if month == "August" {
+            return 7
+        } else if month == "September" {
+            return 8
+        } else if month == "October" {
+            return 9
+        } else if month == "November" {
+            return 10
+        } else {
+            return 11
+        }
+    }
+    
+    func getNumberOfDaysInMonth(monthNum: Int) -> Int? {
+        // Return the number of days in the month plus one to account for the 0th index.
+        if monthNum == 0 {
+            return 31 + 1
+        } else if monthNum == 1 {
+            if year! % 4 == 0 {
+                return 29
+            } else {
+                return 28
+            }
+        } else if monthNum == 2 {
+            return 31 + 1
+        } else if monthNum == 3 {
+            return 30 + 1
+        } else if monthNum == 4 {
+            return 31 + 1
+        } else if monthNum == 5 {
+            return 30 + 1
+        } else if monthNum == 6 {
+            return 31 + 1
+        } else if monthNum == 7 {
+            return 31 + 1
+        } else if monthNum == 8 {
+            return 30 + 1
+        } else if monthNum == 9 {
+            return 31 + 1
+        } else if monthNum == 10 {
+            return 30 + 1
+        } else {
+            return 31 + 1
+        }
+    }
+    
+    func setTodaysCaloriesConsumed(date: String) {
+        // Get the user's calories consumed thus far today.
+        
+        var email: String?
+        
+        // Fetch user email from Core Data object "User".
+        let context = getPersistentContainerContext()
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                email = data.value(forKey: "email") as! String
+            }
+        } catch {
+            print("Failed")
+        }
+        
+        // Fetch the number of calories consumed so far in the day from the what the user has logged thus far in myfitnesspal.
+        docRef = Firestore.firestore().document("myfitnesspal/\(email! ?? "")")
+        docRef.getDocument { (docSnapshot, error) in
+            guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
+            let myData = docSnapshot.data()
+            self.todaysCaloriesConsumed = myData?[date] as? String ?? ""
+            PersonInfo.setTodaysCaloriesConsumed(todaysCaloriesConsumed: self.todaysCaloriesConsumed!)
+        }
+    }
+    
+    // MARK: - Helper Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         calendarTableView.delegate = self
         calendarTableView.dataSource = self
         
+        year = calendar.component(.year, from: date)
+        month = calendar.component(.month, from: date) - 1
         
-        let day = calendar.component(.day, from: date)
-        let year = calendar.component(.year, from: date)
+        let logDateObjectList = getLogDateObjectList()
         
+        monthCount = PersonInfo.calculateMonthsSinceAppDownload(logDateObjectList: logDateObjectList)
         
-        if day == 1 && check == 0 {
-            monthsSinceJan2020 += 1
-            check += 1
-        }
-        
-        if day != 1 && check != 0 {
-            check = 0
-        }
-        
-        for i in 1...monthsSinceJan2020 {
-            if i % 12 == 1 {
-                months.append("January \(year)")
-            } else if i % 12 == 2 {
-                months.append("February \(year)")
-            } else if i % 12 == 3 {
-                months.append("March \(year)")
-            } else if i % 12 == 4 {
-                months.append("April \(year)")
-            } else if i % 12 == 5 {
-                months.append("May \(year)")
-            } else if i % 12 == 6 {
-                months.append("June \(year)")
-            } else if i % 12 == 7 {
-                months.append("July \(year)")
-            } else if i % 12 == 8 {
-                months.append("August \(year)")
-            } else if i % 12 == 9 {
-                months.append("September \(year)")
-            } else if i % 12 == 10 {
-                months.append("October \(year)")
-            } else if i % 12 == 11 {
-                months.append("November \(year)")
-            } else if i % 12 == 0 {
-                months.append("December \(year)")
+        // We want to have a list containing, in reverse order, the "Month Year"s since the user downloaded the app. So we add all of these months to reverseMonths.
+        for i in 0...monthCount! - 1 {
+            // Account for when there are months from different years.
+            if month! - i < 0 {
+                month! += 12 * (Int(month!/i) + 1)
             }
+            reverseMonths.append(getMonth(monthNum: month! - i)!)
         }
-        
-        var monthCount = months.count
-        for _ in 0...months.count {
-            reverseMonths.append(months[monthCount - 1])
-            if monthCount == 1 {
-                break
-            } else {
-                monthCount -= 1
+        // Then we iterate through reverseMonths and add the year of the month at i to the parallel array reverseYears. If we reach December, then the next 12 months belong to the previous year.
+        var decemberCount = 0
+        for i in 0...reverseMonths.count - 1 {
+            reverseYears.append(year! - decemberCount)
+            if reverseMonths[i] == "December" {
+                decemberCount += 1
             }
         }
     }
-
 }
 
+// MARK: - TableView Methods
 
 extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        // Returns one total section for the Calender.
+        // Returns one total section for the Calendar.
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // return number of months since january 2019
-        return 12 + monthsSinceJan2020
+        // The number of rows equals the number of months since the user downloaded the app.
+        return monthCount!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // set attribute for each row label to be the month of the year
+        // Set attribute for each row label to be the month and year.
         let cell = calendarTableView.dequeueReusableCell(withIdentifier: "MonthTableViewCell", for: indexPath) as! MonthTableViewCell
-        cell.setAttributes(month: reverseMonths[indexPath.row])
+        cell.setAttributes(month: reverseMonths[indexPath.row] + " " + String(reverseYears[indexPath.row]))
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Assigns dataSourceDelegate for each collection view depending on the cell it is instantiated in.
-        
         if let cell = cell as? MonthTableViewCell {
             cell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
         }
     }
-    
-    
 }
 
-
+// MARK: - CollectionView Methods
 
 extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // return the number of days in the corresponding  month of the year
-        
-        let year = calendar.component(.year, from: date)
-        
-        // make day assignment dependent on the number of months in months array
-        if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 1 {
-            if year % 4 == 0 {
-                return 30
-            } else {
-                return 29
-            }
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 2 {
-            return 32
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 3 {
-            return 31
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 4 {
-            return 32
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 5 {
-            return 31
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 6 {
-            return 32
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 7 {
-            return 32
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 8 {
-            return 31
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 9 {
-            return 32
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 10 {
-            return 31
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 11 {
-            return 32
-        } else {
-            return 32
+        // Return the number of days in the corresponding month of the year.
+        month = calendar.component(.month, from: date) - 1
+        // Account for when there are months from different years.
+        if month! - collectionView.tag < 0 {
+            month! += 12 * (Int(month!/collectionView.tag) + 1)
         }
+        return getNumberOfDaysInMonth(monthNum: month! - collectionView.tag)!
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // set attribute for the day of the month
+        // Fill the label in DayCollectionViewCell with the date of day of the month.
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DayCollectionViewCell", for: indexPath) as! DayCollectionViewCell
-        cell.setAttributes(day: indexPath.row)
+        // Style the cell so that todays date is colored blue.
+        day = String(calendar.component(.day, from: date))
+        if collectionView.tag == 0 && indexPath.row == Int(day!) {
+            cell.setAttributes(day: indexPath.row, today: true)
+            cell.backgroundColor = UIColor.systemBlue
+        } else {
+            cell.setAttributes(day: indexPath.row, today: false)
+        }
         return cell
     }
     
@@ -183,190 +282,102 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         /*
-         Associates corresponding business image attributes with every collectionViewCell based on the tableView row where it resides.
-         If tapped, each cell will utilize the showBusiness segue to instantiate a unique BusinessTableViewController.
+         When the user taps a day on CalendarViewController, determine the attributes to be set for InfoViewController. If tapped, each cell will utilize the daySegue to instantiate a unique InfoController.
         */
         
-        // make day assignment dependent on the number of months in months array
-        if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 1 {
-            month = "02"
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 2 {
-            month = "03"
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 3 {
-            month = "04"
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 4 {
-            month = "05"
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 5 {
-            month = "06"
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 6 {
-            month = "07"
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 7 {
-            month = "08"
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 8 {
-            month = "09"
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 9 {
-            month = "10"
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 10 {
-            month = "11"
-        } else if ((reverseMonths.count - 1) - collectionView.tag) % 12 == 11 {
-            month = "12"
-        } else {
-            month = "01"
+        month = calendar.component(.month, from: date) - 1
+        // Account for when there are months from different years.
+        if month! - collectionView.tag < 0 { // Turn into helper method?
+            month! += 12 * (Int(month!/collectionView.tag) + 1)
+            
         }
-        
+        year = year! - Int((collectionView.tag)/(month! + 1))
+        month = month! - collectionView.tag + 1
         day = String(indexPath.row)
         
-        if 12 - collectionView.tag >= 12 {
-            year = "2020"
+        // Format completeDate according to the format of LogDate.dateOfLog.
+        if month! < 10 {
+            completeDate = "0\(month!)/\(day!)/\(year!)"
+            myfitnesspalDate = "\(year!)-0\(month!)-\(day!)"
         } else {
-            year = "2019"
+            completeDate = "\(month!)/\(day!)/\(year!)"
+            myfitnesspalDate = "\(year!)-\(month!)-\(day!)"
         }
+        // Use the date format provided by the backend script to get todaysCaloriesConsumed from the myfitnesspal API.
+        setTodaysCaloriesConsumed(date: myfitnesspalDate!)
+        todaysCaloriesConsumed = PersonInfo.getTodaysCaloriesConsumed()
         
-        completeDate = "\(month)/\(day)/\(year)"
-        
-        chosenDate = "\(year)-\(month)-\(day)"
-        getActiveCals(date: chosenDate)
-        print("Hello")
-        print(getActiveCals(date: chosenDate))
-        print("HI")
-        
+        let logDateObjectList = getLogDateObjectList()
+        // It takes 0.4 seconds to get the myfitnesspal data from Firebase, so we have to delay the segue
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            // Check todays logs
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
-            
-            let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
-            request.returnsObjectsAsFaults = false
-            
-            // Fetch the "LogDate" object.
-            var results: [LogDate]
-            do {
-                try results = context.fetch(request)
-            } catch {
-                fatalError("Failure to fetch: \(error)")
-            }
-            
-            if results.count != 0 {
-                for num in 0...results.count - 1 {
-                    print(results[num].dateOfLog!)
-                    
-                    
-                    if results[num].dateOfLog! == self.completeDate {
-                        // today is stored in core data
-                        // If they open up the logviewcontroller for the first time, then they log something, when they press back
-                        // viewcontroller needs to update to show that they logged something
-                        self.water = results[num].water ?? "water not logged"
-                        print(results[num])
-                        if results[num].activeCals == 0.0 {
-                            self.activeCalsBurned = "The day isn't over yet!"
-                        } else {
-                            self.activeCalsBurned = String(results[num].activeCals)
-                        }
+            if logDateObjectList.count != 0 {
+                for num in 0...logDateObjectList.count - 1 {
+                    // If today is already stored as a LogDate object in CoreData, then update
+                    // the values associated with each category with the values associated
+                    // with the LogDate Object.
+                    if logDateObjectList[num].dateOfLog! == self.completeDate {
+                        self.water = logDateObjectList[num].water ?? "Water not logged"
+                        self.hoursFasted = logDateObjectList[num].fast ?? "Fasting not logged"
+                        self.minutesMeditated = logDateObjectList[num].meditation ?? "Meditation not logged"
                         
-                        if PersonInfo.getYesterdaysCaloriesConsumed() == "" {
-                            self.calsConsumed = "MyFitnessPal not logged"
-                        } else {
-                            self.calsConsumed = PersonInfo.getYesterdaysCaloriesConsumed()
-                        }
-                        print("sheit")
-                        print(self.calsConsumed)
-                        print("boi")
-                        self.hoursFasted = results[num].fast ?? "Fasting not logged"
-                        self.minutesMeditated = results[num].meditation ?? "Meditation not logged"
-                        if results[num].weight == 0.0 {
+                        if logDateObjectList[num].weight == 0.0 {
                             self.weight = "You need to log your weight!"
                         } else {
-                            self.weight = String(results[num].weight)
+                            self.weight = String(logDateObjectList[num].weight)
                         }
                         
-                        
-                        if self.calsConsumed == "MyFitnessPal not logged" || self.calsConsumed == "0.0" || self.calsConsumed == ""{
-                            self.caloricSurplus = "Need MyFitnessPal data to calculate caloric surplus"
+                        if logDateObjectList[num].activeCals == 0.0 { // Change to total cals burned. Won't this update before the day is over?
+                            self.todaysCaloriesBurned = "The day isn't over yet!"
                         } else {
-                            if self.activeCalsBurned == "The day isn't over yet!" {
-                                self.caloricSurplus = "Check back tomorrow when to see the today's surplus value."
-                            } else {
-                                self.caloricSurplus = String(Double(self.activeCalsBurned)! - Double(self.calsConsumed)!)//switch this to total cals burned
-                            }
-                            
+                            self.todaysCaloriesBurned = String(PersonInfo.calculateBMR() + logDateObjectList[num].activeCals)
                         }
                         
-                        
-                        
+                        if PersonInfo.getTodaysCaloriesConsumed() == "" {
+                            self.todaysCaloriesConsumed = "Log MyFitnessPal!"
+                        } else {
+                            self.todaysCaloriesConsumed = PersonInfo.getTodaysCaloriesConsumed()
+                        }
+
+                        if self.todaysCaloriesConsumed == "Log MyFitnessPal!" || self.todaysCaloriesConsumed == "" {
+                            self.caloricSurplus = "Log MyFitnessPal!"
+                        } else {
+                            if self.todaysCaloriesBurned == "The day isn't over yet!" {
+                                self.caloricSurplus = "Check back tomorrow"
+                            } else {
+                                self.caloricSurplus = String(Double(self.todaysCaloriesBurned!)! - Double(self.todaysCaloriesConsumed!)!)
+                            }
+                        }
                         break
                     }
-                    if num == results.count - 1 {
+                    // If we have iterated through the entire logDate ObjectList and have not found an object of this particular date, then the user has not logged anything for this date.
+                    if num == logDateObjectList.count - 1 {
                         self.water =  "Water not logged"
-                        self.activeCalsBurned = "0.0"
-                        self.calsConsumed = "MyFitnessPal not logged"
+                        self.todaysCaloriesBurned = "0.0"
+                        self.todaysCaloriesConsumed = "Log in MyFitnessPal!"
                         self.hoursFasted = "Fasting not logged"
                         self.minutesMeditated = "Meditation not logged"
-                        self.caloricSurplus = "Need MyFitnessPal data to calculate caloric surplus"
+                        self.caloricSurplus = "Log MyFitnessPal!"
                         self.weight = "You need to log your weight!"
                     }
                 }
             }
-            
-            self.performSegue(withIdentifier: "DaySegue", sender: nil)
+            self.performSegue(withIdentifier: "daySegue", sender: nil)
         }
-        
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Sets up unique BusinessTableViewController after collectionViewCell is tapped.
-        
-        if segue.identifier == "DaySegue" {
+        // Sets up unique InfoViewController after collectionViewCell is tapped.
+        if segue.identifier == "daySegue" {
             let detailVC = segue.destination as! InfoViewController
             detailVC.dayMonthYear = completeDate
             detailVC.water = water
-            detailVC.calsBurned = String(activeCalsBurned)
-            detailVC.calsConsumed = calsConsumed
+            detailVC.calsBurned = String(todaysCaloriesBurned!)
+            detailVC.calsConsumed = todaysCaloriesConsumed
             detailVC.hoursFasted = hoursFasted
             detailVC.minutesMeditated = minutesMeditated
             detailVC.caloricSurplus = caloricSurplus
             detailVC.weight = weight
         }
-    }
-    
-    func getActiveCals(date: String) -> String { // Need to make get selected cals, not get todays cals
-        var email: String?
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        var yesterdaysCalories: String? = ""
-        var desiredDate = ""
-        
-        /*
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        let todaysDate = formatter.string(from: Date())
-        print(todaysDate)
- */
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
-        //request.predicate = NSPredicate(format: "age = %@", "12")
-        request.returnsObjectsAsFaults = false
-        do {
-            let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                email = data.value(forKey: "email") as! String
-          }
-        } catch {
-            print("Failed")
-        }
-        print("YOYOY")
-        docRef = Firestore.firestore().document("myfitnesspal/\(email! ?? "")")
-        docRef.getDocument { (docSnapshot, error) in
-            print("AYY")
-            print(date)
-            guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
-            let myData = docSnapshot.data()
-            let yesterdaysCalories = myData?[date] as? String ?? ""
-            print(yesterdaysCalories)
-            PersonInfo.setYesterdaysCaloriesConsumed(yesterdaysCaloriesConsumed: yesterdaysCalories)
-            //self.setLabels()
-        }
-        return yesterdaysCalories!
     }
 }
 
