@@ -152,7 +152,7 @@
         <scene sceneID="cUm-jE-Owc">
             <objects>
                 <tableViewController id="jOB-Gs-ItB" customClass="DietTableViewController" customModule="OneHealth" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="cd3-lA-KEl">
+                    <tableView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="cd3-lA-KEl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <sections>
@@ -165,27 +165,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="92"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to lose xxx today to meet your goal in yyy weeks" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAV-5d-3Xs">
-                                                    <rect key="frame" x="20" y="11" width="374" height="41"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="xxx calories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3w9-TY-Xr2">
-                                                    <rect key="frame" x="20" y="60" width="374" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to lose xxx today to meet your goal in yyy weeks..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAV-5d-3Xs">
+                                                    <rect key="frame" x="20" y="11" width="354" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="hAV-5d-3Xs" secondAttribute="trailing" id="Az9-Vy-k8R"/>
                                                 <constraint firstItem="hAV-5d-3Xs" firstAttribute="leading" secondItem="bKr-oQ-jDc" secondAttribute="leading" constant="20" id="Ohd-5O-CPB"/>
                                                 <constraint firstItem="hAV-5d-3Xs" firstAttribute="top" secondItem="bKr-oQ-jDc" secondAttribute="top" constant="11" id="Wm1-3o-D05"/>
-                                                <constraint firstItem="hAV-5d-3Xs" firstAttribute="trailing" secondItem="bKr-oQ-jDc" secondAttribute="trailingMargin" id="Z1p-b5-luc"/>
-                                                <constraint firstItem="3w9-TY-Xr2" firstAttribute="bottom" secondItem="bKr-oQ-jDc" secondAttribute="bottomMargin" id="gz0-1m-M6Y"/>
-                                                <constraint firstItem="3w9-TY-Xr2" firstAttribute="top" secondItem="hAV-5d-3Xs" secondAttribute="bottom" constant="8" id="hB7-fN-wNo"/>
-                                                <constraint firstItem="3w9-TY-Xr2" firstAttribute="leading" secondItem="bKr-oQ-jDc" secondAttribute="leadingMargin" id="oQL-96-4oW"/>
-                                                <constraint firstItem="3w9-TY-Xr2" firstAttribute="trailing" secondItem="bKr-oQ-jDc" secondAttribute="trailingMargin" id="qan-aE-93Z"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -196,17 +186,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="105"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Therefore, you need to burn xxx total calories..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NkH-m8-Tnr">
-                                                    <rect key="frame" x="20" y="11" width="374" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Therefore, you need to burn xxx total calories..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NkH-m8-Tnr">
+                                                    <rect key="frame" x="20" y="11" width="334" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="NkH-m8-Tnr" firstAttribute="leading" secondItem="S2w-c7-e7i" secondAttribute="leadingMargin" id="Dxm-xt-VOE"/>
-                                                <constraint firstItem="NkH-m8-Tnr" firstAttribute="top" secondItem="S2w-c7-e7i" secondAttribute="topMargin" id="VEK-8Q-KZd"/>
-                                                <constraint firstItem="NkH-m8-Tnr" firstAttribute="trailing" secondItem="S2w-c7-e7i" secondAttribute="trailingMargin" id="onC-Fx-Zsz"/>
+                                                <constraint firstItem="NkH-m8-Tnr" firstAttribute="leading" secondItem="S2w-c7-e7i" secondAttribute="leadingMargin" id="5pg-aK-502"/>
+                                                <constraint firstItem="NkH-m8-Tnr" firstAttribute="trailing" secondItem="S2w-c7-e7i" secondAttribute="trailingMargin" id="b6P-WF-hS7"/>
+                                                <constraint firstItem="NkH-m8-Tnr" firstAttribute="top" secondItem="S2w-c7-e7i" secondAttribute="topMargin" id="y7V-zk-Mdi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -264,14 +254,13 @@
                     <connections>
                         <outlet property="GainLossLabel" destination="hAV-5d-3Xs" id="PeW-Je-dZp"/>
                         <outlet property="burnCalLabel" destination="NkH-m8-Tnr" id="pUj-QG-eOu"/>
-                        <outlet property="calorieNumLabel" destination="3w9-TY-Xr2" id="geO-ap-s2E"/>
                         <outlet property="eatCalLabel" destination="uIE-BU-u9W" id="iIM-te-ZtU"/>
                         <outlet property="waterLabel" destination="P91-qK-lpi" id="M6U-0b-6bv"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7SZ-h7-hRm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4806" y="-2774"/>
+            <point key="canvasLocation" x="4805.7971014492759" y="-2774.3303571428569"/>
         </scene>
         <!--Workout-->
         <scene sceneID="n0I-3X-joJ">

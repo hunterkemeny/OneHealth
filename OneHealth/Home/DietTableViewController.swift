@@ -23,7 +23,6 @@ class DietTableViewController: UITableViewController {
     
     
     @IBOutlet weak var GainLossLabel: UILabel!
-    @IBOutlet weak var calorieNumLabel: UILabel!
     @IBOutlet weak var eatCalLabel: UILabel!
     @IBOutlet weak var burnCalLabel: UILabel!
     @IBOutlet weak var waterLabel: UILabel!
@@ -31,17 +30,11 @@ class DietTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getData()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     
     func getData() {
         var userID = Auth.auth().currentUser?.uid
-        print(userID!)
         docRef = Firestore.firestore().document("surveyInfo/\(userID! ?? "")")
         docRef.getDocument { (docSnapshot, error) in
             guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
@@ -58,8 +51,6 @@ class DietTableViewController: UITableViewController {
             } else {
                 PersonInfo.setGainLoseMaintain(gainLoseMaintain: 1)
             }
-            print("HEEHEHEE")
-            print(PersonInfo.getGainLoseMaintain())
             
             //HEIGHT
             let height = myData?["height"] as? String ?? ""
@@ -75,7 +66,7 @@ class DietTableViewController: UITableViewController {
                 
             //WEIGHT
             let weight = myData?["weight"] as? String ?? ""
-            print("Weight: \(weight)")
+            
             PersonInfo.setWeight(weight: Int(weight) ?? 0)
                 
             //WEIGHT CHANGE GOAL
@@ -91,8 +82,6 @@ class DietTableViewController: UITableViewController {
             //TIME TO COMPLETE GOAL
             var doubleTime = myData?["time-to-complete"] as? Double
             var time = Int(doubleTime!)
-            print(myData?["time-to-complete"])
-            print("Time: \(Double(time))")
             PersonInfo.setDaysToCompleteGoal(daysToCompleteGoal: time)
             
             self.calculateMaintenence()
@@ -163,7 +152,6 @@ class DietTableViewController: UITableViewController {
         }
     }
     
-    
     // Change intake to account for days exercising and not exercising
     func calculateIntake() {
         formatter.dateFormat = "yyyy-MM-dd"
@@ -203,35 +191,23 @@ class DietTableViewController: UITableViewController {
         if PersonInfo.getGainLoseMaintain() == -1 {
             exercise = PersonInfo.getMaintenence() + constantExercise + (calorieDeltaPerDay)
         }
-        print(PersonInfo.getMaintenence())
                
         burnCalLabel.text = "Therefore, you need to burn \(Int(exercise)) total calories per day."
     }
     
     func calculateCalorieDeltaPerDay() {
         var calorieDelta = 0
-        print(PersonInfo.getGainLoseMaintain())
-        print("ADFADSF")
         if PersonInfo.getGainLoseMaintain() == 1 {
-            print(PersonInfo.getWeight())
-            print(PersonInfo.getDesiredWeight())
             calorieDelta = abs(3555 * (PersonInfo.getDesiredWeight() - PersonInfo.getWeight()))
         }
         if PersonInfo.getGainLoseMaintain() == -1 {
             calorieDelta = abs(3555 * (PersonInfo.getWeight()-PersonInfo.getDesiredWeight()))
         }
-        
-        print("Calorie Delta \(calorieDelta)")
         calorieDeltaPerDay = Double(calorieDelta)/Double(PersonInfo.getDaystoCompleteGoal())
-        print("Calorie Delta per day \(calorieDeltaPerDay)")
         PersonInfo.setDailyCalorieDelta(dailyCalorieDelta: calorieDeltaPerDay)
     }
     
     func setWaterLabel() {
         waterLabel.text = "Aim for about 65 - 85 oz of water."
     }
-    
-
-    
-
 }
