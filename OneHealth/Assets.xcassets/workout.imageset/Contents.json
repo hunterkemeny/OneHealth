@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "workout.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Screen Shot 2020-08-26 at 3.22.46 PM.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

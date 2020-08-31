@@ -83,12 +83,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = homeTableView.dequeueReusableCell(withIdentifier: "PersonalTableViewCell", for: indexPath) as! PersonalTableViewCell
             // Set the attributes of the cell based on the Personal protocol.
             cell.setAttributes(category: "Diet and Water", info: list[0])
+
             return cell
         } else if indexPath.row == 2 {
             // Cell is "PersonalTableViewCell".
             let cell = homeTableView.dequeueReusableCell(withIdentifier: "PersonalTableViewCell", for: indexPath) as! PersonalTableViewCell
             // Set the attributes of the cell based on the Personal protocol.
             cell.setAttributes(category: "Workout", info: list[1])
+
             return cell
         } else if indexPath.row == 3 {
             // Cell is "HeaderTableViewCell".
@@ -99,13 +101,16 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             
         } else if indexPath.row == 4 {
             let cell = homeTableView.dequeueReusableCell(withIdentifier: "GeneralTableViewCell", for: indexPath) as! GeneralTableViewCell
+            cell.layer.cornerRadius = 50
             // Set the attributes of the cell based on the General protocol.
             cell.setAttributes(category: "Nutrition", info: list[2])
+
             return cell
         } else if indexPath.row == 5 {
             let cell = homeTableView.dequeueReusableCell(withIdentifier: "GeneralTableViewCell", for: indexPath) as! GeneralTableViewCell
             // Set the attributes of the cell based on the General protocol.
             cell.setAttributes(category: "Longevity", info: list[3])
+
             return cell
         } else if indexPath.row == 6 {
             let cell = homeTableView.dequeueReusableCell(withIdentifier: "GeneralTableViewCell", for: indexPath) as! GeneralTableViewCell
@@ -123,6 +128,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             cell.setAttributes(category: "DNA", info: list[6])
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        // Stylize each header so that they appear only as space between each business section.
+        
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

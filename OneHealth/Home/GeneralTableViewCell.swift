@@ -23,7 +23,7 @@ class GeneralTableViewCell: UITableViewCell {
         // Stylize generalImageView.
         generalImageView.layer.borderWidth = 0
         generalImageView.layer.masksToBounds = false
-        generalImageView.layer.cornerRadius = generalImageView.frame.height/3
+        generalImageView.layer.cornerRadius = 25
         generalImageView.clipsToBounds = true
     }
     

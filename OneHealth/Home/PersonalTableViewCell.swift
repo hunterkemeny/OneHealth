@@ -24,7 +24,7 @@ class PersonalTableViewCell: UITableViewCell {
         // Stylize personalImage.
         personalImage.layer.borderWidth = 0
         personalImage.layer.masksToBounds = false
-        personalImage.layer.cornerRadius = personalImage.frame.height/3
+        personalImage.layer.cornerRadius = 25
         personalImage.clipsToBounds = true
     }
 }

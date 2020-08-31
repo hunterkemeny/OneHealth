@@ -18,6 +18,8 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="dBh-u6-SQl">
                                 <rect key="frame" x="0.0" y="88" width="414" height="788"/>
+                                <color key="separatorColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="HeaderTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HeaderTableViewCell" rowHeight="45" id="RGi-JT-yfU" customClass="HeaderTableViewCell" customModule="OneHealth" customModuleProvider="target">
                                         <rect key="frame" x="20" y="55.5" width="374" height="45"/>
@@ -50,65 +52,73 @@
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="220"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hhk-E7-W7c">
-                                                    <rect key="frame" x="30" y="30" width="315" height="161"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hhk-E7-W7c">
+                                                    <rect key="frame" x="0.0" y="11" width="374" height="198"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="225" id="RCP-Ku-6oP"/>
+                                                        <constraint firstAttribute="width" constant="374" id="W51-8J-uIb"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6DE-FA-V1D">
                                                     <rect key="frame" x="30" y="94" width="315" height="33"/>
                                                     <fontDescription key="fontDescription" name="HiraginoSans-W7" family="Hiragino Sans" pointSize="30"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="hhk-E7-W7c" secondAttribute="trailing" constant="9" id="5lx-Y4-Zqc"/>
+                                                <constraint firstAttribute="trailing" secondItem="hhk-E7-W7c" secondAttribute="trailing" id="8uY-08-U7W"/>
+                                                <constraint firstItem="hhk-E7-W7c" firstAttribute="leading" secondItem="7NN-hX-16g" secondAttribute="leading" id="BXe-rb-RhN"/>
                                                 <constraint firstItem="6DE-FA-V1D" firstAttribute="leading" secondItem="7NN-hX-16g" secondAttribute="leadingMargin" constant="10" id="L3k-fy-dlD"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="6DE-FA-V1D" secondAttribute="trailing" constant="9" id="LSh-1X-6Y7"/>
-                                                <constraint firstItem="hhk-E7-W7c" firstAttribute="leading" secondItem="7NN-hX-16g" secondAttribute="leadingMargin" constant="10" id="Vjf-09-NMp"/>
+                                                <constraint firstAttribute="bottom" secondItem="hhk-E7-W7c" secondAttribute="bottom" constant="11" id="RcZ-pu-DCr"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="6DE-FA-V1D" secondAttribute="bottom" constant="82" id="WXk-xt-CeE"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="hhk-E7-W7c" secondAttribute="bottom" constant="18" id="rDP-ba-dxH"/>
                                                 <constraint firstItem="6DE-FA-V1D" firstAttribute="top" secondItem="7NN-hX-16g" secondAttribute="topMargin" constant="83" id="sHX-wT-jSN"/>
-                                                <constraint firstItem="hhk-E7-W7c" firstAttribute="top" secondItem="7NN-hX-16g" secondAttribute="topMargin" constant="19" id="uY5-xb-ieP"/>
+                                                <constraint firstItem="hhk-E7-W7c" firstAttribute="top" secondItem="7NN-hX-16g" secondAttribute="top" constant="11" id="xdP-8u-WAV"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="collectionLabel" destination="6DE-FA-V1D" id="vfl-Fj-NO7"/>
                                             <outlet property="personalImage" destination="hhk-E7-W7c" id="rrp-ZV-Y6K"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="GeneralTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GeneralTableViewCell" rowHeight="220" id="K9f-sm-IDx" customClass="GeneralTableViewCell" customModule="OneHealth" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" restorationIdentifier="GeneralTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GeneralTableViewCell" rowHeight="220" id="K9f-sm-IDx" customClass="GeneralTableViewCell" customModule="OneHealth" customModuleProvider="target">
                                         <rect key="frame" x="20" y="320.5" width="374" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K9f-sm-IDx" id="kVu-1w-YOv">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="220"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mbf-bx-YMk">
-                                                    <rect key="frame" x="22" y="31" width="330" height="159"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mbf-bx-YMk">
+                                                    <rect key="frame" x="0.0" y="11" width="374" height="209"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="159" id="f19-tG-MzG"/>
+                                                        <constraint firstAttribute="width" constant="374" id="8bP-RS-OON"/>
+                                                        <constraint firstAttribute="height" constant="225" id="tqB-ss-Gag"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ph6-B2-OGL">
-                                                    <rect key="frame" x="22" y="98" width="330" height="30"/>
+                                                    <rect key="frame" x="22" y="98" width="330" height="38"/>
                                                     <fontDescription key="fontDescription" name="HiraginoSans-W7" family="Hiragino Sans" pointSize="30"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
+                                                    <size key="shadowOffset" width="12" height="12"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Ph6-B2-OGL" secondAttribute="bottom" constant="81" id="3uv-8L-6i6"/>
                                                 <constraint firstItem="Ph6-B2-OGL" firstAttribute="top" secondItem="kVu-1w-YOv" secondAttribute="topMargin" constant="87" id="7iz-Zr-3RA"/>
                                                 <constraint firstItem="Ph6-B2-OGL" firstAttribute="leading" secondItem="kVu-1w-YOv" secondAttribute="leadingMargin" constant="2" id="CZX-X1-uoR"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Ph6-B2-OGL" secondAttribute="bottom" constant="73" id="Exx-wS-OSk"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Ph6-B2-OGL" secondAttribute="trailing" constant="2" id="W2E-Mt-CPx"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="mbf-bx-YMk" secondAttribute="trailing" constant="2" id="XAa-wn-lzI"/>
-                                                <constraint firstItem="mbf-bx-YMk" firstAttribute="top" secondItem="kVu-1w-YOv" secondAttribute="topMargin" constant="20" id="d6i-DI-jp0"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="mbf-bx-YMk" secondAttribute="bottom" constant="19" id="niy-YW-8nt"/>
+                                                <constraint firstItem="mbf-bx-YMk" firstAttribute="top" secondItem="kVu-1w-YOv" secondAttribute="top" constant="11" id="YRI-gh-4rT"/>
+                                                <constraint firstItem="mbf-bx-YMk" firstAttribute="leading" secondItem="kVu-1w-YOv" secondAttribute="leading" id="YZq-Ci-uei"/>
+                                                <constraint firstAttribute="trailing" secondItem="mbf-bx-YMk" secondAttribute="trailing" id="gR1-2h-MD5"/>
                                                 <constraint firstItem="Ph6-B2-OGL" firstAttribute="leading" secondItem="kVu-1w-YOv" secondAttribute="leadingMargin" constant="2" id="o1f-uq-oX0"/>
-                                                <constraint firstItem="mbf-bx-YMk" firstAttribute="leading" secondItem="kVu-1w-YOv" secondAttribute="leadingMargin" constant="2" id="q10-Sa-oLA"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Ph6-B2-OGL" secondAttribute="trailing" constant="2" id="twr-4a-Ncd"/>
+                                                <constraint firstAttribute="bottom" secondItem="mbf-bx-YMk" secondAttribute="bottom" id="zwo-XD-AOf"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="collectionLabel" destination="Ph6-B2-OGL" id="23o-uK-OyK"/>
                                             <outlet property="generalImageView" destination="mbf-bx-YMk" id="iZo-Mv-dtE"/>

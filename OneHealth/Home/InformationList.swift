@@ -37,8 +37,8 @@ class InformationList {
         list.append(workout)
         list.append(nutrition)
         list.append(longevity)
-        list.append(supplements)
         list.append(meditation)
+        list.append(supplements)
         list.append(dna)
     }
     

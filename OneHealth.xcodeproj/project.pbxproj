@@ -19,7 +19,7 @@
 		4CE89FFB24F7518700AFCA5F /* LongevityResourceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE89FFA24F7518700AFCA5F /* LongevityResourceList.swift */; };
 		4CE89FFD24F751AC00AFCA5F /* MeditationResourceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE89FFC24F751AC00AFCA5F /* MeditationResourceList.swift */; };
 		4CE89FFF24F751D600AFCA5F /* SupplementResourceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE89FFE24F751D600AFCA5F /* SupplementResourceList.swift */; };
-		4CE8A00124F751EA00AFCA5F /* DNARsourceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00024F751EA00AFCA5F /* DNARsourceList.swift */; };
+		4CE8A00124F751EA00AFCA5F /* DNAResourceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00024F751EA00AFCA5F /* DNAResourceList.swift */; };
 		4CE8A00324F774D100AFCA5F /* InitialNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */; };
 		4CE8A00724F85D0000AFCA5F /* MetricsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00624F85D0000AFCA5F /* MetricsTableViewController.swift */; };
 		4CE8A00B24F88B5D00AFCA5F /* DayPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00A24F88B5D00AFCA5F /* DayPickerViewController.swift */; };
@@ -70,7 +70,7 @@
 		4CE89FFA24F7518700AFCA5F /* LongevityResourceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongevityResourceList.swift; sourceTree = "<group>"; };
 		4CE89FFC24F751AC00AFCA5F /* MeditationResourceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationResourceList.swift; sourceTree = "<group>"; };
 		4CE89FFE24F751D600AFCA5F /* SupplementResourceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupplementResourceList.swift; sourceTree = "<group>"; };
-		4CE8A00024F751EA00AFCA5F /* DNARsourceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNARsourceList.swift; sourceTree = "<group>"; };
+		4CE8A00024F751EA00AFCA5F /* DNAResourceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNAResourceList.swift; sourceTree = "<group>"; };
 		4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialNavigationController.swift; sourceTree = "<group>"; };
 		4CE8A00624F85D0000AFCA5F /* MetricsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsTableViewController.swift; sourceTree = "<group>"; };
 		4CE8A00A24F88B5D00AFCA5F /* DayPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPickerViewController.swift; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 				4CE89FFA24F7518700AFCA5F /* LongevityResourceList.swift */,
 				4CE89FFC24F751AC00AFCA5F /* MeditationResourceList.swift */,
 				4CE89FFE24F751D600AFCA5F /* SupplementResourceList.swift */,
-				4CE8A00024F751EA00AFCA5F /* DNARsourceList.swift */,
+				4CE8A00024F751EA00AFCA5F /* DNAResourceList.swift */,
 				4CE89FEC24F5FC2000AFCA5F /* Information.swift */,
 				4CE89FF224F71C4300AFCA5F /* Resource.swift */,
 				4CF22B3923DA5D2400904BE4 /* HomeViewController.swift */,
@@ -401,7 +401,7 @@
 				4CF22AF523D937EA00904BE4 /* SignupViewController.swift in Sources */,
 				4CF22AF723D9380E00904BE4 /* TutorialViewController.swift in Sources */,
 				4CE8A01724FC805000AFCA5F /* SurveyTableViewController.swift in Sources */,
-				4CE8A00124F751EA00AFCA5F /* DNARsourceList.swift in Sources */,
+				4CE8A00124F751EA00AFCA5F /* DNAResourceList.swift in Sources */,
 				4CE89FFF24F751D600AFCA5F /* SupplementResourceList.swift in Sources */,
 				4CE89FF324F71C4300AFCA5F /* Resource.swift in Sources */,
 				4CE8A00B24F88B5D00AFCA5F /* DayPickerViewController.swift in Sources */,
