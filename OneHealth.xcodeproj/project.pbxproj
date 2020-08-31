@@ -124,6 +124,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4CE8A01824FDBA3700AFCA5F /* TODO */ = {
+			isa = PBXGroup;
+			children = (
+				4CE89FFA24F7518700AFCA5F /* LongevityResourceList.swift */,
+				4CE89FFE24F751D600AFCA5F /* SupplementResourceList.swift */,
+				4CE8A00024F751EA00AFCA5F /* DNAResourceList.swift */,
+			);
+			path = TODO;
+			sourceTree = "<group>";
+		};
+		4CE8A01924FDBA8100AFCA5F /* High Level */ = {
+			isa = PBXGroup;
+			children = (
+				4CE89FEC24F5FC2000AFCA5F /* Information.swift */,
+				4CE89FF224F71C4300AFCA5F /* Resource.swift */,
+				4CE89FEE24F6066F00AFCA5F /* InformationList.swift */,
+				4CE89FF424F71C7A00AFCA5F /* NutritionResourceList.swift */,
+				4CE89FFC24F751AC00AFCA5F /* MeditationResourceList.swift */,
+			);
+			path = "High Level";
+			sourceTree = "<group>";
+		};
+		4CE8A01A24FDBA8F00AFCA5F /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4CF22B3923DA5D2400904BE4 /* HomeViewController.swift */,
+				4CF22B3B23DA69EF00904BE4 /* HeaderTableViewCell.swift */,
+				4CF22B3523DA5A3F00904BE4 /* PersonalTableViewCell.swift */,
+				4CF22B3723DA5A5900904BE4 /* GeneralTableViewCell.swift */,
+			);
+			path = HomeViewController;
+			sourceTree = "<group>";
+		};
+		4CE8A01B24FDBADB00AFCA5F /* Information and Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4CE8A01024F9A44000AFCA5F /* DietTableViewController.swift */,
+				4CE8A01224F9A44A00AFCA5F /* WorkoutTableViewController.swift */,
+				4CE89FF624F7297800AFCA5F /* InformationViewController.swift */,
+				4CE89FF824F730DA00AFCA5F /* ResourceTableViewCell.swift */,
+			);
+			path = "Information and Resources";
+			sourceTree = "<group>";
+		};
 		4CF22AC723D9131900904BE4 = {
 			isa = PBXGroup;
 			children = (
@@ -183,22 +227,10 @@
 		4CF22AEB23D9370E00904BE4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				4CE89FEE24F6066F00AFCA5F /* InformationList.swift */,
-				4CE89FF424F71C7A00AFCA5F /* NutritionResourceList.swift */,
-				4CE89FFA24F7518700AFCA5F /* LongevityResourceList.swift */,
-				4CE89FFC24F751AC00AFCA5F /* MeditationResourceList.swift */,
-				4CE89FFE24F751D600AFCA5F /* SupplementResourceList.swift */,
-				4CE8A00024F751EA00AFCA5F /* DNAResourceList.swift */,
-				4CE89FEC24F5FC2000AFCA5F /* Information.swift */,
-				4CE89FF224F71C4300AFCA5F /* Resource.swift */,
-				4CF22B3923DA5D2400904BE4 /* HomeViewController.swift */,
-				4CF22B3B23DA69EF00904BE4 /* HeaderTableViewCell.swift */,
-				4CF22B3523DA5A3F00904BE4 /* PersonalTableViewCell.swift */,
-				4CF22B3723DA5A5900904BE4 /* GeneralTableViewCell.swift */,
-				4CE89FF624F7297800AFCA5F /* InformationViewController.swift */,
-				4CE89FF824F730DA00AFCA5F /* ResourceTableViewCell.swift */,
-				4CE8A01024F9A44000AFCA5F /* DietTableViewController.swift */,
-				4CE8A01224F9A44A00AFCA5F /* WorkoutTableViewController.swift */,
+				4CE8A01B24FDBADB00AFCA5F /* Information and Resources */,
+				4CE8A01A24FDBA8F00AFCA5F /* HomeViewController */,
+				4CE8A01924FDBA8100AFCA5F /* High Level */,
+				4CE8A01824FDBA3700AFCA5F /* TODO */,
 			);
 			path = Home;
 			sourceTree = "<group>";

@@ -373,6 +373,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="165"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hhz-HU-Akn">
+                                            <rect key="frame" x="0.0" y="-0.5" width="374" height="165"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <action selector="didTapResource:" destination="1u8-TG-XNN" eventType="touchUpInside" id="pP2-ZP-HVY"/>
+                                                <action selector="resourceButton:" destination="xKt-Qh-2Zi" eventType="touchUpInside" id="LEW-lv-Z81"/>
+                                            </connections>
+                                        </button>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WBO-20-KLe">
                                             <rect key="frame" x="30" y="22" width="148" height="128"/>
                                             <constraints>
@@ -417,6 +425,7 @@
                                 <connections>
                                     <outlet property="authorLabel" destination="aUl-nh-sbP" id="X8g-jZ-Xjm"/>
                                     <outlet property="dateLabel" destination="Wg1-iN-2qp" id="fta-Op-RWc"/>
+                                    <outlet property="resourceButton" destination="Hhz-HU-Akn" id="152-Ww-HgN"/>
                                     <outlet property="resourceImageView" destination="WBO-20-KLe" id="70R-0N-RiL"/>
                                     <outlet property="titleLabel" destination="8ZA-lY-IZZ" id="BFW-UT-hOK"/>
                                 </connections>
@@ -434,6 +443,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lW2-4E-Pai" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="xKt-Qh-2Zi" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4805.7971014492759" y="-1302.4553571428571"/>
         </scene>
