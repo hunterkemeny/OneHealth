@@ -171,7 +171,6 @@
 		4CF22AEA23D9370600904BE4 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */,
 				4CF22AF023D937C000904BE4 /* BaseViewController.swift */,
 				4CF22AF223D937DB00904BE4 /* LoginViewController.swift */,
 				4CF22AF423D937EA00904BE4 /* SignupViewController.swift */,
@@ -185,6 +184,7 @@
 		4CF22AEB23D9370E00904BE4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */,
 				4CE89FEE24F6066F00AFCA5F /* InformationList.swift */,
 				4CE89FF424F71C7A00AFCA5F /* NutritionResourceList.swift */,
 				4CE89FFA24F7518700AFCA5F /* LongevityResourceList.swift */,

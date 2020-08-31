@@ -40,10 +40,6 @@ class InformationList {
         list.append(supplements)
         list.append(meditation)
         list.append(dna)
-        
-        
-    
-        
     }
     
     static func getList() -> [Information] {

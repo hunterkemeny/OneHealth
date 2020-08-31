@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// Need to get rid of personinfo? Or add to onboarding process?
 class PersonInfo {
     static var weight: Int = 0
     static var desiredWeight: Int = 0
