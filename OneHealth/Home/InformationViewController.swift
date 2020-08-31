@@ -20,6 +20,30 @@ class InformationViewController: UIViewController, UITableViewDataSource, UITabl
     
     var linksList: Array<Array<Resource>>?
     
+/* Reference for adding URLs. probably in resoure table view cell
+     
+     @IBOutlet weak var generalImageView: UIImageView!
+        //@IBOutlet weak var generalButton: UIButton!
+        
+        var buttonLink: String?
+        
+        func setAttributes(info: Information, saveIndex: Int) {
+            
+            //if saveIndex == 0 {
+            
+            generalImageView.image = info.icon
+            //buttonLink = "https://peterattiamd.com/"
+            
+            //}
+            
+        }
+        /*
+        @IBAction func didTapArticle(_ sender: Any) {
+            UIApplication.shared.openURL(URL(string: buttonLink ?? "")!)
+        }
+     */
+     */
+    
     
     
     // Determine which lists to declare based on segue

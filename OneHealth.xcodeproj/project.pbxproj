@@ -10,7 +10,6 @@
 		4C4D565623DCF3810005EAC8 /* InsertInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4D565523DCF3810005EAC8 /* InsertInfoViewController.swift */; };
 		4CD472A323DE3C1D0087B132 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD472A223DE3C1D0087B132 /* HealthKit.framework */; };
 		4CD472A523DEA0080087B132 /* NotificationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD472A423DEA0080087B132 /* NotificationPublisher.swift */; };
-		4CE89FEB24F5F58400AFCA5F /* GeneralCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE89FEA24F5F58300AFCA5F /* GeneralCollectionViewCell.swift */; };
 		4CE89FED24F5FC2000AFCA5F /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE89FEC24F5FC2000AFCA5F /* Information.swift */; };
 		4CE89FEF24F6066F00AFCA5F /* InformationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE89FEE24F6066F00AFCA5F /* InformationList.swift */; };
 		4CE89FF324F71C4300AFCA5F /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE89FF224F71C4300AFCA5F /* Resource.swift */; };
@@ -62,7 +61,6 @@
 		4CD472A123DE3C1C0087B132 /* OneHealth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneHealth.entitlements; sourceTree = "<group>"; };
 		4CD472A223DE3C1D0087B132 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		4CD472A423DEA0080087B132 /* NotificationPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPublisher.swift; sourceTree = "<group>"; };
-		4CE89FEA24F5F58300AFCA5F /* GeneralCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCollectionViewCell.swift; sourceTree = "<group>"; };
 		4CE89FEC24F5FC2000AFCA5F /* Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
 		4CE89FEE24F6066F00AFCA5F /* InformationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationList.swift; sourceTree = "<group>"; };
 		4CE89FF224F71C4300AFCA5F /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
@@ -154,6 +152,7 @@
 				4CD472A423DEA0080087B132 /* NotificationPublisher.swift */,
 				4CF22AD523D9131900904BE4 /* SceneDelegate.swift */,
 				4CF22B2D23D940EC00904BE4 /* TabViewController.swift */,
+				4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */,
 				4CF22AEA23D9370600904BE4 /* Onboarding */,
 				4CF22AEB23D9370E00904BE4 /* Home */,
 				4CF22AEC23D9372C00904BE4 /* Metrics */,
@@ -171,12 +170,12 @@
 		4CF22AEA23D9370600904BE4 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */,
 				4CF22AF023D937C000904BE4 /* BaseViewController.swift */,
 				4CF22AF223D937DB00904BE4 /* LoginViewController.swift */,
 				4CF22AF423D937EA00904BE4 /* SignupViewController.swift */,
 				4CF22AF623D9380E00904BE4 /* TutorialViewController.swift */,
 				4CE8A01624FC805000AFCA5F /* SurveyTableViewController.swift */,
-				4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -184,7 +183,6 @@
 		4CF22AEB23D9370E00904BE4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */,
 				4CE89FEE24F6066F00AFCA5F /* InformationList.swift */,
 				4CE89FF424F71C7A00AFCA5F /* NutritionResourceList.swift */,
 				4CE89FFA24F7518700AFCA5F /* LongevityResourceList.swift */,
@@ -197,7 +195,6 @@
 				4CF22B3B23DA69EF00904BE4 /* HeaderTableViewCell.swift */,
 				4CF22B3523DA5A3F00904BE4 /* PersonalTableViewCell.swift */,
 				4CF22B3723DA5A5900904BE4 /* GeneralTableViewCell.swift */,
-				4CE89FEA24F5F58300AFCA5F /* GeneralCollectionViewCell.swift */,
 				4CE89FF624F7297800AFCA5F /* InformationViewController.swift */,
 				4CE89FF824F730DA00AFCA5F /* ResourceTableViewCell.swift */,
 				4CE8A01024F9A44000AFCA5F /* DietTableViewController.swift */,
@@ -433,7 +430,6 @@
 				4CE89FFB24F7518700AFCA5F /* LongevityResourceList.swift in Sources */,
 				4CF22AF323D937DB00904BE4 /* LoginViewController.swift in Sources */,
 				4CF22B3623DA5A3F00904BE4 /* PersonalTableViewCell.swift in Sources */,
-				4CE89FEB24F5F58400AFCA5F /* GeneralCollectionViewCell.swift in Sources */,
 				4CE89FF524F71C7A00AFCA5F /* NutritionResourceList.swift in Sources */,
 				4CF22B4623DB9CA900904BE4 /* MonthTableViewCell.swift in Sources */,
 				4CF22B3C23DA69EF00904BE4 /* HeaderTableViewCell.swift in Sources */,

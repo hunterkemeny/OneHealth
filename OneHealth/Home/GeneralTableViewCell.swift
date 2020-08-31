@@ -9,14 +9,22 @@ import UIKit
 
 class GeneralTableViewCell: UITableViewCell {
 
+    // MARK: - IBOutlets
     
     @IBOutlet weak var collectionLabel: UILabel!
     @IBOutlet weak var generalImageView: UIImageView!
     
+    // MARK: - Method
+    
     func setAttributes(category: String, info: Information) {
-        
         collectionLabel.text = category
         generalImageView.image = info.icon
+        
+        // Stylize generalImageView.
+        generalImageView.layer.borderWidth = 0
+        generalImageView.layer.masksToBounds = false
+        generalImageView.layer.cornerRadius = generalImageView.frame.height/3
+        generalImageView.clipsToBounds = true
     }
     
 }

@@ -37,7 +37,6 @@ class MetricsTableViewController: UITableViewController {
         viewDidLoad()
     }
     
-    
     @IBAction func burnedSwitch(_ sender: Any) {
         viewDidLoad()
     }
@@ -45,9 +44,6 @@ class MetricsTableViewController: UITableViewController {
     @IBAction func consumedSwitch(_ sender: Any) {
         viewDidLoad()
     }
-    
-    
-    
     
     let noon = Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: Date())!
     
@@ -59,17 +55,7 @@ class MetricsTableViewController: UITableViewController {
         } else if dateSlider.selectedSegmentIndex == 1 {
             predictedWeightLoss3Months()
         }
-        
-        
     }
-    
-    // predicted weight loss: month (one dot per week with calorie delta corresponding to pounds
-    // predicted weight loss: year (one dot per month)
-    
-    // selected metrics: if selector is on, show the line (going to have to use .reloadtable or something
-    // per month: as many dots per day as we have to work with (check how calender is implemented to see how we get
-    // active cals)
-    // per year: average of what we have so far
     
     func predictedWeightLossMonth() {
         var weight = [ChartDataEntry]()
@@ -92,19 +78,10 @@ class MetricsTableViewController: UITableViewController {
         weight.append(value1)
         
         for i in 2...5 {
-            
-            print(PersonInfo.getDailyCalorieDelta())
             initialWeight += PersonInfo.getDailyCalorieDelta()*7 * (1/3500)
             let value = ChartDataEntry(x: Double(i), y: initialWeight)
             weight.append(value)
         }
-        
-        
-        print("AHHHHHHh")
-        print(weight)
-        
-        
-        
         let line1 = LineChartDataSet(entries: weight, label: "Weight")
            line1.colors = [NSUIColor.blue]
         
@@ -137,7 +114,6 @@ class MetricsTableViewController: UITableViewController {
         
         for i in 2...12 {
             
-            print(PersonInfo.getDailyCalorieDelta())
             initialWeight += PersonInfo.getDailyCalorieDelta()*7 * (1/3500)
             let value = ChartDataEntry(x: Double(i), y: initialWeight)
             weight.append(value)
@@ -161,8 +137,8 @@ class MetricsTableViewController: UITableViewController {
            
        func selectedMetrics() {
            var weight = [ChartDataEntry]()
-        var calsBurned = [ChartDataEntry]()
-        var calsConsumed = [ChartDataEntry]()
+            var calsBurned = [ChartDataEntry]()
+            var calsConsumed = [ChartDataEntry]()
                
            let dateFormatter = DateFormatter()
            dateFormatter.dateFormat = "MM/dd/yyyy"
@@ -184,13 +160,6 @@ class MetricsTableViewController: UITableViewController {
                
     
         for i in 0...results.count - 1 {
-            print("YOYO")
-            print(i)
-            print(results)
-            print(results.count)
-            print("SUP")
-            
-                   
             let weightValue = ChartDataEntry(x: abs(Double(i)), y: results[i].weight)
             let burnedValue = ChartDataEntry(x: abs(Double(i)), y: results[i].activeCals) // change to maintenence plus activecals, or BMR plus active cals
             let consumedValue = ChartDataEntry(x: abs(Double(i)), y: results[i].calsIntake)
@@ -219,16 +188,9 @@ class MetricsTableViewController: UITableViewController {
         if consumedSwitch.isOn == true {
             data.addDataSet(line3)
         }
-           
-        
-        
+
         activeCalsView.data = data
         activeCalsView.chartDescription?.text = "Active Calories v. Time"
                
        }
-           
-            
-         
-
-    
 }

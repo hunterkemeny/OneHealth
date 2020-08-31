@@ -275,6 +275,8 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         } else {
             cell.setAttributes(day: indexPath.row, today: false)
         }
+        // Stylize the cell.
+        cell.layer.cornerRadius = 20
         return cell
     }
     
