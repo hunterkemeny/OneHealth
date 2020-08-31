@@ -9,24 +9,33 @@ import UIKit
 
 class WorkoutTableViewController: UITableViewController {
 
+    // MARK: - IBOutlets
+    
     @IBOutlet weak var todaysWorkoutLabel: UILabel!
     @IBOutlet weak var workoutLabel: UILabel!
     
-    var workout: String? = ""
+    // MARK: - Properties
     
+    var workout: String? = ""
     let formatter  = DateFormatter()
+    
+    // MARK: - Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         determineExercise()
-        
+    }
+    
+    func getDayOfWeek(_ today:String) -> Int? {
+        guard let todayDate = formatter.date(from: today) else { return nil }
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.weekday, from: todayDate)
+        return weekDay
     }
     
     func determineExercise() {
         formatter.dateFormat = "yyyy-MM-dd"
-        var day = getDayOfWeek(formatter.string(from: Date()))
-
-        
+        let day = getDayOfWeek(formatter.string(from: Date()))
         if day == 1 || day == 7 {
             todaysWorkoutLabel.text = "Rest! Or, if you'd like, go on a walk or jog."
             workoutLabel.text = ""
@@ -117,17 +126,5 @@ class WorkoutTableViewController: UITableViewController {
         }
  
     }
-    
-    func getDayOfWeek(_ today:String) -> Int? {
-        guard let todayDate = formatter.date(from: today) else { return nil }
-        let myCalendar = Calendar(identifier: .gregorian)
-        let weekDay = myCalendar.component(.weekday, from: todayDate)
-        return weekDay
-    }
-    
-    
-
-    
-
 }
 
