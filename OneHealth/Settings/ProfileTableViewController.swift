@@ -19,7 +19,6 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var currentWeightLabel: UILabel!
     @IBOutlet weak var weightGoalLabel: UILabel!
     @IBOutlet weak var weeksLabel: UILabel!
-    @IBOutlet weak var mealsLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     
@@ -51,7 +50,6 @@ class ProfileTableViewController: UITableViewController {
         currentWeightLabel.text = results[0].weight
         weightGoalLabel.text = results[0].weightGoal
         weeksLabel.text = results[0].weeksToComplete
-        mealsLabel.text = results[0].meals
     }
     
 

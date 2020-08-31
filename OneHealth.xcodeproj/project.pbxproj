@@ -28,6 +28,7 @@
 		4CE8A00F24F9852500AFCA5F /* PersonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */; };
 		4CE8A01124F9A44000AFCA5F /* DietTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A01024F9A44000AFCA5F /* DietTableViewController.swift */; };
 		4CE8A01324F9A44A00AFCA5F /* WorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A01224F9A44A00AFCA5F /* WorkoutTableViewController.swift */; };
+		4CE8A01724FC805000AFCA5F /* SurveyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A01624FC805000AFCA5F /* SurveyTableViewController.swift */; };
 		4CF22AD423D9131900904BE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD323D9131900904BE4 /* AppDelegate.swift */; };
 		4CF22AD623D9131900904BE4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD523D9131900904BE4 /* SceneDelegate.swift */; };
 		4CF22ADB23D9131900904BE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CF22AD923D9131900904BE4 /* Main.storyboard */; };
@@ -38,7 +39,6 @@
 		4CF22AF323D937DB00904BE4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AF223D937DB00904BE4 /* LoginViewController.swift */; };
 		4CF22AF523D937EA00904BE4 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AF423D937EA00904BE4 /* SignupViewController.swift */; };
 		4CF22AF723D9380E00904BE4 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AF623D9380E00904BE4 /* TutorialViewController.swift */; };
-		4CF22AF923D9381F00904BE4 /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AF823D9381F00904BE4 /* SurveyViewController.swift */; };
 		4CF22AFF23D93F4F00904BE4 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AFE23D93F4F00904BE4 /* SettingsTableViewController.swift */; };
 		4CF22B0623D93FDE00904BE4 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B0523D93FDE00904BE4 /* LogViewController.swift */; };
 		4CF22B2E23D940EC00904BE4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B2D23D940EC00904BE4 /* TabViewController.swift */; };
@@ -80,6 +80,7 @@
 		4CE8A00E24F9852500AFCA5F /* PersonInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonInfo.swift; sourceTree = "<group>"; };
 		4CE8A01024F9A44000AFCA5F /* DietTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietTableViewController.swift; sourceTree = "<group>"; };
 		4CE8A01224F9A44A00AFCA5F /* WorkoutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewController.swift; sourceTree = "<group>"; };
+		4CE8A01624FC805000AFCA5F /* SurveyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyTableViewController.swift; sourceTree = "<group>"; };
 		4CF22AD023D9131900904BE4 /* OneHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF22AD323D9131900904BE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CF22AD523D9131900904BE4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,7 +93,6 @@
 		4CF22AF223D937DB00904BE4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4CF22AF423D937EA00904BE4 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		4CF22AF623D9380E00904BE4 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
-		4CF22AF823D9381F00904BE4 /* SurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
 		4CF22AFE23D93F4F00904BE4 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4CF22B0523D93FDE00904BE4 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		4CF22B2D23D940EC00904BE4 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
@@ -176,7 +176,7 @@
 				4CF22AF223D937DB00904BE4 /* LoginViewController.swift */,
 				4CF22AF423D937EA00904BE4 /* SignupViewController.swift */,
 				4CF22AF623D9380E00904BE4 /* TutorialViewController.swift */,
-				4CF22AF823D9381F00904BE4 /* SurveyViewController.swift */,
+				4CE8A01624FC805000AFCA5F /* SurveyTableViewController.swift */,
 				4CE8A00224F774D100AFCA5F /* InitialNavigationController.swift */,
 			);
 			path = Onboarding;
@@ -403,6 +403,7 @@
 				4CE89FF924F730DA00AFCA5F /* ResourceTableViewCell.swift in Sources */,
 				4CF22AF523D937EA00904BE4 /* SignupViewController.swift in Sources */,
 				4CF22AF723D9380E00904BE4 /* TutorialViewController.swift in Sources */,
+				4CE8A01724FC805000AFCA5F /* SurveyTableViewController.swift in Sources */,
 				4CE8A00124F751EA00AFCA5F /* DNARsourceList.swift in Sources */,
 				4CE89FFF24F751D600AFCA5F /* SupplementResourceList.swift in Sources */,
 				4CE89FF324F71C4300AFCA5F /* Resource.swift in Sources */,
@@ -411,7 +412,6 @@
 				4CF22B0623D93FDE00904BE4 /* LogViewController.swift in Sources */,
 				4CF22B4E23DBD8E900904BE4 /* LogTableViewCell.swift in Sources */,
 				4CF22B4A23DBA18000904BE4 /* DayCollectionViewCell.swift in Sources */,
-				4CF22AF923D9381F00904BE4 /* SurveyViewController.swift in Sources */,
 				4CF22AF123D937C000904BE4 /* BaseViewController.swift in Sources */,
 				4CE89FEF24F6066F00AFCA5F /* InformationList.swift in Sources */,
 				4CF22B3823DA5A5900904BE4 /* GeneralTableViewCell.swift in Sources */,

@@ -15,7 +15,7 @@ import FirebaseCore
 
 
 
-class SurveyViewController: UIViewController, UITextFieldDelegate {
+class SurveyTableViewController: UITableViewController, UITextFieldDelegate {
     //TODO: keyboard blocks textfield: codewithchris video
     // MARK: - Properties
     
@@ -29,12 +29,10 @@ class SurveyViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var weightSwitch: UISegmentedControl!
     @IBOutlet weak var weightGoalTextField: UITextField!
     @IBOutlet weak var weekSlider: UISlider!
-    @IBOutlet weak var mealSlider: UISlider!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var heightTextField: UITextField!
-    
-
+      
     override func viewDidLoad() {
         // Setup ViewController.
         
@@ -48,8 +46,7 @@ class SurveyViewController: UIViewController, UITextFieldDelegate {
         heightTextField.delegate = self
     }
     
-    @IBAction func completeSurvey(_ sender: Any) {
-        
+    @IBAction func completeSurveyButton(_ sender: Any) {
         // Inititalize reference to storyboard.
         let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
@@ -88,7 +85,6 @@ class SurveyViewController: UIViewController, UITextFieldDelegate {
         
         // Store values for sliders.
         let time: Float = weekSlider.value
-        let meals: Float = mealSlider.value
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -111,7 +107,6 @@ class SurveyViewController: UIViewController, UITextFieldDelegate {
         results[0].setValue(height, forKey: "height")
         results[0].setValue(weight, forKey: "weight")
         results[0].setValue(weightChangeGoal, forKey: "weightGoal")
-        results[0].setValue(String(Int(meals)), forKey: "meals")
         
         // Save new user to Core Data.
         do {
@@ -121,7 +116,7 @@ class SurveyViewController: UIViewController, UITextFieldDelegate {
         }
         
         // Store values in Firestore DB.
-        db.collection("surveyInfo").document(userID!).setData(["age": age!, "sex": userSex, "weight": weight!, "height": height, "goal-type": goalType, "weight-change-goal": weightChangeGoal!, "time-to-complete": time*7, "num-meals": meals]) { err in
+        db.collection("surveyInfo").document(userID!).setData(["age": age!, "sex": userSex, "weight": weight!, "height": height, "goal-type": goalType, "weight-change-goal": weightChangeGoal!, "time-to-complete": time*7]) { err in
             
             if let err = err {
                 print("Error writing document: \(err)")
@@ -136,6 +131,7 @@ class SurveyViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Enable functionality for return key.
