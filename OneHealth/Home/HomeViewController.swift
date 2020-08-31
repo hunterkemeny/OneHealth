@@ -159,6 +159,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             resourceList = dnaList
             performSegue(withIdentifier: showInfo, sender: nil)
         }
+        // Deselect the row so that it does not stay highlighted after segue.
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

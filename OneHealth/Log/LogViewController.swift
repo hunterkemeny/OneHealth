@@ -160,6 +160,9 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         // Perform segue to instantiate an InsertInfoViewController that displays the attributes of a particular category..
         self.performSegue(withIdentifier: "logSegue", sender: self)
+        
+        // Deselect the row so that it does not stay highlighted after segue.
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

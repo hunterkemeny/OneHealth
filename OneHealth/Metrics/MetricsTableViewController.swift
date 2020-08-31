@@ -193,4 +193,9 @@ class MetricsTableViewController: UITableViewController {
         activeCalsView.chartDescription?.text = "Active Calories v. Time"
                
        }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Deselect the row so that it does not stay highlighted after segue.
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
 }

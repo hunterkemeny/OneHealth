@@ -189,6 +189,11 @@ class InformationViewController: UIViewController, UITableViewDataSource, UITabl
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Deselect the row so that it does not stay highlighted after segue.
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
 
 }
 

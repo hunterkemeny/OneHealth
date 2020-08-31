@@ -32,7 +32,7 @@ class SurveyTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var ageTextField: UITextField!
     @IBOutlet weak var heightTextField: UITextField!
-      
+    
     override func viewDidLoad() {
         // Setup ViewController.
         
@@ -44,6 +44,11 @@ class SurveyTableViewController: UITableViewController, UITextFieldDelegate {
         weightGoalTextField.delegate = self
         ageTextField.delegate = self
         heightTextField.delegate = self
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Deselect the row so that it does not stay highlighted after segue.
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
     @IBAction func completeSurveyButton(_ sender: Any) {
