@@ -13,9 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         /* If user has signed in previously, make TabViewController the initial ViewController. Otherwise, make BaseViewController the initial ViewController. */
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             if(UserDefaults.standard.value(forKey: "email") as? String) == nil {
@@ -27,7 +25,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

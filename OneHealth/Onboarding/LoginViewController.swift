@@ -81,6 +81,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    // MARK: - Helper Functions
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Enable functionality for return key.

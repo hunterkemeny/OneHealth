@@ -17,32 +17,162 @@ import HealthKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    // MARK: - Properties
     let healthKitStore = HKHealthStore()
     private let notificationPublisher = NotificationPublisher()
+    var calsBurned: Int!
+    var date = Date()
     
+    // MARK: - Helper Functions
     
+    func authorizeHealthKitApp() {
+        let HKRead: Set<HKObjectType> = [HKObjectType.activitySummaryType(),]
+        
+        let HKWrite: Set<HKSampleType> = []
+        
+        if !HKHealthStore.isHealthDataAvailable() {
+            print("Error occured!")
+            return
+        }
+                
+        healthKitStore.requestAuthorization(toShare: HKWrite, read: HKRead) { (sucess, error) in
+            print("Read/write authorization successful")
+            print("Attempting query...")
+            self.performQuery()
+        }
+    }
+    
+
+    func performQuery() {
+        // Get the last 7 days of active calories burned data from the Apple Watch by querying the HealthKit Activity API.
+        
+        // Create the date components for the predicate in order to query from HKActivity.
+        guard let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian) else {
+            fatalError("*** This should never fail. ***")
+        }
+        let endDate = NSDate()
+        guard let startDate = calendar.date(byAdding: .day, value: -7, to: endDate as Date, options: []) else {
+            fatalError("*** unable to calculate the start date ***")
+        }
+        let units: NSCalendar.Unit = [.day, .month, .year, .era]
+        var startDateComponents = calendar.components(units, from: startDate)
+        startDateComponents.calendar = calendar as Calendar
+        var endDateComponents = calendar.components(units, from: endDate as Date)
+        endDateComponents.calendar = calendar as Calendar
+        
+        // Create the predicate for the HKQuery.
+        let summariesWithinRange = HKQuery.predicate(forActivitySummariesBetweenStart: startDateComponents, end: endDateComponents)
+         
+        // Build the HKActivity summary query.
+        let query1 = HKActivitySummaryQuery(predicate: summariesWithinRange) { (query, summaries, error) -> Void in
+            guard let activitySummaries = summaries else {
+                guard let queryError = error else {
+                    fatalError("*** Did not return a valid error object. ***")
+                }
+                // Handle the error here...
+                return
+            }
+            
+            // Fetch the list of "LogDate" objects.
+            let context = AppDelegate().persistentContainer.viewContext
+            let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
+            let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
+            request.returnsObjectsAsFaults = false
+            var logDateObjectList: [LogDate]
+            do {
+                try logDateObjectList = context.fetch(request)
+            } catch {
+                fatalError("Failure to fetch: \(error)")
+            }
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            
+            // If the user is opening the app for the first time, create a LogDate object and store today's date as dateOfLog attribute in the LogDate object for today in Core Data.
+            if logDateObjectList.count == 0 {
+                let newDate = NSManagedObject(entity: entity!, insertInto: context)
+                newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
+                // Store the activity summary for today in the newly created LogDate object associated with today.
+                newDate.setValue(activitySummaries[6].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()), forKey: "activeCals")
+            }
+            // Save the newly created LogDate object to Core Data.
+            do {
+                try context.save()
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
+            
+            if logDateObjectList.count != 0 {
+                // For each item in the activity summary...
+                for i in 0...6 {
+                    for num in 0...logDateObjectList.count - 1 {
+                        if activitySummaries[i].dateComponents(for: calendar as Calendar).month! < 10 { // Have to perform this check based on the format of the date, where 0s are placed before single digit months.
+                            
+                            // If the day associated with a particular LogDate object in Core Data has the same date as one of the days queried from HKActivitySummary, then update the activeCals associated with this specific LogDate object based on activitySummary from HKActivitySummary.
+                            if logDateObjectList[num].dateOfLog! == "\(0)\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)" {
+                                
+                                logDateObjectList[num].activeCals = activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
+                                break
+                            }
+                        } else {
+                            if logDateObjectList[num].dateOfLog! == "\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)" {
+
+                                logDateObjectList[num].activeCals = activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
+                                break
+                            }
+                        }
+                        
+                        if num == logDateObjectList.count - 1 {
+                            // When we reach the last object in logDateObjectList, this means that the date chosen is not a valid option in logDateObjectList. Therefore, store today's date as a new LogDate object in Core Data.
+                            
+                            let newDate = NSManagedObject(entity: entity!, insertInto: context)
+                            
+                            if activitySummaries[i].dateComponents(for: calendar as Calendar).month! < 10 { // Have to perform this check based on the format of the date, where 0s are placed before single digit months.
+                                
+                                newDate.setValue("\(0)\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)", forKey: "dateOfLog")
+                            } else {
+                                newDate.setValue("\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)", forKey: "dateOfLog")
+                            }
+                            // Store the value associated with this particular days activeCals in the new LogDate object created for today's date.
+                            newDate.setValue(activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()), forKey: "activeCals")
+                        }
+                    }
+                }
+            }
+            
+            // Save to Core Data.
+            do {
+                try context.save()
+            } catch {
+                fatalError("Failure to save context: \(error)")
+            }
+        }
+        
+        // Run the query.
+        healthKitStore.execute(query1)
+    }
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
         requestNotificationPermission(application: application)
-        notificationPublisher.sendExerciseNotfication(title: "Time to exercise!", subtitle: "", body: "Tap to see your routine for today.", badge: 1, delayInterval: 24)
         
-        notificationPublisher.sendDietNotfication(title: "Daily Diet Digest", subtitle: "", body: "Tap to see your diet for today.", badge: 1, delayInterval: 24)
+        notificationPublisher.sendNotification(identifier: "Exercise", title: "Time to exercise!", subtitle: "", body: "Tap to see your routine for today.", badge: 1, delayInterval: 24, hour: 19)
         
-        notificationPublisher.sendWaterNotfication1(title: "Finish First Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24)
+        notificationPublisher.sendNotification(identifier: "Diet", title: "Daily Diet Digest", subtitle: "", body: "Tap to see your diet for today.", badge: 1, delayInterval: 24, hour: 8)
         
-        notificationPublisher.sendWaterNotfication2(title: "Finish Second Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24)
+        notificationPublisher.sendNotification(identifier: "Water 1", title: "Finish First Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24, hour: 10)
         
-        notificationPublisher.sendWaterNotfication3(title: "Finish Third Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24)
+        notificationPublisher.sendNotification(identifier: "Water 1", title: "Finish Second Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24, hour: 14)
         
-        notificationPublisher.sendWeightNotification(title: "Check Your Weight!", subtitle: "", body: "Tap to log your weight.", badge: 1, delayInterval: 168)
+        notificationPublisher.sendNotification(identifier: "Water 1", title: "Finish Third Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24, hour: 20)
         
+        notificationPublisher.sendNotification(identifier: "Weight", title: "Check Your Weight!", subtitle: "", body: "Tap to log your weight.", badge: 1, delayInterval: 168, hour: 9)
         
         FirebaseApp.configure()
         authorizeHealthKitApp()
         return true
     }
-
     
     
     // MARK: - Notification Stack
@@ -122,158 +252,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    func authorizeHealthKitApp() {
-        let HKRead: Set<HKObjectType> = [
-            HKObjectType.activitySummaryType(),
-        ]
-        
-        let HKWrite: Set<HKSampleType> = []
-        
-        if !HKHealthStore.isHealthDataAvailable() {
-            print("Error occured!")
-            return
-        }
-                
-        healthKitStore.requestAuthorization(toShare: HKWrite, read: HKRead) { (sucess, error) in
-            print("Read/write authorization successful")
-            print("Attempting query...")
-            self.performQuery()
-        }
-    }
-    
-    var calsBurned: Int!
-    var date = Date()
-    
-    func performQuery() {
-        // Create the date components for the predicate
-        guard let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian) else {
-            fatalError("*** This should never fail. ***")
-        }
-         
-        let endDate = NSDate()
-         
-        guard let startDate = calendar.date(byAdding: .day, value: -7, to: endDate as Date, options: []) else {
-            fatalError("*** unable to calculate the start date ***")
-        }
-        
-        let units: NSCalendar.Unit = [.day, .month, .year, .era]
-         
-        var startDateComponents = calendar.components(units, from: startDate)
-        startDateComponents.calendar = calendar as Calendar
-         
-        var endDateComponents = calendar.components(units, from: endDate as Date)
-        endDateComponents.calendar = calendar as Calendar
-        
-        // Create the predicate for the query
-        let summariesWithinRange = HKQuery.predicate(forActivitySummariesBetweenStart: startDateComponents, end: endDateComponents)
-         
-        // Build the query
-        let query1 = HKActivitySummaryQuery(predicate: summariesWithinRange) { (query, summaries, error) -> Void in
-            guard let activitySummaries = summaries else {
-                guard let queryError = error else {
-                    fatalError("*** Did not return a valid error object. ***")
-                }
-                
-                // Handle the error here...
-                
-                return
-            }
-            
-            print(activitySummaries)
-            
-            
-            let context = AppDelegate().persistentContainer.viewContext
-            
-            let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
-            request.returnsObjectsAsFaults = false
-            
-            // Fetch the "LogDate" object.
-            var results: [LogDate]
-            do {
-                try results = context.fetch(request)
-            } catch {
-                fatalError("Failure to fetch: \(error)")
-            }
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            
-            let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
-            
-            // Store today's date as dateOfLog attribute in Core Data.
-            if results.count == 0 {
-                
-                // Store today's date as dateOfLog attribute in Core Data.
-                let newDate = NSManagedObject(entity: entity!, insertInto: context)
-                newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
-                newDate.setValue(activitySummaries[6].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()), forKey: "activeCals")
-            }
-            
-            do {
-                try context.save()
-            } catch {
-                fatalError("Failure to save context: \(error)")
-            }
-            
-            if results.count != 0 {
-                for i in 0...6 {
-                    for num in 0...results.count - 1 {
-                        
-                        if activitySummaries[i].dateComponents(for: calendar as Calendar).month! < 10 {
-                            if results[num].dateOfLog! == "\(0)\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)" {
-
-                                results[num].activeCals = activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
-                                break
-                            }
-                        } else {
-                            if results[num].dateOfLog! == "\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)" {
-
-                                results[num].activeCals = activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
-                                break
-                            }
-                        }
-                        
-                        if num == results.count - 1 {
-                                
-                            // Store today's date as dateOfLog attribute in Core Data.
-                            let newDate = NSManagedObject(entity: entity!, insertInto: context)
-                            
-                            if activitySummaries[i].dateComponents(for: calendar as Calendar).month! < 10 {
-                                newDate.setValue("\(0)\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)", forKey: "dateOfLog")
-                            } else {
-                                newDate.setValue("\(activitySummaries[i].dateComponents(for: calendar as Calendar).month ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).day ?? 0)/\(activitySummaries[i].dateComponents(for: calendar as Calendar).year ?? 0)", forKey: "dateOfLog")
-                            }
-                            newDate.setValue(activitySummaries[i].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()), forKey: "activeCals")
-                        }
-                    }
-                }
-            }
-            
-            
-            do {
-                try context.save()
-            } catch {
-                fatalError("Failure to save context: \(error)")
-            }
-            
-            print(results)
-            
-            var averageActiveCals = (activitySummaries[6].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[5].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[4].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[3].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[2].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[1].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) + activitySummaries[0].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()))/7
-            
-            //PersonInfo.setCaloriesBurnedLastWeek(cb: averageActiveCals)
-            
-            var activeCals = activitySummaries[6].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()) // shows the last week, hard-coded day 7 (today)
-            //PersonInfo.setCaloriesBurnedYesterday(yb: activeCals)
-            
-            var totalCals = Int(activeCals.rounded()) //+ Int(restingCals.rounded()) NEED TO GET BMR
-            self.calsBurned = Int(totalCals)
-            
-        }
-        
-        // Run the query
-        healthKitStore.execute(query1)
-    }
-
 }
 
