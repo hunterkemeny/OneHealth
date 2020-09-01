@@ -49,6 +49,7 @@ class ProfileTableViewController: UITableViewController {
         gainLoseMaintainLabel.text = results[0].goalType
         currentWeightLabel.text = results[0].weight
         weightGoalLabel.text = results[0].weightGoal
-        weeksLabel.text = results[0].weeksToComplete
+        var daysToComplete = Int(results[0].weeksToComplete!)! * 7
+        weeksLabel.text = String(daysToComplete)
     }
 }

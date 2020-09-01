@@ -22,6 +22,81 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let notificationPublisher = NotificationPublisher()
     var calsBurned: Int!
     var date = Date()
+    var docRef: DocumentReference!
+    let calendar = Calendar.current
+    var day: Int? = 0
+    var month: Int? = 0
+    var year: Int? = 0
+    var completeDate: String? = ""
+    var myfitnesspalDate: String? = ""
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        FirebaseApp.configure()
+        
+        // Setup PersonInfo object whenever app is opened.
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let request: NSFetchRequest<User> = User.fetchRequest()
+        request.returnsObjectsAsFaults = false
+        // Fetch the "User" object.
+        var results: [User]
+        do {
+            try results = context.fetch(request)
+        } catch {
+            fatalError("Failure to fetch: \(error)")
+        }
+        
+        month = calendar.component(.month, from: date)
+        year = calendar.component(.month, from: date)
+        day = calendar.component(.day, from: date)
+        
+        myfitnesspalDate = "\(year!)-0\(month!)-\(day!)"
+        
+        
+        
+        var todaysCaloriesConsumed = ""
+        docRef = Firestore.firestore().document("myfitnesspal/\(results[0].email! ?? "")")
+        docRef.getDocument { (docSnapshot, error) in
+            guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
+            let myData = docSnapshot.data()
+            todaysCaloriesConsumed = myData?[self.myfitnesspalDate!] as? String ?? ""
+        }
+        
+        var sex = 1
+        
+        if results[0].sex == "Male" {
+            var sex = 1
+        } else {
+            var sex = 0
+        }
+        
+        // It takes 0.4 seconds to get the myfitnesspal data from Firebase, so we have to delay the makePerson.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            todaysCaloriesConsumed = "2100"
+            PersonInfo.makePerson(weight: Double(results[0].weight!)!, height: results[0].height!, sex: sex, age: results[0].age!, gainLoseMaintain: results[0].goalType!, weightChangeGoal: results[0].weightGoal!, weeksToComplete: Int(results[0].weeksToComplete!)!, daysToComplete: Int(results[0].weeksToComplete!)!*7, todaysCaloriesConsumed: Double(todaysCaloriesConsumed)!)
+        }
+        
+        
+        // Setup notifications.
+        
+        requestNotificationPermission(application: application)
+        
+        notificationPublisher.sendNotification(identifier: "Exercise", title: "Time to exercise!", subtitle: "", body: "Tap to see your routine for today.", badge: 1, delayInterval: 24, hour: 19)
+        
+        notificationPublisher.sendNotification(identifier: "Diet", title: "Daily Diet Digest", subtitle: "", body: "Tap to see your diet for today.", badge: 1, delayInterval: 24, hour: 8)
+        
+        notificationPublisher.sendNotification(identifier: "Water 1", title: "Finish First Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24, hour: 10)
+        
+        notificationPublisher.sendNotification(identifier: "Water 1", title: "Finish Second Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24, hour: 14)
+        
+        notificationPublisher.sendNotification(identifier: "Water 1", title: "Finish Third Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24, hour: 20)
+        
+        notificationPublisher.sendNotification(identifier: "Weight", title: "Check Your Weight!", subtitle: "", body: "Tap to log your weight.", badge: 1, delayInterval: 168, hour: 9)
+        
+        authorizeHealthKitApp()
+        return true
+    }
     
     // MARK: - Helper Functions
     
@@ -150,28 +225,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Run the query.
         healthKitStore.execute(query1)
-    }
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        
-        requestNotificationPermission(application: application)
-        
-        notificationPublisher.sendNotification(identifier: "Exercise", title: "Time to exercise!", subtitle: "", body: "Tap to see your routine for today.", badge: 1, delayInterval: 24, hour: 19)
-        
-        notificationPublisher.sendNotification(identifier: "Diet", title: "Daily Diet Digest", subtitle: "", body: "Tap to see your diet for today.", badge: 1, delayInterval: 24, hour: 8)
-        
-        notificationPublisher.sendNotification(identifier: "Water 1", title: "Finish First Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24, hour: 10)
-        
-        notificationPublisher.sendNotification(identifier: "Water 1", title: "Finish Second Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24, hour: 14)
-        
-        notificationPublisher.sendNotification(identifier: "Water 1", title: "Finish Third Bottle of Water.", subtitle: "Remember to drink at least 3 bottles of water a day!", body: "Tap to log the water you have drank so far.", badge: 1, delayInterval: 24, hour: 20)
-        
-        notificationPublisher.sendNotification(identifier: "Weight", title: "Check Your Weight!", subtitle: "", body: "Tap to log your weight.", badge: 1, delayInterval: 168, hour: 9)
-        
-        FirebaseApp.configure()
-        authorizeHealthKitApp()
-        return true
     }
     
     

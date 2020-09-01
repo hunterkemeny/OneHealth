@@ -107,37 +107,37 @@ class ChangeInformationViewController: UIViewController, UITextFieldDelegate {
         // Update goal type in Core Data, PersonInfo in Firestore Database.
         if goalTypeSwitch.selectedSegmentIndex == 0 {
             goalType = "gain"
-            PersonInfo.setGainLoseMaintain(gainLoseMaintain: 1)
+            PersonInfo.setGainLoseMaintain(gainLoseMaintain: goalType)
         } else if goalTypeSwitch.selectedSegmentIndex == 1 {
             goalType = "lose"
-            PersonInfo.setGainLoseMaintain(gainLoseMaintain: -1)
+            PersonInfo.setGainLoseMaintain(gainLoseMaintain: goalType)
         } else {
             goalType = "maintain"
-            PersonInfo.setGainLoseMaintain(gainLoseMaintain: 0)
+            PersonInfo.setGainLoseMaintain(gainLoseMaintain: goalType)
         }
         results[0].setValue(goalType, forKey: "goalType")
         writeData(data: goalType)
         
         // Update desired number of weeks until goal is achieved in Core Data and Firestore Database.
         if weeksTextField.text != "" {
-            let daysToCompleteGoal = Int(weeksTextField.text!)!*7
+            let weeksToComplete = Int(weeksTextField.text!)!*7
             results[0].setValue(weeksTextField.text, forKey: "weeksToComplete")
-            writeData(data: String(daysToCompleteGoal))
-            PersonInfo.setDaysToCompleteGoal(daysToCompleteGoal: daysToCompleteGoal)
+            writeData(data: String(weeksToComplete))
+            PersonInfo.setWeeksToComplete(weeksToComplete: weeksToComplete)
         }
         
         // Update weight goal in Core Data and Firestore Database.
         if weightGoalTextField.text != "" {
             results[0].setValue(weightGoalTextField.text, forKey: "weightGoal")
             writeData(data: weightGoalTextField.text!)
-            PersonInfo.setDesiredWeight(desiredWeight: Int(weightGoalTextField.text!)!)
+            PersonInfo.setWeightChangeGoal(weightChangeGoal: String(abs(Double(weightGoalTextField.text!)! - PersonInfo.getWeight())))
         }
         
         // Update current weight in Core Data and Firestore Database.
         if currentWeightTextField.text != "" {
             results[0].setValue(currentWeightTextField.text, forKey: "weight")
             writeData(data: currentWeightTextField.text!)
-            PersonInfo.setWeight(weight: Int(currentWeightTextField.text!)!)
+            PersonInfo.setWeight(weight: Double(currentWeightTextField.text!)!)
         }
         
         do {

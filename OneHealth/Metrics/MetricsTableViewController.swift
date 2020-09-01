@@ -73,12 +73,12 @@ class MetricsTableViewController: UITableViewController {
         
         var initialWeight = Double(results[0].weight!)!
         
-        let value1 = ChartDataEntry(x:1,  y: initialWeight)
+        let value1 = ChartDataEntry(x: 1,  y: initialWeight)
         
         weight.append(value1)
         
         for i in 2...5 {
-            initialWeight += PersonInfo.getDailyCalorieDelta()*7 * (1/3500)
+            initialWeight += Double(PersonInfo.calculateCalorieDeltaPerDay()*7 * (1/3500))
             let value = ChartDataEntry(x: Double(i), y: initialWeight)
             weight.append(value)
         }
@@ -114,7 +114,7 @@ class MetricsTableViewController: UITableViewController {
         
         for i in 2...12 {
             
-            initialWeight += PersonInfo.getDailyCalorieDelta()*7 * (1/3500)
+            initialWeight += Double(PersonInfo.calculateCalorieDeltaPerDay()*7 * (1/3500))
             let value = ChartDataEntry(x: Double(i), y: initialWeight)
             weight.append(value)
         }
@@ -123,12 +123,12 @@ class MetricsTableViewController: UITableViewController {
         
         
         let line1 = LineChartDataSet(entries: weight, label: "Weight")
-           line1.colors = [NSUIColor.blue]
+        line1.colors = [NSUIColor.blue]
         
-           let data = LineChartData()
-           data.addDataSet(line1)
-           predictWeightView.data = data
-           predictWeightView.chartDescription?.text = "Active Calories v. Time"
+        let data = LineChartData()
+        data.addDataSet(line1)
+        predictWeightView.data = data
+        predictWeightView.chartDescription?.text = "Active Calories v. Time"
     }
     
            

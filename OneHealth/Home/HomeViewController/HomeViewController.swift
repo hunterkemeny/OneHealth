@@ -28,7 +28,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("Hi son")
         homeTableView.dataSource = self
         homeTableView.delegate = self
         

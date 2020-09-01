@@ -89,7 +89,7 @@ class SurveyTableViewController: UITableViewController, UITextFieldDelegate {
         }
         
         // Store values for sliders.
-        let time: Float = weekSlider.value
+        let weeksToComplete: Float = weekSlider.value
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -108,7 +108,7 @@ class SurveyTableViewController: UITableViewController, UITextFieldDelegate {
         results[0].setValue(age, forKey: "age")
         results[0].setValue(userSex, forKey: "sex")
         results[0].setValue(goalType, forKey: "goalType")
-        results[0].setValue(String(Int(time*7)), forKey: "weeksToComplete")
+        results[0].setValue(String(Int(weeksToComplete)), forKey: "weeksToComplete")
         results[0].setValue(height, forKey: "height")
         results[0].setValue(weight, forKey: "weight")
         results[0].setValue(weightChangeGoal, forKey: "weightGoal")
@@ -121,7 +121,7 @@ class SurveyTableViewController: UITableViewController, UITextFieldDelegate {
         }
         
         // Store values in Firestore DB.
-        db.collection("surveyInfo").document(userID!).setData(["age": age!, "sex": userSex, "weight": weight!, "height": height, "goal-type": goalType, "weight-change-goal": weightChangeGoal!, "time-to-complete": time*7]) { err in
+        db.collection("surveyInfo").document(userID!).setData(["age": age!, "sex": userSex, "weight": weight!, "height": height, "goal-type": goalType, "weight-change-goal": weightChangeGoal!, "weeks-to-complete": weeksToComplete]) { err in
             
             if let err = err {
                 print("Error writing document: \(err)")

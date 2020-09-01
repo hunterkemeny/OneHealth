@@ -185,7 +185,7 @@ class CalendarViewController: UIViewController {
             guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
             let myData = docSnapshot.data()
             self.todaysCaloriesConsumed = myData?[date] as? String ?? ""
-            PersonInfo.setTodaysCaloriesConsumed(todaysCaloriesConsumed: self.todaysCaloriesConsumed!)
+            PersonInfo.setTodaysCaloriesConsumed(todaysCaloriesConsumed: Double(self.todaysCaloriesConsumed!)!)
         }
     }
     
@@ -307,7 +307,7 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         }
         // Use the date format provided by the backend script to get todaysCaloriesConsumed from the myfitnesspal API.
         setTodaysCaloriesConsumed(date: myfitnesspalDate!)
-        todaysCaloriesConsumed = PersonInfo.getTodaysCaloriesConsumed()
+        todaysCaloriesConsumed = String(PersonInfo.getTodaysCaloriesConsumed())
         
         let logDateObjectList = getLogDateObjectList()
         // It takes 0.4 seconds to get the myfitnesspal data from Firebase, so we have to delay the segue
@@ -334,10 +334,10 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                             self.todaysCaloriesBurned = String(PersonInfo.calculateBMR() + logDateObjectList[num].activeCals)
                         }
                         
-                        if PersonInfo.getTodaysCaloriesConsumed() == "" {
+                        if String(PersonInfo.getTodaysCaloriesConsumed()) == "0.0" {
                             self.todaysCaloriesConsumed = "Log MyFitnessPal!"
                         } else {
-                            self.todaysCaloriesConsumed = PersonInfo.getTodaysCaloriesConsumed()
+                            self.todaysCaloriesConsumed = String(PersonInfo.getTodaysCaloriesConsumed())
                         }
 
                         if self.todaysCaloriesConsumed == "Log MyFitnessPal!" || self.todaysCaloriesConsumed == "" {
