@@ -36,104 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         
-        // Setup PersonInfo object whenever app is opened.
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let firstRequest: NSFetchRequest<User> = User.fetchRequest()
-        firstRequest.returnsObjectsAsFaults = false
-        // Fetch the "User" object.
-        var results: [User]
-        do {
-            try results = context.fetch(firstRequest)
-        } catch {
-            fatalError("Failure to fetch: \(error)")
-        }
-        
-        let secondRequest: NSFetchRequest<LogDate> = LogDate.fetchRequest()
-        secondRequest.returnsObjectsAsFaults = false
-        
-        // Fetch the "LogDate" object.
-        var logDateObjectList: [LogDate]
-        do {
-            try logDateObjectList = context.fetch(secondRequest)
-        } catch {
-            fatalError("Failure to fetch: \(error)")
-        }
-        
-        print(logDateObjectList)
-        if logDateObjectList.count != 0 { // If this is the first time they are opening the app, don't setup PersonInfo object
-            // Get the different date formats for the LogDate object and for Firebase.
-            
-            month = calendar.component(.month, from: date)
-            year = calendar.component(.year, from: date)
-            day = calendar.component(.day, from: date)
-            
-            if month! < 10 {
-                if day! < 10 {
-                    myfitnesspalDate = "\(year!)-0\(month!)-0\(day!)"
-                    logDateDate = "0\(month!)/0\(day!)/\(year!)"
-                } else {
-                    myfitnesspalDate = "\(year!)-0\(month!)-\(day!)"
-                    logDateDate = "0\(month!)/\(day!)/\(year!)"
-                }
-            } else {
-                if day! < 10 {
-                    myfitnesspalDate = "\(year!)-\(month!)-0\(day!)"
-                    logDateDate = "\(month!)/0\(day!)/\(year!)"
-                } else {
-                    myfitnesspalDate = "\(year!)-\(month!)-\(day!)"
-                    logDateDate = "\(month!)/\(day!)/\(year!)"
-                }
-                
-            }
-            dateFormatter.dateFormat = "MM/dd/yyyy"
-            
-            // Check if todaysCaloriesConsumed have been logged using LogViewController. If it has not, then check Firebase to see if they have logged using myfitnesspal.
-            var todaysCaloriesConsumed = ""
-            for i in 0...logDateObjectList.count - 1 {
-                print("logDateDate \(logDateDate)")
-                print("dateOfLog \(logDateObjectList[i].dateOfLog)")
-                if logDateObjectList[i].dateOfLog == logDateDate {
-                    if logDateObjectList[i].calsIntake != 0.0 {
-                        todaysCaloriesConsumed = String(logDateObjectList[i].calsIntake)
-                    }
-                    break
-                }
-                if i == logDateObjectList.count - 1 {
-                    print("YOYOY")
-                    let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
-                    let newDate = NSManagedObject(entity: entity!, insertInto: context)
-                    newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
-                }
-            }
-            if todaysCaloriesConsumed == "" {
-                docRef = Firestore.firestore().document("myfitnesspal/\(results[0].email! ?? "")")
-                docRef.getDocument { (docSnapshot, error) in
-                    guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
-                    let myData = docSnapshot.data()
-                    todaysCaloriesConsumed = myData?[self.myfitnesspalDate!] as? String ?? ""
-                }
-            }
-            
-            var sex = 1
-            
-            if results[0].sex == "Male" {
-                var sex = 1
-            } else {
-                var sex = 0
-            }
-            
-            // It takes 0.4 seconds to get the myfitnesspal data from Firebase, so we have to delay the makePerson.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                todaysCaloriesConsumed = "2100"
-                PersonInfo.makePerson(weight: Double(results[0].weight!)!, height: results[0].height!, sex: sex, age: results[0].age!, gainLoseMaintain: results[0].goalType!, weightChangeGoal: results[0].weightGoal!, weeksToComplete: Int(results[0].weeksToComplete!)!, daysToComplete: Int(results[0].weeksToComplete!)!*7, todaysCaloriesConsumed: Double(todaysCaloriesConsumed)!)
-            }
-        }
-        
-        
-        
-        
         // Setup notifications.
         
         requestNotificationPermission(application: application)
@@ -205,8 +107,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return
             }
             
-            print("HIIII \(activitySummaries)")
-            
             // Fetch the list of "LogDate" objects.
             let context = AppDelegate().persistentContainer.viewContext
             let request: NSFetchRequest<LogDate> = LogDate.fetchRequest()
@@ -225,7 +125,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             // If the user is opening the app for the first time, create a LogDate object and store today's date as dateOfLog attribute in the LogDate object for today in Core Data.
             if logDateObjectList.count == 0 {
-                print("FUCK1")
                 let newDate = NSManagedObject(entity: entity!, insertInto: context)
                 newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
                 // Store the activity summary for today in the newly created LogDate object associated with today.
@@ -247,24 +146,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             var activeCalsDate = ""
             
-            var month = calendar.component(.month, from: self.date)
-            var year = calendar.component(.year, from: self.date)
-            var day = calendar.component(.day, from: self.date)
+            self.month = calendar.component(.month, from: self.date)
+            self.year = calendar.component(.year, from: self.date)
+            self.day = calendar.component(.day, from: self.date)
             
-            if month < 10 {
-                if day < 10 {
+            if self.month! < 10 {
+                if self.day! < 10 {
                     
-                    activeCalsDate = "0\(month)/0\(day)/\(year)"
+                    activeCalsDate = "0\(self.month!)/0\(self.day!)/\(self.year!)"
                 } else {
-                    activeCalsDate = "0\(month)/\(day)/\(year)"
+                    activeCalsDate = "0\(self.month!)/\(self.day!)/\(self.year!)"
                 }
             } else {
-                if day < 10 {
+                if self.day! < 10 {
                     
-                    activeCalsDate = "\(month)/0\(day)/\(year)"
+                    activeCalsDate = "\(self.month!)/0\(self.day!)/\(self.year!)"
                 } else {
                     
-                    activeCalsDate = "\(month)/\(day)/\(year)"
+                    activeCalsDate = "\(self.month!)/\(self.day!)/\(self.year!)"
                 }
                 
             }
@@ -273,13 +172,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             for num in 0...logDateObjectList.count - 1 {
                 
                 if logDateObjectList[num].dateOfLog! == activeCalsDate {
-                    
                     logDateObjectList[num].activeCals = activitySummaries[0].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
                     break
                 }
                 if num == logDateObjectList.count - 1 {
                     // When we reach the last object in logDateObjectList, this means that the date chosen is not a valid option in logDateObjectList. Therefore, store today's date as a new LogDate object in Core Data.
-                    print("FUCK2")
                     let newDate = NSManagedObject(entity: entity!, insertInto: context)
                     
                     newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")

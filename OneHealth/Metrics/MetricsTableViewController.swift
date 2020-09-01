@@ -29,6 +29,7 @@ class MetricsTableViewController: UITableViewController {
     @IBOutlet weak var weightSwitch: UISwitch!
     @IBOutlet weak var burnedSwitch: UISwitch!
     @IBOutlet weak var consumedSwitch: UISwitch!
+    @IBOutlet weak var comeBackLabel: UILabel!
     
     @IBAction func dateSliderTapped(_ sender: Any) {
         viewDidLoad()
@@ -75,6 +76,8 @@ class MetricsTableViewController: UITableViewController {
             fatalError("Failure to fetch: \(error)")
         }
         // if its the first time they open the app, have a label that says "reload app". Also tell them to reload in tutorial.
+        
+        
         
         predictWeightView.chartDescription?.enabled = false
         predictWeightView.pinchZoomEnabled = false
@@ -249,6 +252,11 @@ class MetricsTableViewController: UITableViewController {
            } catch {
                fatalError("Failure to fetch: \(error)")
            }
+        
+        if results.count < 2 {
+            comeBackLabel.text = "Metric tracking will begin after you enter tomorrow's logs."
+            return
+        }
                
         print(results)
         for i in 0...results.count - 1 {
@@ -336,7 +344,6 @@ class MetricsTableViewController: UITableViewController {
         }
 
         activeCalsView.data = data
-        activeCalsView.chartDescription?.text = "Active Calories v. Time"
                
        }
     

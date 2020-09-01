@@ -6,13 +6,32 @@
 //
 
 import UIKit
+import Firebase
+import CoreData
+import FirebaseDatabase
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseCore
 
 class HomeViewController: UIViewController {
 
     // MARK: - IBOutlets
+    
     @IBOutlet weak var homeTableView: UITableView!
     
     // MARK: - Properties
+    
+    var date = Date()
+    let dateFormatter = DateFormatter()
+    var docRef: DocumentReference!
+    let calendar = Calendar.current
+    var day: Int? = 0
+    var month: Int? = 0
+    var year: Int? = 0
+    var completeDate: String? = ""
+    var myfitnesspalDate: String? = ""
+    var logDateDate: String? = ""
+    
     var list = [Information]()
     var resourceList: Array<Array<Resource>> = []
     var nutritionList: Array<Array<Resource>> = []
@@ -28,7 +47,98 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Hi son")
+        
+        // Setup PersonInfo.
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let firstRequest: NSFetchRequest<User> = User.fetchRequest()
+        firstRequest.returnsObjectsAsFaults = false
+        // Fetch the "User" object.
+        var results: [User]
+        do {
+            try results = context.fetch(firstRequest)
+        } catch {
+            fatalError("Failure to fetch: \(error)")
+        }
+        
+        let secondRequest: NSFetchRequest<LogDate> = LogDate.fetchRequest()
+        secondRequest.returnsObjectsAsFaults = false
+        
+        // Fetch the "LogDate" object.
+        var logDateObjectList: [LogDate]
+        do {
+            try logDateObjectList = context.fetch(secondRequest)
+        } catch {
+            fatalError("Failure to fetch: \(error)")
+        }
+        
+        if logDateObjectList.count != 0 { // If this is the first time they are opening the app, don't setup PersonInfo object
+            // Get the different date formats for the LogDate object and for Firebase.
+            
+            month = calendar.component(.month, from: date)
+            year = calendar.component(.year, from: date)
+            day = calendar.component(.day, from: date)
+            
+            if month! < 10 {
+                if day! < 10 {
+                    myfitnesspalDate = "\(year!)-0\(month!)-0\(day!)"
+                    logDateDate = "0\(month!)/0\(day!)/\(year!)"
+                } else {
+                    myfitnesspalDate = "\(year!)-0\(month!)-\(day!)"
+                    logDateDate = "0\(month!)/\(day!)/\(year!)"
+                }
+            } else {
+                if day! < 10 {
+                    myfitnesspalDate = "\(year!)-\(month!)-0\(day!)"
+                    logDateDate = "\(month!)/0\(day!)/\(year!)"
+                } else {
+                    myfitnesspalDate = "\(year!)-\(month!)-\(day!)"
+                    logDateDate = "\(month!)/\(day!)/\(year!)"
+                }
+                
+            }
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            
+            // Check if todaysCaloriesConsumed have been logged using LogViewController. If it has not, then check Firebase to see if they have logged using myfitnesspal.
+            var todaysCaloriesConsumed = ""
+            for i in 0...logDateObjectList.count - 1 {
+                if logDateObjectList[i].dateOfLog == logDateDate {
+                    if logDateObjectList[i].calsIntake != 0.0 {
+                        todaysCaloriesConsumed = String(logDateObjectList[i].calsIntake)
+                    }
+                    break
+                }
+                if i == logDateObjectList.count - 1 {
+                    let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
+                    let newDate = NSManagedObject(entity: entity!, insertInto: context)
+                    newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
+                }
+            }
+            if todaysCaloriesConsumed == "" {
+                docRef = Firestore.firestore().document("myfitnesspal/\(results[0].email! ?? "")")
+                docRef.getDocument { (docSnapshot, error) in
+                    guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
+                    let myData = docSnapshot.data()
+                    todaysCaloriesConsumed = myData?[self.myfitnesspalDate!] as? String ?? ""
+                }
+            }
+            
+            var sex = 1
+            
+            if results[0].sex == "Male" {
+                var sex = 1
+            } else {
+                var sex = 0
+            }
+            
+            // It takes 0.4 seconds to get the myfitnesspal data from Firebase, so we have to delay the makePerson.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                todaysCaloriesConsumed = "2100"
+                PersonInfo.makePerson(weight: Double(results[0].weight!)!, height: results[0].height!, sex: sex, age: results[0].age!, gainLoseMaintain: results[0].goalType!, weightChangeGoal: results[0].weightGoal!, weeksToComplete: Int(results[0].weeksToComplete!)!, daysToComplete: Int(results[0].weeksToComplete!)!*7, todaysCaloriesConsumed: Double(todaysCaloriesConsumed)!)
+            }
+        }
+        
         homeTableView.dataSource = self
         homeTableView.delegate = self
         
