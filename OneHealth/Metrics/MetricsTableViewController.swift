@@ -118,10 +118,7 @@ class MetricsTableViewController: UITableViewController {
             let value = ChartDataEntry(x: Double(i), y: initialWeight)
             weight.append(value)
         }
-        
-        
-        print("AHHHHHHh")
-        print(weight)
+
         
         
         

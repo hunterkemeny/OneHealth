@@ -16,19 +16,20 @@ import UIKit
 
 class InformationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    // MARK: - IBOutlet
+    
     @IBOutlet weak var informationTableView: UITableView!
+    
+    // MARK: - Property
     
     var linksList: Array<Array<Resource>>?
     
-    // Determine which lists to declare based on segue
-    // don't hard code any parameters in cell.setAttributes, just get from list that is chosen
+    // MARK: - Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         informationTableView.dataSource = self
         informationTableView.delegate = self
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -37,13 +38,13 @@ class InformationViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // this should be dynamic based on the number of items in, say, articlesList
+        // TODO: This should be dynamic based on the number of items in, say, articlesList
         return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Determines which type of cell to instantiate depending on the row in information.
-        
+    
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 // Cell is "HeaderTableViewCell".

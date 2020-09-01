@@ -20,6 +20,7 @@ class Resource {
     
     
     // MARK: - INIT
+    
     init (title: String, date: String, author: String, icon: UIImage, link: String) {
         self.icon = icon
         self.title = title

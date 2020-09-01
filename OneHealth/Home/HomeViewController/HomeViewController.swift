@@ -9,22 +9,22 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    // MARK: - IBOutlets
     @IBOutlet weak var homeTableView: UITableView!
     
+    // MARK: - Properties
     var list = [Information]()
     var resourceList: Array<Array<Resource>> = []
-    
     var nutritionList: Array<Array<Resource>> = []
-    // var longevityList: Array<Array<Resource>> = []
     var meditationList: Array<Array<Resource>> = []
-    // var supplementList: Array<Array<Resource>> = []
-    // var dnaList: Array<Array<Resource>> = []
-    
     var showInfo = "ShowInformation"
     var dietSegue = "DietSegue"
     var workoutSegue = "WorkoutSegue"
-    
     var infoImage: UIImage!
+    
+    // var longevityList: Array<Array<Resource>> = []
+    // var supplementList: Array<Array<Resource>> = []
+    // var dnaList: Array<Array<Resource>> = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,22 +41,18 @@ class HomeViewController: UIViewController {
         /*
         LongevityResourceList.loadInformation()
         longevityList = LongevityResourceList.getList()
-        */
         
         MeditationResourceList.loadInformation()
         meditationList = MeditationResourceList.getList()
         
-        /*
         SupplementResourceList.loadInformation()
         supplementList = SupplementResourceList.getList()
-        
         
         DNAResourceList.loadInformation()
         dnaList = DNAResourceList.getList()
         
          */
     }
-    
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -69,10 +65,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Returns 7 rows for Home.
-        return 6
+        return 5
     }
     
-    // TODO: Add sections dedicated to longevity, supplementation, and DNA testing.
+    // TODO: Add sections dedicated to longevity, supplementation, meditation, and DNA testing.
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Determines which type of cell to instantiate depending on the row in Home.
@@ -103,25 +99,17 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             // Set the attributes of the cell based on the Personal protocol.
             cell.setAttributes(header: "General Information")
             return cell
-            
-        } else if indexPath.row == 4 {
+        } else {
             let cell = homeTableView.dequeueReusableCell(withIdentifier: "GeneralTableViewCell", for: indexPath) as! GeneralTableViewCell
             cell.layer.cornerRadius = 50
             // Set the attributes of the cell based on the General protocol.
             cell.setAttributes(category: "Nutrition", info: list[2])
-            return cell
-            
-        } else {
-            let cell = homeTableView.dequeueReusableCell(withIdentifier: "GeneralTableViewCell", for: indexPath) as! GeneralTableViewCell
-            // Set the attributes of the cell based on the General protocol.
-            cell.setAttributes(category: "Meditation", info: list[4])
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // Stylize each header so that they appear only as space between each business section.
-        
         let headerView = UIView()
         headerView.backgroundColor = UIColor.clear
         return headerView

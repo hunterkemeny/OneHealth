@@ -14,9 +14,9 @@ class PersonalTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionLabel: UILabel!
     @IBOutlet weak var personalImage: UIImageView!
     
+    // MARK: - Method
     
     func setAttributes(category: String, info: Information) {
-        
         personalImage.image = info.icon
         collectionLabel.text = category
         

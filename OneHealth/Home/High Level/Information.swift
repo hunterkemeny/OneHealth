@@ -14,6 +14,7 @@ class Information {
     var icon: UIImage?
     
     // MARK: - INIT
+    
     init (icon: UIImage) {
         self.icon = icon
     }

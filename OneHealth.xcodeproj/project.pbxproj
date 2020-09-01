@@ -127,6 +127,7 @@
 		4CE8A01824FDBA3700AFCA5F /* TODO */ = {
 			isa = PBXGroup;
 			children = (
+				4CE89FFC24F751AC00AFCA5F /* MeditationResourceList.swift */,
 				4CE89FFA24F7518700AFCA5F /* LongevityResourceList.swift */,
 				4CE89FFE24F751D600AFCA5F /* SupplementResourceList.swift */,
 				4CE8A00024F751EA00AFCA5F /* DNAResourceList.swift */,
@@ -141,7 +142,6 @@
 				4CE89FF224F71C4300AFCA5F /* Resource.swift */,
 				4CE89FEE24F6066F00AFCA5F /* InformationList.swift */,
 				4CE89FF424F71C7A00AFCA5F /* NutritionResourceList.swift */,
-				4CE89FFC24F751AC00AFCA5F /* MeditationResourceList.swift */,
 			);
 			path = "High Level";
 			sourceTree = "<group>";
@@ -227,9 +227,9 @@
 		4CF22AEB23D9370E00904BE4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				4CE8A01B24FDBADB00AFCA5F /* Information and Resources */,
-				4CE8A01A24FDBA8F00AFCA5F /* HomeViewController */,
 				4CE8A01924FDBA8100AFCA5F /* High Level */,
+				4CE8A01A24FDBA8F00AFCA5F /* HomeViewController */,
+				4CE8A01B24FDBADB00AFCA5F /* Information and Resources */,
 				4CE8A01824FDBA3700AFCA5F /* TODO */,
 			);
 			path = Home;

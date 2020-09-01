@@ -16,18 +16,17 @@ class InformationList {
     // MARK: - Properties
     
     
-    // Declare list for all businesses.
+    // Declare list for all Information
     static var list = [Information]()
     
     // MARK: - Methods
     
     static func loadInformation() {
-        /* Create Business object for each business. Create deals, promotions, and rewards for each business. Add each business to the list of the category
-           it corresponds to, as well as the list of all businesses.
-        */
+        // Create Information object for each category of information. Add each Information object to the list of all information.
+        
         let diet = Information(icon: UIImage(named: "diet")!)
         let workout = Information(icon: UIImage(named:"workout")!)
-        let nutrition = Information(icon: UIImage(named: "nutrition")!) // Add specific links to nutrition
+        let nutrition = Information(icon: UIImage(named: "nutrition")!)
         let dna = Information(icon: UIImage(named: "DNA")!)
         let meditation = Information(icon: UIImage(named: "meditation")!)
         let longevity = Information(icon: UIImage(named: "longevity")!)
@@ -36,10 +35,13 @@ class InformationList {
         list.append(diet)
         list.append(workout)
         list.append(nutrition)
+        
+        /*
         list.append(longevity)
         list.append(meditation)
         list.append(supplements)
         list.append(dna)
+        */
     }
     
     static func getList() -> [Information] {

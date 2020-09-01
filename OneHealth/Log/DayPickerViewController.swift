@@ -11,9 +11,11 @@ import CoreData
 class DayPickerViewController: UIViewController {
     
     // MARK: - IBOutlet
+    
     @IBOutlet weak var datePicker: UIDatePicker!
     
     // MARK: - Properties
+    
     var dateSelected = ""
     var values = ["", "", "", "", ""]
     let dateFormatter = DateFormatter()
@@ -79,7 +81,9 @@ class DayPickerViewController: UIViewController {
         
         view.endEditing(true)
         // When date is chosen, go back to to LogViewController.
+        
         navigationController?.popViewController(animated: true)
+        
     }
 
 }

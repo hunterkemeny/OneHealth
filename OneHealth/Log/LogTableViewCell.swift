@@ -19,7 +19,7 @@ class LogTableViewCell: UITableViewCell {
         if logValue == "" || logValue == "0.0" {
             loggedLabel.text = "not logged"
         } else {
-            loggedLabel.text = "logged"
+            loggedLabel.text = logValue
         }
     }
 

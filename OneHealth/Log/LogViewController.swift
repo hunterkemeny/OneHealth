@@ -9,7 +9,10 @@ import UIKit
 import CoreData
 
 class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
+    // ERROR 1: When the user first logs something for today, the "logged/not logged" doesnt update, which is why they must pick a date first.
+    // ERROR 2: Trying to log for months in front of or behind the current month is broken
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var logTableView: UITableView!
@@ -18,8 +21,8 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     // MARK: - Properties
     
-    var categories = ["Weight", "Water", "Meditation", "Fast"]
-    var values = ["", "", "", "", ""]
+    var categories = ["Calories Consumed", "Weight", "Water", "Meditation", "Fast"]
+    var values = ["", "", "", "", "", ""]
     let dateFormatter = DateFormatter()
     var categoryExectued: String!
     var dayMonthYearString: String!
@@ -53,10 +56,11 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func setCategoryValues(logDateObjectList: [LogDate], index: Int) {
-        values[0] = String(logDateObjectList[index].weight) ?? ""
-        values[1] = logDateObjectList[index].water ?? ""
-        values[2] = logDateObjectList[index].meditation ?? ""
-        values[3] = logDateObjectList[index].fast ?? ""
+        values[0] = String(logDateObjectList[index].calsIntake) ?? ""
+        values[1] = String(logDateObjectList[index].weight) ?? ""
+        values[2] = logDateObjectList[index].water ?? ""
+        values[3] = logDateObjectList[index].meditation ?? ""
+        values[4] = logDateObjectList[index].fast ?? ""
         dayMonthYearString = logDateObjectList[index].dateOfLog
         dayMonthYearNum = String(index) // figure out what this does
     }
@@ -67,10 +71,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
         // Set the dateFormatter object equal to a specific format.
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        // If a date has not been picked yet, set dateTextField to today's date.
-        dateTextField.text = dateFormatter.string(from: Date())
-        print(Date())
-        
+
         let logDateObjectList = getLogDateObjectList()
         if logDateObjectList.count != 0 {
             for num in 0...(logDateObjectList.count - 1) {
@@ -78,6 +79,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                 // the values associated with each category with the values stored in the LogDate Object.
                 if logDateObjectList[num].dateOfLog == dateFormatter.string(from: Date()) {
                     setCategoryValues(logDateObjectList: logDateObjectList, index: num)
+                    logTableView.reloadData()
                     break
                 }
                 if num == logDateObjectList.count - 1 {
@@ -88,6 +90,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                     newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
                     // Set the values for each category based on the information in the LogDateObject.
                     setCategoryValues(logDateObjectList: logDateObjectList, index: num)
+                    logTableView.reloadData()
                 }
             }
             
@@ -101,12 +104,11 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
         logTableView.delegate = self
         logTableView.dataSource = self
-        logTableView.reloadData()
     }
   
-    
     override func viewWillAppear(_ animated: Bool) {
         // When a new date is chosen, LogViewController must be updated with the appropriate attributes.
+        logTableView.reloadData()
         let logDateObjectList = getLogDateObjectList()
         if logDateObjectList.count != 0 {
             for num in 0...(logDateObjectList.count - 1) {
@@ -115,13 +117,14 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                     // corresponding attributes associated with the given day in logDateObjectList.
                     dateTextField.text = logDateObjectList[num].dateOfLog
                     setCategoryValues(logDateObjectList: logDateObjectList, index: num)
+                    logTableView.reloadData()
                     break
                 }
             }
         }
         
     // Reload the data for the table view so that it updates when a user logs info in InsertInfo ViewController.
-    logTableView.reloadData()
+    
     }
     
     // MARK: TableView Methods
@@ -133,7 +136,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Returns 4 rows (one per each category).
-        return 4
+        return 5
        }
    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -148,7 +151,9 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         // InsertInfoViewController needs place holders for its text fields. The units for these placeholders are
         // determined based on the category of the particular row.
         categoryExectued = categories[indexPath.row]
-        if categoryExectued == "Weight" {
+        if categoryExectued == "Calories Consumed" {
+            placeHolder = "cals"
+        } else if categoryExectued == "Weight" {
             placeHolder = "lbs"
         } else if categoryExectued == "Water" {
             placeHolder = "oz drank"

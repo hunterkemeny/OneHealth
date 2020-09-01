@@ -9,11 +9,13 @@ import UIKit
 
 class HeaderTableViewCell: UITableViewCell {
 
+    // MARK: - IBOutlet
     
     @IBOutlet weak var headerLabel: UILabel!
+    
+    // MARK: - Method
     
     func setAttributes(header: String) {
         headerLabel.text = header
     }
-    
 }

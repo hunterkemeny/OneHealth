@@ -11,6 +11,7 @@ import CoreData
 class InsertInfoViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - IBOutlets
+    
     @IBOutlet weak var categoryExecuted: UILabel!
     @IBOutlet weak var dayMonthYear: UILabel!
     @IBOutlet weak var enterTextField: UITextField!
@@ -78,7 +79,9 @@ class InsertInfoViewController: UIViewController, UITextFieldDelegate {
             return
         }
         information = enterTextField.text!
-        if category == "weight" {
+        if category == "Calories Consumed" {
+            logDateObjectList[Int(dateNum)!].setValue(Double(information), forKey: "calsIntake")
+        } else if category == "Weight" {
             logDateObjectList[Int(dateNum)!].setValue(Double(information), forKey: "\(category ?? "")")
         } else {
             logDateObjectList[Int(dateNum)!].setValue(information, forKey: "\(category ?? "")")
@@ -91,7 +94,10 @@ class InsertInfoViewController: UIViewController, UITextFieldDelegate {
         } catch {
             fatalError("Failure to save context: \(error)")
         }
+        view.endEditing(true)
+        
+        // When information is logged, go back to to LogViewController.
+        navigationController?.popViewController(animated: true)
     }
     
-
 }

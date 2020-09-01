@@ -39,7 +39,9 @@ class DietTableViewController: UITableViewController {
         docRef.getDocument { (docSnapshot, error) in
             guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
             let myData = docSnapshot.data()
-    
+            
+            // CANT ALL THIS BE RETRIEVED FROM COREDATA?
+            
             //AGE
             let age = myData?["age"] as? String ?? ""
             PersonInfo.setAge(age: Int(age) ?? 0)
@@ -86,15 +88,15 @@ class DietTableViewController: UITableViewController {
             
             self.calculateMaintenence()
             self.calculateCalorieDeltaPerDay()
-            self.LorG(days: time)
+            self.LoseOrGain(days: time)
             self.determineExercise()
             self.calculateIntake()
             self.calculateTotalBurn()
             self.setWaterLabel()
-            }
+        }
     }
     
-    func LorG(days: Int?) {
+    func LoseOrGain(days: Int?) {
         if PersonInfo.gainLoseMaintain == -1 {
             GainLossLabel.text = "You need be at a caloric deficit of about \(setCalLabel()) calories per week in order to meet your goal in \(days!/7) weeks"
         }
