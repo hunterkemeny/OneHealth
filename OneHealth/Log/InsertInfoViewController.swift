@@ -81,6 +81,7 @@ class InsertInfoViewController: UIViewController, UITextFieldDelegate {
         information = enterTextField.text!
         if category == "Calories Consumed" {
             logDateObjectList[Int(dateNum)!].setValue(Double(information), forKey: "calsIntake")
+            PersonInfo.setTodaysCaloriesConsumed(todaysCaloriesConsumed: Double(information)!)
         } else if category == "Weight" {
             logDateObjectList[Int(dateNum)!].setValue(Double(information), forKey: "\(category ?? "")")
         } else {

@@ -10,21 +10,7 @@ import CoreData
 
 class DietTableViewController: UITableViewController {
     
-    var age: String? = ""
-    var height: String? = ""
-    var gainOrLose: String?
-    var sex: Int?
-    var weight: Double?
-    var weightChangeGoal: String?
-    var weeksToComplete: Int?
-    var daysToComplete: Int?
-    var desiredWeight: Double?
-    
-    var BMR: Double = 0.0
-    var calorieDeltaPerDay: Double = 0.0
-    var caloriesToBurnFromExerciseToday: Double? = 0.0
-    var caloriesToIntakeToday: Double = 0.0
-    
+    // MARK: - IBOutlets
     
     @IBOutlet weak var GainLossLabel: UILabel!
     @IBOutlet weak var eatCalLabel: UILabel!
@@ -39,10 +25,12 @@ class DietTableViewController: UITableViewController {
         setWaterLabel()
     }
     
+    // MARK: - Set labels
+    
     func setGainLossLabel() {
-        if gainOrLose == "lose" {
+        if PersonInfo.getGainLoseMaintain() == "lose" {
             GainLossLabel.text = "You need be at a caloric deficit of about \(setCalLabel()) calories per week in order to meet your goal in \(PersonInfo.getWeeksToComplete()) weeks"
-        } else if gainOrLose == "gain" {
+        } else if PersonInfo.getGainLoseMaintain() == "gain" {
             GainLossLabel.text = "You need be at a caloric surplus of about \(setCalLabel()) calories per week in order to meet your goal in \(PersonInfo.getWeeksToComplete()) weeks"
         } else {
             GainLossLabel.text = "You do not need to be at a caloric deficit or surplus."
@@ -61,9 +49,7 @@ class DietTableViewController: UITableViewController {
         burnCalLabel.text = "Therefore, you need to burn \(Int(PersonInfo.getTotalCaloriesToBurnToday())) total calories today."
     }
     
-    // Change intake to account for days exercising and not exercising
     func setCalorieIntakeLabel() {
-        
         eatCalLabel.text = "And consume \(PersonInfo.getTodaysCalorieIntake()) calories today."
     }
     

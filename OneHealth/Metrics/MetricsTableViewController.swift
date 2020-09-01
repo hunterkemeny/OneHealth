@@ -78,7 +78,7 @@ class MetricsTableViewController: UITableViewController {
         weight.append(value1)
         
         for i in 2...5 {
-            initialWeight += Double(PersonInfo.calculateCalorieDeltaPerDay()*7 * (1/3500))
+            initialWeight += Double(PersonInfo.calculateCalorieDeltaPerDay()*7) * (1/3500)
             let value = ChartDataEntry(x: Double(i), y: initialWeight)
             weight.append(value)
         }
@@ -114,14 +114,11 @@ class MetricsTableViewController: UITableViewController {
         
         for i in 2...12 {
             
-            initialWeight += Double(PersonInfo.calculateCalorieDeltaPerDay()*7 * (1/3500))
+            initialWeight += Double(PersonInfo.calculateCalorieDeltaPerDay()*7) * (1/3500)
             let value = ChartDataEntry(x: Double(i), y: initialWeight)
             weight.append(value)
         }
 
-        
-        
-        
         let line1 = LineChartDataSet(entries: weight, label: "Weight")
         line1.colors = [NSUIColor.blue]
         
@@ -158,7 +155,7 @@ class MetricsTableViewController: UITableViewController {
     
         for i in 0...results.count - 1 {
             let weightValue = ChartDataEntry(x: abs(Double(i)), y: results[i].weight)
-            let burnedValue = ChartDataEntry(x: abs(Double(i)), y: results[i].activeCals) // change to maintenence plus activecals, or BMR plus active cals
+            let burnedValue = ChartDataEntry(x: abs(Double(i)), y: results[i].activeCals + PersonInfo.getMaintenence()) // change to maintenence plus activecals, or BMR plus active cals
             let consumedValue = ChartDataEntry(x: abs(Double(i)), y: results[i].calsIntake)
             weight.append(weightValue)
             calsBurned.append(burnedValue)
@@ -166,7 +163,7 @@ class MetricsTableViewController: UITableViewController {
                        
            }
                
-        let line1 = LineChartDataSet(entries: weight, label: "Active Calories Burned")
+        let line1 = LineChartDataSet(entries: weight, label: "Weight")
         line1.colors = [NSUIColor.blue]
         
         let line2 = LineChartDataSet(entries: calsBurned, label: "Calories Burned")

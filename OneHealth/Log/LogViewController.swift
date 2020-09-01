@@ -74,7 +74,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
 
         let logDateObjectList = getLogDateObjectList()
         if logDateObjectList.count != 0 {
-            for num in 0...(logDateObjectList.count - 1) {
+            for num in 0...logDateObjectList.count - 1 {
                 // If today is already stored as a LogDate object in Core Data, then update
                 // the values associated with each category with the values stored in the LogDate Object.
                 if logDateObjectList[num].dateOfLog == dateFormatter.string(from: Date()) {

@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private let notificationPublisher = NotificationPublisher()
     var calsBurned: Int!
     var date = Date()
+    let dateFormatter = DateFormatter()
     var docRef: DocumentReference!
     let calendar = Calendar.current
     var day: Int? = 0
@@ -29,38 +30,83 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var year: Int? = 0
     var completeDate: String? = ""
     var myfitnesspalDate: String? = ""
+    var logDateDate: String? = ""
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         
         // Setup PersonInfo object whenever app is opened.
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        let request: NSFetchRequest<User> = User.fetchRequest()
-        request.returnsObjectsAsFaults = false
+        let firstRequest: NSFetchRequest<User> = User.fetchRequest()
+        firstRequest.returnsObjectsAsFaults = false
         // Fetch the "User" object.
         var results: [User]
         do {
-            try results = context.fetch(request)
+            try results = context.fetch(firstRequest)
         } catch {
             fatalError("Failure to fetch: \(error)")
         }
+        
+        let secondRequest: NSFetchRequest<LogDate> = LogDate.fetchRequest()
+        secondRequest.returnsObjectsAsFaults = false
+        
+        // Fetch the "LogDate" object.
+        var logDateObjectList: [LogDate]
+        do {
+            try logDateObjectList = context.fetch(secondRequest)
+        } catch {
+            fatalError("Failure to fetch: \(error)")
+        }
+        
+        // Get the different date formats for the LogDate object and for Firebase.
         
         month = calendar.component(.month, from: date)
         year = calendar.component(.month, from: date)
         day = calendar.component(.day, from: date)
         
-        myfitnesspalDate = "\(year!)-0\(month!)-\(day!)"
+        if month! < 10 {
+            if day! < 10 {
+                myfitnesspalDate = "\(year!)-0\(month!)-0\(day!)"
+                logDateDate = "0\(month)/0\(day)/\(year)"
+            } else {
+                myfitnesspalDate = "\(year!)-0\(month!)-\(day!)"
+            }
+        } else {
+            if day! < 10 {
+                myfitnesspalDate = "\(year!)-\(month!)-0\(day!)"
+                logDateDate = "\(month)/0\(day)/\(year)"
+            } else {
+                myfitnesspalDate = "\(year!)-\(month!)-\(day!)"
+                logDateDate = "\(month)/\(day)/\(year)"
+            }
+            
+        }
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         
-        
-        
+        // Check if todaysCaloriesConsumed have been logged using LogViewController. If it has not, then check Firebase to see if they have logged using myfitnesspal.
         var todaysCaloriesConsumed = ""
-        docRef = Firestore.firestore().document("myfitnesspal/\(results[0].email! ?? "")")
-        docRef.getDocument { (docSnapshot, error) in
-            guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
-            let myData = docSnapshot.data()
-            todaysCaloriesConsumed = myData?[self.myfitnesspalDate!] as? String ?? ""
+        for i in 0...logDateObjectList.count - 1{
+            if logDateObjectList[i].dateOfLog == logDateDate {
+                if logDateObjectList[i].calsIntake != 0.0 {
+                    todaysCaloriesConsumed = String(logDateObjectList[i].calsIntake)
+                }
+            }
+            if i == logDateObjectList.count - 1 {
+                let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
+                let newDate = NSManagedObject(entity: entity!, insertInto: context)
+                newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
+            }
+        }
+        if todaysCaloriesConsumed == "" {
+            docRef = Firestore.firestore().document("myfitnesspal/\(results[0].email! ?? "")")
+            docRef.getDocument { (docSnapshot, error) in
+                guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
+                let myData = docSnapshot.data()
+                todaysCaloriesConsumed = myData?[self.myfitnesspalDate!] as? String ?? ""
+            }
         }
         
         var sex = 1
