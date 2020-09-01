@@ -60,6 +60,7 @@ class DayPickerViewController: UIViewController {
                     break
                 }
                 if num == logDateObjectList.count - 1 {
+                    print("hi")
                     // When we reach the last object in logDateObjectList, this means that the date chosen is not a valid option in logDateObjectList. Therefore, store today's date as a new LogDate object in Core Data.
                     let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
                     let newDate = NSManagedObject(entity: entity!, insertInto: context)

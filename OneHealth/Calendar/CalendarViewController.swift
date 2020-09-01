@@ -318,35 +318,35 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                     // the values associated with each category with the values associated
                     // with the LogDate Object.
                     if logDateObjectList[num].dateOfLog! == self.completeDate {
-                        self.water = logDateObjectList[num].water ?? "Water not logged"
-                        self.hoursFasted = logDateObjectList[num].fast ?? "Fasting not logged"
-                        self.minutesMeditated = logDateObjectList[num].meditation ?? "Meditation not logged"
+                        self.water = String(Int(logDateObjectList[num].water!)!) ?? "Water not logged"
+                        self.hoursFasted = String(Int(logDateObjectList[num].fast!)!) ?? "Fasting not logged"
+                        self.minutesMeditated = String(Int(logDateObjectList[num].meditation!)!) ?? "Meditation not logged"
                         
                         if logDateObjectList[num].weight == 0.0 {
                             self.weight = "You need to log your weight!"
                         } else {
-                            self.weight = String(logDateObjectList[num].weight)
+                            self.weight = String(Int(logDateObjectList[num].weight))
                         }
                         
                         if logDateObjectList[num].activeCals == 0.0 { // Change to total cals burned. Won't this update before the day is over?
                             self.todaysCaloriesBurned = "The day isn't over yet!"
                         } else {
-                            self.todaysCaloriesBurned = String(PersonInfo.calculateBMR() + logDateObjectList[num].activeCals)
+                            self.todaysCaloriesBurned = String(Int(PersonInfo.calculateBMR()) + Int(logDateObjectList[num].activeCals))
                         }
                         
                         if String(PersonInfo.getTodaysCaloriesConsumed()) == "0.0" {
-                            self.todaysCaloriesConsumed = "Log MyFitnessPal!"
+                            self.todaysCaloriesConsumed = "Need to log"
                         } else {
-                            self.todaysCaloriesConsumed = String(PersonInfo.getTodaysCaloriesConsumed())
+                            self.todaysCaloriesConsumed = String(Int(PersonInfo.getTodaysCaloriesConsumed()))
                         }
 
-                        if self.todaysCaloriesConsumed == "Log MyFitnessPal!" || self.todaysCaloriesConsumed == "" {
-                            self.caloricSurplus = "Log MyFitnessPal!"
+                        if self.todaysCaloriesConsumed == "Need to log" || self.todaysCaloriesConsumed == "" {
+                            self.caloricSurplus = "Log calories"
                         } else {
                             if self.todaysCaloriesBurned == "The day isn't over yet!" {
                                 self.caloricSurplus = "Check back tomorrow"
                             } else {
-                                self.caloricSurplus = String(Double(self.todaysCaloriesBurned!)! - Double(self.todaysCaloriesConsumed!)!)
+                                self.caloricSurplus = String(Int(Double(self.todaysCaloriesBurned!)! - Double(self.todaysCaloriesConsumed!)!))
                             }
                         }
                         break

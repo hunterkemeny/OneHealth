@@ -104,6 +104,7 @@ class LogViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
         logTableView.delegate = self
         logTableView.dataSource = self
+        
     }
   
     override func viewWillAppear(_ animated: Bool) {
