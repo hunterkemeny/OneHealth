@@ -1904,7 +1904,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J8e-8P-hzb">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter MyFitnessPal Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J8e-8P-hzb">
                                 <rect key="frame" x="20" y="404" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" textContentType="password"/>
@@ -2751,9 +2751,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="482" id="rGe-Yw-ZRD"/>
                                                     </constraints>
-                                                    <mutableString key="text">1. The Feed page contains both Personalized Suggestions as well as General Information.
+                                                    <string key="text">1. The Feed page contains both Personalized Suggestions as well as General Information.
       a. The Personalized Suggestions consist of a Diet and Water page that tells you, based on the information you entered in the survey, the number of should eat as well as the number of calories you must burn today in order to meet your goal. The workout page provides a workout every day that will ensure you meet the calories burned threshold. 
-      b. The General Information page links to cutting edge information on nutrition science and longevity. As new information comes out, we will continue to add the most up to date resources here. We also plan to add information about meditation, DNA tests, supplementation, and other components of health in addition to diet.</mutableString>
+      b. The General Information page links to cutting edge information on nutrition science and longevity. As new information comes out, we will continue to add the most up to date resources here. We also plan to add information about meditation, DNA tests, supplementation, and other components of health in addition to diet.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
