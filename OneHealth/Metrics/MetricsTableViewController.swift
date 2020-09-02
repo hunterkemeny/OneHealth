@@ -87,7 +87,7 @@ class MetricsTableViewController: UITableViewController {
         predictWeightView.rightAxis.enabled = false
         predictWeightView.xAxis.enabled = true
         // Only one week worth of predictions.
-        predictWeightView.xAxis.axisMaximum = 8
+        predictWeightView.xAxis.axisMaximum = 6
         predictWeightView.xAxis.axisMinimum = 0
         let leftAxis = predictWeightView.leftAxis
         leftAxis.gridLineDashLengths = [5, 5]
@@ -100,7 +100,7 @@ class MetricsTableViewController: UITableViewController {
         let value1 = ChartDataEntry(x: 1,  y: initialWeight)
         weight.append(value1)
         // Calculate prediction based on the conversion for calories into pounds and the calorie surplus/deficit the user must maintain in order to change their weight.
-        for i in 2...7 {
+        for i in 2...5 {
             if results[0].goalType == "gain" {
                 initialWeight += Double(PersonInfo.calculateCalorieDeltaPerDay()*7) * (1/3500)
             } else {

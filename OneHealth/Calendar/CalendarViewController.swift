@@ -299,17 +299,32 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         
         // Format completeDate according to the format of LogDate.dateOfLog.
         if month! < 10 {
-            completeDate = "0\(month!)/\(day!)/\(year!)"
-            myfitnesspalDate = "\(year!)-0\(month!)-\(day!)"
+            if Int(day!)! < 10 {
+                completeDate = "0\(month!)/0\(day!)/\(year!)"
+                myfitnesspalDate = "\(year!)-0\(month!)-0\(day!)"
+            } else {
+                completeDate = "0\(month!)/\(day!)/\(year!)"
+                myfitnesspalDate = "\(year!)-0\(month!)-\(day!)"
+            }
+            
         } else {
-            completeDate = "\(month!)/\(day!)/\(year!)"
-            myfitnesspalDate = "\(year!)-\(month!)-\(day!)"
+            if Int(day!)! < 10 {
+                completeDate = "\(month!)/0\(day!)/\(year!)"
+                myfitnesspalDate = "\(year!)-\(month!)-0\(day!)"
+            } else {
+                completeDate = "\(month!)/\(day!)/\(year!)"
+                myfitnesspalDate = "\(year!)-\(month!)-\(day!)"
+            }
+
         }
+        
         // Use the date format provided by the backend script to get todaysCaloriesConsumed from the myfitnesspal API.
         setTodaysCaloriesConsumed(date: myfitnesspalDate!)
         todaysCaloriesConsumed = String(PersonInfo.getTodaysCaloriesConsumed())
         
         let logDateObjectList = getLogDateObjectList()
+        
+        print(logDateObjectList)
         // It takes 0.4 seconds to get the myfitnesspal data from Firebase, so we have to delay the segue
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             if logDateObjectList.count != 0 {
@@ -317,10 +332,12 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                     // If today is already stored as a LogDate object in CoreData, then update
                     // the values associated with each category with the values associated
                     // with the LogDate Object.
+                    print(self.completeDate)
+                    print(logDateObjectList[num])
                     if logDateObjectList[num].dateOfLog! == self.completeDate {
-                        self.water = String(Int(logDateObjectList[num].water!)!) ?? "Water not logged"
-                        self.hoursFasted = String(Int(logDateObjectList[num].fast!)!) ?? "Fasting not logged"
-                        self.minutesMeditated = String(Int(logDateObjectList[num].meditation!)!) ?? "Meditation not logged"
+                        self.water = String(Int(logDateObjectList[num].water ?? "Water not logged") ?? 0)
+                        self.hoursFasted = String(Int(logDateObjectList[num].fast ?? "Fasting not logged") ?? 0)
+                        self.minutesMeditated = String(Int(logDateObjectList[num].meditation ?? "Meditation not logged") ?? 0)
                         
                         if logDateObjectList[num].weight == 0.0 {
                             self.weight = "You need to log your weight!"

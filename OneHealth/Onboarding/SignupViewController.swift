@@ -91,8 +91,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                         print("New user stored in database")
     
                         // If the new user was successfully stored in the DB, move on to the app tutorial.
-                        let tutorialViewController = (mainStoryboard.instantiateViewController(withIdentifier: "TutorialViewController") as? TutorialViewController)!
-                        self.navigationController?.pushViewController(tutorialViewController, animated: true)
+                        let entryViewController = (mainStoryboard.instantiateViewController(withIdentifier: "EntryViewController") as? EntryViewController)!
+                        self.navigationController?.pushViewController(entryViewController, animated: true)
                     }
                 }
             }
