@@ -345,7 +345,8 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                             self.weight = String(Int(logDateObjectList[num].weight))
                         }
                         
-                        if logDateObjectList[num].activeCals == 0.0 { // Change to total cals burned. Won't this update before the day is over?
+                        // ERROR: It will show that the day isnt over yet if they try to log days before they downloaded the app.
+                        if logDateObjectList[num].activeCals == 0.0 {
                             self.todaysCaloriesBurned = "The day isn't over yet!"
                         } else {
                             self.todaysCaloriesBurned = String(Int(PersonInfo.calculateBMR()) + Int(logDateObjectList[num].activeCals))
