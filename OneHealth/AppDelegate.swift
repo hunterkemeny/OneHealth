@@ -122,7 +122,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
             
-            
             // If the user is opening the app for the first time, create a LogDate object and store today's date as dateOfLog attribute in the LogDate object for today in Core Data.
             if logDateObjectList.count == 0 {
                 let newDate = NSManagedObject(entity: entity!, insertInto: context)
@@ -138,39 +137,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Failure to save context: \(error)")
             }
             
+            // Fetch the new logDateObjectList with the newly created LogDate object.
             do {
                 try logDateObjectList = context.fetch(request)
             } catch {
                 fatalError("Failure to fetch: \(error)")
             }
             
+            // Format activeCalsDate according to the date format of the LogDate objects. activeCalsDate corresponds to the date from the activitySummary, which is today's date.
             var activeCalsDate = ""
-            
             self.month = calendar.component(.month, from: self.date)
             self.year = calendar.component(.year, from: self.date)
             self.day = calendar.component(.day, from: self.date)
-            
             if self.month! < 10 {
                 if self.day! < 10 {
-                    
                     activeCalsDate = "0\(self.month!)/0\(self.day!)/\(self.year!)"
                 } else {
                     activeCalsDate = "0\(self.month!)/\(self.day!)/\(self.year!)"
                 }
             } else {
                 if self.day! < 10 {
-                    
                     activeCalsDate = "\(self.month!)/0\(self.day!)/\(self.year!)"
                 } else {
                     
                     activeCalsDate = "\(self.month!)/\(self.day!)/\(self.year!)"
                 }
-                
             }
             
-            // Need to make todays logdate object, then only update it, never make a new one for today
+            // If there is already a logDateObject for today's date, then when the user opens the app, update the activeCals attribute according to how many calories they have burned so far today.
             for num in 0...logDateObjectList.count - 1 {
-                
                 if logDateObjectList[num].dateOfLog! == activeCalsDate {
                     logDateObjectList[num].activeCals = activitySummaries[0].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
                     break
@@ -178,15 +173,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if num == logDateObjectList.count - 1 {
                     // When we reach the last object in logDateObjectList, this means that the date chosen is not a valid option in logDateObjectList. Therefore, store today's date as a new LogDate object in Core Data.
                     let newDate = NSManagedObject(entity: entity!, insertInto: context)
-                    
                     newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
-                    
                     newDate.setValue(activitySummaries[0].activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie()), forKey: "activeCals")
                 }
             }
             
-            
-            // Save the newly created LogDate object to Core Data.
+            // Save the newly created/modified LogDate object to Core Data.
             do {
                 try context.save()
             } catch {

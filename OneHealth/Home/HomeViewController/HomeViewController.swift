@@ -55,9 +55,9 @@ class HomeViewController: UIViewController {
         let firstRequest: NSFetchRequest<User> = User.fetchRequest()
         firstRequest.returnsObjectsAsFaults = false
         // Fetch the "User" object.
-        var results: [User]
+        var user: [User]
         do {
-            try results = context.fetch(firstRequest)
+            try user = context.fetch(firstRequest)
         } catch {
             fatalError("Failure to fetch: \(error)")
         }
@@ -73,71 +73,70 @@ class HomeViewController: UIViewController {
             fatalError("Failure to fetch: \(error)")
         }
         
-        if logDateObjectList.count != 0 { // If this is the first time they are opening the app, don't setup PersonInfo object
-            // Get the different date formats for the LogDate object and for Firebase.
+     
+        // Get the different date formats for the LogDate object and for Firebase.
             
-            month = calendar.component(.month, from: date)
-            year = calendar.component(.year, from: date)
-            day = calendar.component(.day, from: date)
+        month = calendar.component(.month, from: date)
+        year = calendar.component(.year, from: date)
+        day = calendar.component(.day, from: date)
             
-            if month! < 10 {
-                if day! < 10 {
-                    myfitnesspalDate = "\(year!)-0\(month!)-0\(day!)"
-                    logDateDate = "0\(month!)/0\(day!)/\(year!)"
-                } else {
-                    myfitnesspalDate = "\(year!)-0\(month!)-\(day!)"
-                    logDateDate = "0\(month!)/\(day!)/\(year!)"
-                }
+        if month! < 10 {
+            if day! < 10 {
+                myfitnesspalDate = "\(year!)-0\(month!)-0\(day!)"
+                logDateDate = "0\(month!)/0\(day!)/\(year!)"
             } else {
-                if day! < 10 {
-                    myfitnesspalDate = "\(year!)-\(month!)-0\(day!)"
-                    logDateDate = "\(month!)/0\(day!)/\(year!)"
-                } else {
-                    myfitnesspalDate = "\(year!)-\(month!)-\(day!)"
-                    logDateDate = "\(month!)/\(day!)/\(year!)"
-                }
+                myfitnesspalDate = "\(year!)-0\(month!)-\(day!)"
+                logDateDate = "0\(month!)/\(day!)/\(year!)"
+            }
+        } else {
+            if day! < 10 {
+                myfitnesspalDate = "\(year!)-\(month!)-0\(day!)"
+                logDateDate = "\(month!)/0\(day!)/\(year!)"
+            } else {
+                myfitnesspalDate = "\(year!)-\(month!)-\(day!)"
+                logDateDate = "\(month!)/\(day!)/\(year!)"
+            }
                 
-            }
-            dateFormatter.dateFormat = "MM/dd/yyyy"
+        }
+        dateFormatter.dateFormat = "MM/dd/yyyy"
             
-            // Check if todaysCaloriesConsumed have been logged using LogViewController. If it has not, then check Firebase to see if they have logged using myfitnesspal.
-            var todaysCaloriesConsumed = ""
-            for i in 0...logDateObjectList.count - 1 {
-                if logDateObjectList[i].dateOfLog == logDateDate {
-                    if logDateObjectList[i].calsIntake != 0.0 {
-                        todaysCaloriesConsumed = String(logDateObjectList[i].calsIntake)
-                    }
-                    break
+        // Check if todaysCaloriesConsumed have been logged using LogViewController. If it has not, then check Firebase to see if they have logged using myfitnesspal.
+        var todaysCaloriesConsumed = ""
+        for i in 0...logDateObjectList.count - 1 {
+            if logDateObjectList[i].dateOfLog == logDateDate {
+                if logDateObjectList[i].calsIntake != 0.0 {
+                    todaysCaloriesConsumed = String(logDateObjectList[i].calsIntake)
                 }
-                if i == logDateObjectList.count - 1 {
-                    let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
-                    let newDate = NSManagedObject(entity: entity!, insertInto: context)
-                    newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
-                }
+                break
             }
-            if todaysCaloriesConsumed == "" {
-                docRef = Firestore.firestore().document("myfitnesspal/\(results[0].email! ?? "")")
-                docRef.getDocument { (docSnapshot, error) in
-                    guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
-                    let myData = docSnapshot.data()
-                    todaysCaloriesConsumed = myData?[self.myfitnesspalDate!] as? String ?? ""
-                }
-            }
-            
-            var sex = 1
-            
-            if results[0].sex == "Male" {
-                var sex = 1
-            } else {
-                var sex = 0
-            }
-            
-            // It takes 0.4 seconds to get the myfitnesspal data from Firebase, so we have to delay the makePerson.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                todaysCaloriesConsumed = "2100"
-                PersonInfo.makePerson(weight: Double(results[0].weight!)!, height: results[0].height!, sex: sex, age: results[0].age!, gainLoseMaintain: results[0].goalType!, weightChangeGoal: results[0].weightGoal!, weeksToComplete: Int(results[0].weeksToComplete!)!, daysToComplete: Int(results[0].weeksToComplete!)!*7, todaysCaloriesConsumed: Double(todaysCaloriesConsumed)!)
+            if i == logDateObjectList.count - 1 {
+                let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
+                let newDate = NSManagedObject(entity: entity!, insertInto: context)
+                newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
             }
         }
+        if todaysCaloriesConsumed == "" {
+            docRef = Firestore.firestore().document("myfitnesspal/\(user[0].email! ?? "")")
+            docRef.getDocument { (docSnapshot, error) in
+                guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
+                let myData = docSnapshot.data()
+                todaysCaloriesConsumed = myData?[self.myfitnesspalDate!] as? String ?? ""
+            }
+        }
+            
+        var sex = 1
+            
+        if user[0].sex == "Male" {
+            var sex = 1
+        } else {
+            var sex = 0
+        }
+            
+        // It takes 0.4 seconds to get the myfitnesspal data from Firebase, so we have to delay the makePerson.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            PersonInfo.makePerson(weight: Double(user[0].weight!)!, height: user[0].height!, sex: sex, age: user[0].age!, gainLoseMaintain: user[0].goalType!, weightChangeGoal: user[0].weightGoal!, weeksToComplete: Int(user[0].weeksToComplete!)!, daysToComplete: Int(user[0].weeksToComplete!)!*7, todaysCaloriesConsumed: Double(todaysCaloriesConsumed) ?? 0.0)
+            }
+
         
         homeTableView.dataSource = self
         homeTableView.delegate = self

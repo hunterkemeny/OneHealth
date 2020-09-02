@@ -1870,7 +1870,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z9z-Zx-szM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2807.2463768115945" y="168.75"/>
+            <point key="canvasLocation" x="-5107" y="169"/>
         </scene>
         <!--SignupViewController-->
         <scene sceneID="hSE-ip-9s0">
@@ -1957,7 +1957,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mfl-tn-kQt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1875" y="571"/>
+            <point key="canvasLocation" x="-4188" y="611"/>
         </scene>
         <!--TutorialViewController-->
         <scene sceneID="UbY-k0-GMn">
@@ -2005,7 +2005,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="arT-1l-D22" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-76.811594202898561" y="168.75"/>
+            <point key="canvasLocation" x="-2029" y="169"/>
         </scene>
         <!--LoginViewController-->
         <scene sceneID="OFe-pW-oyt">
@@ -2074,7 +2074,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nFS-BM-Ilv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1875" y="-223"/>
+            <point key="canvasLocation" x="-4187" y="-443"/>
         </scene>
         <!--SurveyTableViewController-->
         <scene sceneID="aVk-mv-G18">
@@ -2428,7 +2428,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RJq-DZ-rJh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="859" y="169"/>
+            <point key="canvasLocation" x="-1097" y="169"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="t0c-II-tj7">
@@ -2444,9 +2444,8 @@
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Krt-6G-aZU">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Krt-6G-aZU">
                                 <rect key="frame" x="20" y="121" width="374" height="741"/>
-                                <mutableString key="text">1. The Feed page contains both Personalized Suggestions as well as General Information. The Personalized Suggestions consist of a Diet and Water page that tells you, based on the information you entered in the survey, how many calories you should eat today as well as the number of calories you must burn today in order to meet your goal in the time you specified. The workout page describes, in detail, a workout that will ensure you meet the calories burned threshold. The General Information page links to cutting edge information on nutrition science and longevity. As new information comes out, we will continue to add the most up to date resources here. 2. The metrics page contains two graphs: A graph showing how your weight will change over time if you follow the diet and exercise suggestions, and another graph tracking your weight, calories consumed, and calories burned per day. This chart is designed to help you visualize the direct relationshp between how much you eat, how much you exercise, and your weight. 3. The Log page is how you will track your metrics. If you have a myfitnesspal account, then the calories you log in myfitnesspal will automatically update in this app. If you don't use myfitnesspal, then you can manually log your calories here. You must log your calories and weight every day  </mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2467,7 +2466,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x1X-65-bXx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1286.9565217391305" y="-560.49107142857144"/>
+            <point key="canvasLocation" x="-180" y="169"/>
         </scene>
         <!--TabViewController-->
         <scene sceneID="mfe-JZ-adR">
@@ -2508,7 +2507,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cDg-Du-Y0d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3717.3913043478265" y="168.75"/>
+            <point key="canvasLocation" x="-5930" y="169"/>
         </scene>
         <!--Settings-->
         <scene sceneID="XN2-uk-PZw">
@@ -2691,7 +2690,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oe0-Rd-Htc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-986.95652173913049" y="168.75"/>
+            <point key="canvasLocation" x="-3025" y="169"/>
         </scene>
         <!--Feed-->
         <scene sceneID="Qa3-NS-TBu">
