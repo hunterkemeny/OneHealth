@@ -129,10 +129,10 @@ class SurveyTableViewController: UITableViewController, UITextFieldDelegate {
                 print("Document successfully written!")
                 
                 // Segue to main Tab View Controller.
-                let homeViewController = (mainStoryboard.instantiateViewController(withIdentifier: "TabViewController") as? TabViewController)!
-                homeViewController.modalPresentationStyle = .fullScreen
+                let tutorialTableViewController = (mainStoryboard.instantiateViewController(withIdentifier: "TutorialTableViewController") as? TutorialTableViewController)!
+                tutorialTableViewController.modalPresentationStyle = .fullScreen
                 
-                self.navigationController?.present(homeViewController, animated: true, completion: nil)
+                self.navigationController?.present(tutorialTableViewController, animated: true, completion: nil)
             }
         }
     }

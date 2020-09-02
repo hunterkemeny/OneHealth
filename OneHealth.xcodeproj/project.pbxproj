@@ -28,6 +28,7 @@
 		4CE8A01124F9A44000AFCA5F /* DietTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A01024F9A44000AFCA5F /* DietTableViewController.swift */; };
 		4CE8A01324F9A44A00AFCA5F /* WorkoutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A01224F9A44A00AFCA5F /* WorkoutTableViewController.swift */; };
 		4CE8A01724FC805000AFCA5F /* SurveyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A01624FC805000AFCA5F /* SurveyTableViewController.swift */; };
+		4CE8A01D24FF2AB200AFCA5F /* TutorialTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CE8A01C24FF2AB200AFCA5F /* TutorialTableViewController.swift */; };
 		4CF22AD423D9131900904BE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD323D9131900904BE4 /* AppDelegate.swift */; };
 		4CF22AD623D9131900904BE4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AD523D9131900904BE4 /* SceneDelegate.swift */; };
 		4CF22ADB23D9131900904BE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CF22AD923D9131900904BE4 /* Main.storyboard */; };
@@ -37,7 +38,6 @@
 		4CF22AF123D937C000904BE4 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AF023D937C000904BE4 /* BaseViewController.swift */; };
 		4CF22AF323D937DB00904BE4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AF223D937DB00904BE4 /* LoginViewController.swift */; };
 		4CF22AF523D937EA00904BE4 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AF423D937EA00904BE4 /* SignupViewController.swift */; };
-		4CF22AF723D9380E00904BE4 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AF623D9380E00904BE4 /* TutorialViewController.swift */; };
 		4CF22AFF23D93F4F00904BE4 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22AFE23D93F4F00904BE4 /* SettingsTableViewController.swift */; };
 		4CF22B0623D93FDE00904BE4 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B0523D93FDE00904BE4 /* LogViewController.swift */; };
 		4CF22B2E23D940EC00904BE4 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CF22B2D23D940EC00904BE4 /* TabViewController.swift */; };
@@ -79,6 +79,7 @@
 		4CE8A01024F9A44000AFCA5F /* DietTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietTableViewController.swift; sourceTree = "<group>"; };
 		4CE8A01224F9A44A00AFCA5F /* WorkoutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewController.swift; sourceTree = "<group>"; };
 		4CE8A01624FC805000AFCA5F /* SurveyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyTableViewController.swift; sourceTree = "<group>"; };
+		4CE8A01C24FF2AB200AFCA5F /* TutorialTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialTableViewController.swift; sourceTree = "<group>"; };
 		4CF22AD023D9131900904BE4 /* OneHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CF22AD323D9131900904BE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CF22AD523D9131900904BE4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,7 +91,6 @@
 		4CF22AF023D937C000904BE4 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		4CF22AF223D937DB00904BE4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4CF22AF423D937EA00904BE4 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
-		4CF22AF623D9380E00904BE4 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		4CF22AFE23D93F4F00904BE4 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		4CF22B0523D93FDE00904BE4 /* LogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		4CF22B2D23D940EC00904BE4 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
@@ -218,8 +218,8 @@
 				4CF22AF023D937C000904BE4 /* BaseViewController.swift */,
 				4CF22AF223D937DB00904BE4 /* LoginViewController.swift */,
 				4CF22AF423D937EA00904BE4 /* SignupViewController.swift */,
-				4CF22AF623D9380E00904BE4 /* TutorialViewController.swift */,
 				4CE8A01624FC805000AFCA5F /* SurveyTableViewController.swift */,
+				4CE8A01C24FF2AB200AFCA5F /* TutorialTableViewController.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -431,7 +431,6 @@
 				4CE89FFD24F751AC00AFCA5F /* MeditationResourceList.swift in Sources */,
 				4CE89FF924F730DA00AFCA5F /* ResourceTableViewCell.swift in Sources */,
 				4CF22AF523D937EA00904BE4 /* SignupViewController.swift in Sources */,
-				4CF22AF723D9380E00904BE4 /* TutorialViewController.swift in Sources */,
 				4CE8A01724FC805000AFCA5F /* SurveyTableViewController.swift in Sources */,
 				4CE8A00124F751EA00AFCA5F /* DNAResourceList.swift in Sources */,
 				4CE89FFF24F751D600AFCA5F /* SupplementResourceList.swift in Sources */,
@@ -447,6 +446,7 @@
 				4C4D565623DCF3810005EAC8 /* InsertInfoViewController.swift in Sources */,
 				4CF22AD423D9131900904BE4 /* AppDelegate.swift in Sources */,
 				4CF22ADE23D9131900904BE4 /* OneHealth.xcdatamodeld in Sources */,
+				4CE8A01D24FF2AB200AFCA5F /* TutorialTableViewController.swift in Sources */,
 				4CF22AFF23D93F4F00904BE4 /* SettingsTableViewController.swift in Sources */,
 				4CF22B4423DB89E700904BE4 /* CalendarViewController.swift in Sources */,
 				4CE8A00D24F8AB0000AFCA5F /* DayPicker.swift in Sources */,
