@@ -128,11 +128,6 @@ class SurveyTableViewController: UITableViewController, UITextFieldDelegate {
             } else {
                 print("Document successfully written!")
                 
-                // Segue to main Tab View Controller.
-                let tutorialTableViewController = (mainStoryboard.instantiateViewController(withIdentifier: "TutorialTableViewController") as? TutorialTableViewController)!
-                tutorialTableViewController.modalPresentationStyle = .fullScreen
-                
-                self.navigationController?.present(tutorialTableViewController, animated: true, completion: nil)
             }
         }
     }

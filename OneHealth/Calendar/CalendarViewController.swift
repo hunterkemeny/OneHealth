@@ -161,12 +161,13 @@ class CalendarViewController: UIViewController {
         }
     }
     
-    func setTodaysCaloriesConsumed(date: String) {
+    func setTodaysCaloriesConsumed(date: String, logDate: String) {
         // Get the user's calories consumed thus far today.
-        
+        todaysCaloriesConsumed = ""
         var email: String?
         
         // Fetch user email from Core Data object "User".
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = getPersistentContainerContext()
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "User")
         request.returnsObjectsAsFaults = false
@@ -184,8 +185,25 @@ class CalendarViewController: UIViewController {
         docRef.getDocument { (docSnapshot, error) in
             guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
             let myData = docSnapshot.data()
+            print(myData)
+            print(date)
             self.todaysCaloriesConsumed = myData?[date] as? String ?? ""
-            PersonInfo.setTodaysCaloriesConsumed(todaysCaloriesConsumed: Double(self.todaysCaloriesConsumed!)!)
+            
+        }
+        
+        var logDateObjectList = getLogDateObjectList()
+        
+        for num in 0...logDateObjectList.count - 1 {
+            print(num)
+            print(logDateObjectList[num])
+            print(logDate)
+            if logDate == logDateObjectList[num].dateOfLog! {
+                print(todaysCaloriesConsumed)
+                if todaysCaloriesConsumed! != ""  {
+                    print(Double(todaysCaloriesConsumed!))
+                    logDateObjectList[num].setValue(Double(todaysCaloriesConsumed!), forKey: "calsIntake")
+                }
+            }
         }
     }
     
@@ -211,13 +229,15 @@ class CalendarViewController: UIViewController {
             }
             reverseMonths.append(getMonth(monthNum: month! - i)!)
         }
+        
         // Then we iterate through reverseMonths and add the year of the month at i to the parallel array reverseYears. If we reach December, then the next 12 months belong to the previous year.
         var decemberCount = 0
         for i in 0...reverseMonths.count - 1 {
-            reverseYears.append(year! - decemberCount)
-            if reverseMonths[i] == "December" {
+            if reverseMonths[i] == "December" && i != 0 {
                 decemberCount += 1
             }
+            reverseYears.append(year! - decemberCount)
+            
         }
     }
 }
@@ -293,7 +313,12 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
             month! += 12 * (Int(month!/collectionView.tag) + 1)
             
         }
-        year = year! - Int((collectionView.tag)/(month! + 1))
+        
+        year = calendar.component(.year, from: date)
+        if month == 12 && collectionView.tag != 0 {
+            year = year! - 1
+        }
+        
         month = month! - collectionView.tag + 1
         day = String(indexPath.row)
         
@@ -319,8 +344,9 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         }
         
         // Use the date format provided by the backend script to get todaysCaloriesConsumed from the myfitnesspal API.
-        setTodaysCaloriesConsumed(date: myfitnesspalDate!)
-        todaysCaloriesConsumed = String(PersonInfo.getTodaysCaloriesConsumed())
+        print("DOING IT")
+        print(completeDate)
+        setTodaysCaloriesConsumed(date: myfitnesspalDate!, logDate: completeDate!)
         
         let logDateObjectList = getLogDateObjectList()
         
@@ -334,7 +360,7 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                     // with the LogDate Object.
                     print(self.completeDate)
                     print(logDateObjectList[num])
-                    if logDateObjectList[num].dateOfLog! == self.completeDate {
+                    if logDateObjectList[num].dateOfLog! == self.completeDate! {
                         self.water = String(Int(logDateObjectList[num].water ?? "Water not logged") ?? 0)
                         self.hoursFasted = String(Int(logDateObjectList[num].fast ?? "Fasting not logged") ?? 0)
                         self.minutesMeditated = String(Int(logDateObjectList[num].meditation ?? "Meditation not logged") ?? 0)
@@ -352,10 +378,12 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                             self.todaysCaloriesBurned = String(Int(PersonInfo.calculateBMR()) + Int(logDateObjectList[num].activeCals))
                         }
                         
-                        if String(PersonInfo.getTodaysCaloriesConsumed()) == "0.0" {
+                        if logDateObjectList[num].calsIntake == 0 {
                             self.todaysCaloriesConsumed = "Need to log"
                         } else {
-                            self.todaysCaloriesConsumed = String(Int(PersonInfo.getTodaysCaloriesConsumed()))
+                            print("YOYOYOYO")
+                            print(logDateObjectList[num])
+                            self.todaysCaloriesConsumed = String(logDateObjectList[num].calsIntake)
                         }
 
                         if self.todaysCaloriesConsumed == "Need to log" || self.todaysCaloriesConsumed == "" {

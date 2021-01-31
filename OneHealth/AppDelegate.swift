@@ -53,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         notificationPublisher.sendNotification(identifier: "Weight", title: "Check Your Weight!", subtitle: "", body: "Tap to log your weight.", badge: 1, delayInterval: 24, hour: 9)
         
         authorizeHealthKitApp()
+        
         return true
     }
     
