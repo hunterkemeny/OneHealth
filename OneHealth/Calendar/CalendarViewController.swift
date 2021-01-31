@@ -185,23 +185,17 @@ class CalendarViewController: UIViewController {
         docRef.getDocument { (docSnapshot, error) in
             guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
             let myData = docSnapshot.data()
-            print(myData)
-            print(date)
             self.todaysCaloriesConsumed = myData?[date] as? String ?? ""
-            
         }
         
         var logDateObjectList = getLogDateObjectList()
         
-        for num in 0...logDateObjectList.count - 1 {
-            print(num)
-            print(logDateObjectList[num])
-            print(logDate)
-            if logDate == logDateObjectList[num].dateOfLog! {
-                print(todaysCaloriesConsumed)
-                if todaysCaloriesConsumed! != ""  {
-                    print(Double(todaysCaloriesConsumed!))
-                    logDateObjectList[num].setValue(Double(todaysCaloriesConsumed!), forKey: "calsIntake")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [self] in
+            for num in 0...logDateObjectList.count - 1 {
+                if logDate == logDateObjectList[num].dateOfLog! {
+                    if self.todaysCaloriesConsumed! != ""  {
+                        logDateObjectList[num].setValue(Double(self.todaysCaloriesConsumed!), forKey: "calsIntake")
+                    }
                 }
             }
         }
@@ -344,13 +338,10 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
         }
         
         // Use the date format provided by the backend script to get todaysCaloriesConsumed from the myfitnesspal API.
-        print("DOING IT")
-        print(completeDate)
         setTodaysCaloriesConsumed(date: myfitnesspalDate!, logDate: completeDate!)
         
         let logDateObjectList = getLogDateObjectList()
         
-        print(logDateObjectList)
         // It takes 0.4 seconds to get the myfitnesspal data from Firebase, so we have to delay the segue
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             if logDateObjectList.count != 0 {
@@ -358,8 +349,6 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                     // If today is already stored as a LogDate object in CoreData, then update
                     // the values associated with each category with the values associated
                     // with the LogDate Object.
-                    print(self.completeDate)
-                    print(logDateObjectList[num])
                     if logDateObjectList[num].dateOfLog! == self.completeDate! {
                         self.water = String(Int(logDateObjectList[num].water ?? "Water not logged") ?? 0)
                         self.hoursFasted = String(Int(logDateObjectList[num].fast ?? "Fasting not logged") ?? 0)
@@ -381,8 +370,6 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                         if logDateObjectList[num].calsIntake == 0 {
                             self.todaysCaloriesConsumed = "Need to log"
                         } else {
-                            print("YOYOYOYO")
-                            print(logDateObjectList[num])
                             self.todaysCaloriesConsumed = String(logDateObjectList[num].calsIntake)
                         }
 
