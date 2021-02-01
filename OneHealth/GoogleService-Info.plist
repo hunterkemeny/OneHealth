@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>144174265268-91ideoh9i7b9mkengife4rjn0c0ro4cb.apps.googleusercontent.com</string>
+	<string>144174265268-ibi4hhm71bq5ip54n0srraguggu8n0hn.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.144174265268-91ideoh9i7b9mkengife4rjn0c0ro4cb</string>
+	<string>com.googleusercontent.apps.144174265268-ibi4hhm71bq5ip54n0srraguggu8n0hn</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB5v3qIcIxx4xyaEr5DRoosswkEnFCUn4I</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.hunter.OneHealth</string>
+	<string>com.kemeny.OneHealth</string>
 	<key>PROJECT_ID</key>
 	<string>onehealth-301ad</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:144174265268:ios:f8931c65e2d55874dcb8e1</string>
+	<string>1:144174265268:ios:26fabe8afb6bfea3dcb8e1</string>
 	<key>DATABASE_URL</key>
 	<string>https://onehealth-301ad.firebaseio.com</string>
 </dict>

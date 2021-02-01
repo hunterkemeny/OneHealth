@@ -185,13 +185,19 @@ class CalendarViewController: UIViewController {
         docRef.getDocument { (docSnapshot, error) in
             guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
             let myData = docSnapshot.data()
+            print(myData)
             self.todaysCaloriesConsumed = myData?[date] as? String ?? ""
         }
         
-        var logDateObjectList = getLogDateObjectList()
+        let logDateObjectList = getLogDateObjectList()
+        print(logDateObjectList)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [self] in
             for num in 0...logDateObjectList.count - 1 {
+                print("lOG DATE")
+                print(logDate)
+                print("logdateobjectlist")
+                print(logDateObjectList[num].dateOfLog!)
                 if logDate == logDateObjectList[num].dateOfLog! {
                     if self.todaysCaloriesConsumed! != ""  {
                         logDateObjectList[num].setValue(Double(self.todaysCaloriesConsumed!), forKey: "calsIntake")
@@ -362,7 +368,7 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                         
                         // ERROR: It will show that the day isnt over yet if they try to log days before they downloaded the app.
                         if logDateObjectList[num].activeCals == 0.0 {
-                            self.todaysCaloriesBurned = "The day isn't over yet!"
+                            self.todaysCaloriesBurned = "Not logged"
                         } else {
                             self.todaysCaloriesBurned = String(Int(PersonInfo.calculateBMR()) + Int(logDateObjectList[num].activeCals))
                         }
@@ -376,7 +382,7 @@ extension CalendarViewController: UICollectionViewDataSource, UICollectionViewDe
                         if self.todaysCaloriesConsumed == "Need to log" || self.todaysCaloriesConsumed == "" {
                             self.caloricSurplus = "Log calories"
                         } else {
-                            if self.todaysCaloriesBurned == "The day isn't over yet!" {
+                            if self.todaysCaloriesBurned == "Not logged" {
                                 self.caloricSurplus = "Check back tomorrow"
                             } else {
                                 self.caloricSurplus = String(Int(Double(self.todaysCaloriesBurned!)! - Double(self.todaysCaloriesConsumed!)!))

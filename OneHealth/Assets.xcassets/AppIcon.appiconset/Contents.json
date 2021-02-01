@@ -77,16 +77,19 @@
       "size" : "76x76"
     },
     {
+      "filename" : "OneHealthLogoSmalliPad-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
+      "filename" : "OneHealthLogoBigiPad-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
+      "filename" : "OneHealthLogoMain-1.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
