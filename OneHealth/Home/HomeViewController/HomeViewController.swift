@@ -102,65 +102,77 @@ class HomeViewController: UIViewController {
             
         // Check if todaysCaloriesConsumed have been logged using LogViewController. If it has not, then check Firebase to see if they have logged using myfitnesspal.
         var todaysCaloriesConsumed = ""
-        for i in 0...logDateObjectList.count - 1 {
-            if logDateObjectList[i].dateOfLog == logDateDate {
-                if logDateObjectList[i].calsIntake != 0.0 {
-                    todaysCaloriesConsumed = String(logDateObjectList[i].calsIntake)
-                }
-                break
-            }
-            if i == logDateObjectList.count - 1 {
-                let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
-                let newDate = NSManagedObject(entity: entity!, insertInto: context)
-                newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
-            }
-        }
-        if todaysCaloriesConsumed == "" {
-            docRef = Firestore.firestore().document("myfitnesspal/\(user[0].email! ?? "")")
-            docRef.getDocument { (docSnapshot, error) in
-                guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
-                let myData = docSnapshot.data()
-                todaysCaloriesConsumed = myData?[self.myfitnesspalDate!] as? String ?? ""
-            }
-        }
+        if logDateObjectList.count == 0 {
+            // Inititalize reference to storyboard.
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
             
-        var sex = 1
+            // Segue to main ErrorViewController.
+            let errorViewController = (mainStoryboard.instantiateViewController(withIdentifier: "ErrorViewController") as? ErrorViewController)!
+            errorViewController.modalPresentationStyle = .fullScreen
             
-        if user[0].sex == "Male" {
-            var sex = 1
+            self.navigationController?.present(errorViewController, animated: true, completion: nil)
         } else {
-            var sex = 0
-        }
-            
-        // It takes 0.4 seconds to get the myfitnesspal data from Firebase, so we have to delay the makePerson.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            PersonInfo.makePerson(weight: Double(user[0].weight!)!, height: user[0].height!, sex: sex, age: user[0].age!, gainLoseMaintain: user[0].goalType!, weightChangeGoal: user[0].weightGoal!, weeksToComplete: Int(user[0].weeksToComplete!)!, daysToComplete: Int(user[0].weeksToComplete!)!*7, todaysCaloriesConsumed: Double(todaysCaloriesConsumed) ?? 0.0)
+            for i in 0...logDateObjectList.count - 1 {
+                if logDateObjectList[i].dateOfLog == logDateDate {
+                    if logDateObjectList[i].calsIntake != 0.0 {
+                        todaysCaloriesConsumed = String(logDateObjectList[i].calsIntake)
+                    }
+                    break
+                }
+                if i == logDateObjectList.count - 1 {
+                    let entity = NSEntityDescription.entity(forEntityName: "LogDate", in: context)
+                    let newDate = NSManagedObject(entity: entity!, insertInto: context)
+                    newDate.setValue(dateFormatter.string(from: Date()), forKey: "dateOfLog")
+                }
             }
+            if todaysCaloriesConsumed == "" {
+                docRef = Firestore.firestore().document("myfitnesspal/\(user[0].email! ?? "")")
+                docRef.getDocument { (docSnapshot, error) in
+                    guard let docSnapshot = docSnapshot, docSnapshot.exists else {return}
+                    let myData = docSnapshot.data()
+                    todaysCaloriesConsumed = myData?[self.myfitnesspalDate!] as? String ?? ""
+                }
+            }
+                
+            var sex = 1
+                
+            if user[0].sex == "Male" {
+                var sex = 1
+            } else {
+                var sex = 0
+            }
+                
+            // It takes 0.4 seconds to get the myfitnesspal data from Firebase, so we have to delay the makePerson.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                PersonInfo.makePerson(weight: Double(user[0].weight!)!, height: user[0].height!, sex: sex, age: user[0].age!, gainLoseMaintain: user[0].goalType!, weightChangeGoal: user[0].weightGoal!, weeksToComplete: Int(user[0].weeksToComplete!)!, daysToComplete: Int(user[0].weeksToComplete!)!*7, todaysCaloriesConsumed: Double(todaysCaloriesConsumed) ?? 0.0)
+                }
 
+            
+            homeTableView.dataSource = self
+            homeTableView.delegate = self
+            
+            InformationList.loadInformation()
+            list = InformationList.getList()
+            
+            NutritionResourceList.loadInformation()
+            nutritionList = NutritionResourceList.getList()
+            
+            /*
+            LongevityResourceList.loadInformation()
+            longevityList = LongevityResourceList.getList()
+            
+            MeditationResourceList.loadInformation()
+            meditationList = MeditationResourceList.getList()
+            
+            SupplementResourceList.loadInformation()
+            supplementList = SupplementResourceList.getList()
+            
+            DNAResourceList.loadInformation()
+            dnaList = DNAResourceList.getList()
+            
+             */
+        }
         
-        homeTableView.dataSource = self
-        homeTableView.delegate = self
-        
-        InformationList.loadInformation()
-        list = InformationList.getList()
-        
-        NutritionResourceList.loadInformation()
-        nutritionList = NutritionResourceList.getList()
-        
-        /*
-        LongevityResourceList.loadInformation()
-        longevityList = LongevityResourceList.getList()
-        
-        MeditationResourceList.loadInformation()
-        meditationList = MeditationResourceList.getList()
-        
-        SupplementResourceList.loadInformation()
-        supplementList = SupplementResourceList.getList()
-        
-        DNAResourceList.loadInformation()
-        dnaList = DNAResourceList.getList()
-        
-         */
     }
 }
 

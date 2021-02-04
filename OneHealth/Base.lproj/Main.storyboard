@@ -144,11 +144,12 @@
                         <segue destination="wJb-in-RxL" kind="show" identifier="ShowInformation" id="Svg-0a-4wn"/>
                         <segue destination="jOB-Gs-ItB" kind="show" identifier="DietSegue" id="1ds-gZ-dDd"/>
                         <segue destination="s63-tS-e5E" kind="show" identifier="WorkoutSegue" id="PIm-aQ-GTv"/>
+                        <segue destination="Jsu-hs-ob5" kind="presentation" identifier="ErrorSegue" modalPresentationStyle="fullScreen" id="BMw-If-0Lh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2NS-UD-TqD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4806" y="-1271"/>
+            <point key="canvasLocation" x="4796" y="-1272"/>
         </scene>
         <!--Diet-->
         <scene sceneID="cUm-jE-Owc">
@@ -334,6 +335,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8GM-CT-zY5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5596" y="-2069"/>
+        </scene>
+        <!--ErrorViewController-->
+        <scene sceneID="8dz-H9-qHM">
+            <objects>
+                <viewController storyboardIdentifier="ErrorViewController" title="ErrorViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Jsu-hs-ob5" customClass="ErrorViewController" customModule="OneHealth" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ybg-5W-ejX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rg-dY-yLl">
+                                <rect key="frame" x="20" y="85" width="374" height="119"/>
+                                <string key="text">Thanks for downloading OneHealth! Unfortunately, it looks like you don't have an Apple Watch. Currently, we do not support users without an Apple Watch. Sorry about that!</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="YBS-K5-iXn"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="YBS-K5-iXn" firstAttribute="bottom" secondItem="1rg-dY-yLl" secondAttribute="bottom" constant="658" id="Hqu-eV-g7c"/>
+                            <constraint firstItem="1rg-dY-yLl" firstAttribute="leading" secondItem="YBS-K5-iXn" secondAttribute="leading" constant="20" id="iYK-ci-Pv9"/>
+                            <constraint firstItem="YBS-K5-iXn" firstAttribute="trailing" secondItem="1rg-dY-yLl" secondAttribute="trailing" constant="20" id="spE-G6-KXU"/>
+                            <constraint firstItem="1rg-dY-yLl" firstAttribute="top" secondItem="YBS-K5-iXn" secondAttribute="top" constant="41" id="tsj-bg-fxg"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="5du-ou-JdL"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jik-nO-TgV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6989.8550724637689" y="-1272.3214285714284"/>
         </scene>
         <!--Information View Controller-->
         <scene sceneID="mdf-ef-c3W">
