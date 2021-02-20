@@ -3,6 +3,8 @@
 ![alt text](https://github.com/hunterkemeny/OneHealth/blob/master/OneHealth/Assets.xcassets/AppIcon.appiconset/OneHealthLogo.png "OneHealth Logo")
 
 ![alt text](https://github.com/hunterkemeny/OneHealth/blob/master/OneHealth/Assets.xcassets/Calendar.imageset/IMG_0449.PNG "Articles Photo")
+![alt text](https://github.com/hunterkemeny/OneHealth/blob/master/OneHealth/Assets.xcassets/Calendar.imageset/IMG_0449.PNG "Calendar Photo")
+![alt text](https://github.com/hunterkemeny/OneHealth/blob/master/OneHealth/Assets.xcassets/Calendar.imageset/IMG_0449.PNG "Data Photo")
 
 OneHealth is an all-encompassing health app that suggests personalized daily workouts and meal plans to meet your weight goal and provides the most up to date articles/podcasts/videos on nutrition science and longevity. Clone to download:
 
