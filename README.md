@@ -26,5 +26,3 @@ OneHealth provides the following functions:
 
 ### Notes
 You must have an Apple Watch to use the app. If you do not have an Apple Watch, your app will display an error message.
-
-## Future Work
